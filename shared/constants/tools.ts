@@ -1,0 +1,58 @@
+import { Tool } from '../types/tool.types';
+
+export const TOOLS: Tool[] = [
+  {
+    id: 'merge',
+    name: 'Merge PDF',
+    description: 'Combine multiple PDF files into one document',
+    icon: '📎',
+    route: '/merge',
+    acceptedMimeTypes: ['application/pdf'],
+    maxFiles: 20,
+  },
+  {
+    id: 'split',
+    name: 'Split PDF',
+    description: 'Separate pages from a PDF into individual files',
+    icon: '✂️',
+    route: '/split',
+    acceptedMimeTypes: ['application/pdf'],
+    maxFiles: 1,
+  },
+  {
+    id: 'compress',
+    name: 'Compress PDF',
+    description: 'Reduce PDF file size while maintaining quality',
+    icon: '🗜️',
+    route: '/compress',
+    acceptedMimeTypes: ['application/pdf'],
+    maxFiles: 1,
+  },
+  {
+    id: 'rotate',
+    name: 'Rotate PDF',
+    description: 'Rotate pages in a PDF document',
+    icon: '🔄',
+    route: '/rotate',
+    acceptedMimeTypes: ['application/pdf'],
+    maxFiles: 1,
+  },
+  {
+    id: 'convert',
+    name: 'Image to PDF',
+    description: 'Convert images (JPG, PNG) to PDF format',
+    icon: '🖼️',
+    route: '/convert',
+    acceptedMimeTypes: ['image/jpeg', 'image/png', 'image/tiff'],
+    maxFiles: 10,
+  },
+  {
+    id: 'edit',
+    name: 'Edit PDF',
+    description: 'Add text and annotations to a PDF',
+    icon: '✏️',
+    route: '/edit',
+    acceptedMimeTypes: ['application/pdf'],
+    maxFiles: 1,
+  },
+];

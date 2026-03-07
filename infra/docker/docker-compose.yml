@@ -1,0 +1,85 @@
+version: '3.9'
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: pdf-redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+
+  api:
+    build:
+      context: ../..
+      dockerfile: infra/docker/api.Dockerfile
+    container_name: pdf-api
+    ports:
+      - '3001:3001'
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      UPLOAD_DIR: /storage/uploads
+      PROCESSING_DIR: /storage/processing
+      OUTPUT_DIR: /storage/output
+      CORS_ORIGINS: http://localhost:3000
+    volumes:
+      - ./storage:/storage
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: ../..
+      dockerfile: infra/docker/worker.Dockerfile
+    container_name: pdf-worker
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      UPLOAD_DIR: /storage/uploads
+      PROCESSING_DIR: /storage/processing
+      OUTPUT_DIR: /storage/output
+      WORKER_CONCURRENCY: 4
+    volumes:
+      - ./storage:/storage
+    depends_on:
+      - redis
+    restart: unless-stopped
+    # Scale workers: docker-compose up --scale worker=3
+    deploy:
+      replicas: 1
+
+  web:
+    build:
+      context: ../..
+      dockerfile: infra/docker/web.Dockerfile
+    container_name: pdf-web
+    ports:
+      - '3000:3000'
+    environment:
+      NEXT_PUBLIC_API_URL: http://api:3001/api/v1
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  # Optional: Bull Board UI for monitoring queues
+  bull-board:
+    image: deadly0/bull-board
+    container_name: pdf-bull-board
+    ports:
+      - '3002:3000'
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+volumes:
+  redis_data:
+  storage:

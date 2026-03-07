@@ -1,0 +1,15 @@
+{
+  "name": "pdf-platform",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "bash scripts/start-dev.sh",
+    "dev:web": "cd web && npm run dev",
+    "dev:api": "cd api && npm run start:dev",
+    "dev:worker": "cd worker && npm run start:dev",
+    "install:all": "cd web && npm install && cd ../api && npm install && cd ../worker && npm install",
+    "build:web": "cd web && npm run build",
+    "build:api": "cd api && npm run build",
+    "build:worker": "cd worker && npm run build"
+  }
+}

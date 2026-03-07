@@ -1,0 +1,293 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'DM Mono', 'Courier New', monospace;
+
+  /* ── Adobe-style dark palette ── */
+  --bg:           #1c1c1c;   /* outermost background */
+  --surface:      #2c2c2c;   /* card / panel surface */
+  --surface-2:    #383838;   /* elevated / hover surface */
+  --surface-3:    #424242;   /* active / selected surface */
+  --border:       #3a3a3a;   /* default border */
+  --border-light: #4a4a4a;   /* lighter border on hover */
+
+  /* Text */
+  --text:         #f0f0f0;   /* primary text */
+  --text-soft:    #c0c0c0;   /* secondary text */
+  --text-muted:   #888888;   /* muted / placeholder */
+
+  /* Accent — Adobe red */
+  --accent:       #eb1000;
+  --accent-hover: #ff2010;
+  --accent-dim:   rgba(235, 16, 0, 0.15);
+
+  /* Legacy aliases so old component classes still work */
+  --ink:         var(--text);
+  --ink-soft:    var(--text-soft);
+  --ink-muted:   var(--text-muted);
+  --paper:       var(--surface);
+  --paper-warm:  var(--surface-2);
+  --paper-mid:   var(--border);
+  --paper-accent:var(--text-muted);
+  --accent-red:  var(--accent);
+  --accent-teal: #3fc87a;
+  --accent-gold: #f5a623;
+
+  --section-gap: clamp(3rem, 6vw, 6rem);
+}
+
+/* ─── Base ─────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ─── Typography ────────────────────────────────────────── */
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+h1 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; }
+h2 { font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 600; }
+h3 { font-size: clamp(1rem, 1.6vw, 1.25rem); font-weight: 600; }
+
+p { line-height: 1.65; color: var(--text-soft); }
+
+/* ─── Scrollbar ─────────────────────────────────────────── */
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ─── Selection ─────────────────────────────────────────── */
+
+::selection { background: var(--accent-dim); color: var(--text); }
+
+/* ─── Focus ring ────────────────────────────────────────── */
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ─── Page transitions ──────────────────────────────────── */
+
+.page-enter { animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* ─── Utility classes ───────────────────────────────────── */
+
+.font-display { font-family: var(--font-display); }
+.font-mono    { font-family: var(--font-mono); }
+
+.text-ink        { color: var(--text); }
+.text-ink-soft   { color: var(--text-soft); }
+.text-ink-muted  { color: var(--text-muted); }
+
+.bg-paper        { background-color: var(--surface); }
+.bg-paper-warm   { background-color: var(--surface-2); }
+.bg-paper-mid    { background-color: var(--border); }
+
+.border-paper-mid { border-color: var(--border) !important; }
+
+/* Ruled divider */
+.ruled {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
+}
+
+/* Card hover lift */
+.card-lift { transition: transform 0.18s ease, box-shadow 0.18s ease; }
+.card-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
+/* Shadow utilities */
+.shadow-paper     { box-shadow: 0 1px 4px rgba(0,0,0,0.35); }
+.shadow-paper-lg  { box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+
+/* Progress bar */
+.progress-bar {
+  height: 3px;
+  background: var(--surface-3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #ff6b35);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+/* Upload zone */
+.upload-zone {
+  border: 2px dashed var(--border-light);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.upload-zone:hover,
+.upload-zone.dragging {
+  border-color: var(--accent);
+  background-color: var(--accent-dim);
+}
+
+/* Stamp badge */
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.65rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border-light);
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Ad placeholder */
+.ad-placeholder {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--surface),
+    var(--surface) 4px,
+    var(--surface-2) 4px,
+    var(--surface-2) 10px
+  );
+  border: 1px dashed var(--border);
+}
+
+/* Input fields */
+input, textarea, select {
+  background-color: var(--surface-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+input::placeholder, textarea::placeholder { color: var(--text-muted) !important; }
+input:focus, textarea:focus {
+  border-color: var(--accent) !important;
+  background-color: var(--surface-3) !important;
+}
+
+/* ─── Animations ────────────────────────────────────────── */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes shimmer {
+  from { background-position: -400px 0; }
+  to   { background-position:  400px 0; }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@keyframes dotPulse {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40%           { transform: scale(1);   opacity: 1;   }
+}
+
+@keyframes ping {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+
+.animate-ping { animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite; }
+.animate-fade-up { animation: fadeUp 0.5s ease forwards; }
+
+/* Skeleton */
+.skeleton {
+  background: linear-gradient(90deg, var(--surface) 25%, var(--surface-2) 50%, var(--surface) 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.6s infinite;
+}
+
+/* Staggered children */
+.stagger > *:nth-child(1) { animation-delay: 0.04s; }
+.stagger > *:nth-child(2) { animation-delay: 0.08s; }
+.stagger > *:nth-child(3) { animation-delay: 0.12s; }
+.stagger > *:nth-child(4) { animation-delay: 0.16s; }
+.stagger > *:nth-child(5) { animation-delay: 0.20s; }
+.stagger > *:nth-child(6) { animation-delay: 0.24s; }
+.stagger > *:nth-child(7) { animation-delay: 0.28s; }
+.stagger > *:nth-child(8) { animation-delay: 0.32s; }
+
+/* ─── Dark theme interactive components ─────────────────── */
+
+/* Nav link */
+.nav-link {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+.nav-link:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+/* Primary button */
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+}
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+/* Ghost button */
+.btn-ghost {
+  color: var(--text-soft);
+  border: 1px solid var(--border-light);
+  background: transparent;
+}
+.btn-ghost:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+/* Tool card */
+.tool-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  text-decoration: none;
+}
+.tool-card:hover {
+  background: var(--surface-2);
+  border-color: var(--border-light);
+}
+
+/* Tool card icon container */
+.tool-card-icon {
+  background: var(--surface-2);
+  border: 1px solid var(--border-light);
+}
+.tool-card:hover .tool-card-icon {
+  background: var(--surface-3);
+}
