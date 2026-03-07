@@ -52,23 +52,41 @@ export default function CompressPage() {
     if (uploaded?.[0]) { setFile(uploaded[0]); setRawFile(raw[0]); setPhase('configure'); }
   }
 
+  // async function handleCompress() {
+  //   if (!file) return;
+  //   setPhase('processing');
+  //   try {
+  //     const j = await createCompressJob(file.id, quality);
+  //     poll(j.id, (done) => {
+  //       if (done.status === 'COMPLETED') setPhase('done');
+  //       if (done.status === 'FAILED') {
+  //         setError(done.error || 'Compression failed');
+  //         setPhase('error');
+  //       }
+  //     });
+  //   } catch (err: any) {
+  //     setError(err.message);
+  //     setPhase('error');
+  //   }
+  // }
+
   async function handleCompress() {
-    if (!file) return;
-    setPhase('processing');
-    try {
-      const j = await createCompressJob(file.id, quality);
-      poll(j.id, (done) => {
-        if (done.status === 'COMPLETED') setPhase('done');
-        if (done.status === 'FAILED') {
-          setError(done.error || 'Compression failed');
-          setPhase('error');
-        }
-      });
-    } catch (err: any) {
-      setError(err.message);
-      setPhase('error');
-    }
+  if (!file) return;
+  setPhase('processing');
+  try {
+    const j: any = await createCompressJob(file.id, quality);
+    poll(j.id, (done) => {
+      if (done.status === 'COMPLETED') setPhase('done');
+      if (done.status === 'FAILED') {
+        setError(done.error || 'Compression failed');
+        setPhase('error');
+      }
+    });
+  } catch (err: any) {
+    setError(err.message);
+    setPhase('error');
   }
+}
 
   function handleReset() {
     setFile(null); setRawFile(null); setViewerFile(null);
