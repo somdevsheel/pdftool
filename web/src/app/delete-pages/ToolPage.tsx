@@ -38,17 +38,40 @@ export default function DeletePagesPage() {
     if (uploaded?.[0]) { setFile(uploaded[0]); setRawFile(files[0]); setPhase('select'); }
   }
 
+  // async function handleProcess() {
+  //   if (!file || selected.size === 0) return;
+  //   setError(null); setPhase('processing');
+  //   try {
+  //     const j = await createPagesJob(file.id, 'delete', Array.from(selected));
+  //     poll(j.id, (done) => {
+  //       if (done.status === 'COMPLETED') setPhase('done');
+  //       if (done.status === 'FAILED') { setError(done.error || 'Failed'); setPhase('error'); }
+  //     });
+  //   } catch (e: any) { setError(e.message); setPhase('error'); }
+  // }
+
   async function handleProcess() {
-    if (!file || selected.size === 0) return;
-    setError(null); setPhase('processing');
-    try {
-      const j = await createPagesJob(file.id, 'delete', Array.from(selected));
-      poll(j.id, (done) => {
-        if (done.status === 'COMPLETED') setPhase('done');
-        if (done.status === 'FAILED') { setError(done.error || 'Failed'); setPhase('error'); }
-      });
-    } catch (e: any) { setError(e.message); setPhase('error'); }
+  if (!file || selected.size === 0) return;
+  setError(null);
+  setPhase('processing');
+
+  try {
+    const j: any = await createPagesJob(file.id, 'delete', Array.from(selected));
+
+    poll(j.id, (done) => {
+      if (done.status === 'COMPLETED') setPhase('done');
+
+      if (done.status === 'FAILED') {
+        setError(done.error || 'Failed');
+        setPhase('error');
+      }
+    });
+
+  } catch (e: any) {
+    setError(e.message);
+    setPhase('error');
   }
+}
 
   function handleReset() {
     setFile(null); setRawFile(null); setViewerFile(null); setPhase('upload');
