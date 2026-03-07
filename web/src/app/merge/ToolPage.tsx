@@ -324,7 +324,7 @@ export default function MergePage() {
                   onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--border-light)')}
                   onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border)')}
                 >
-                  <input type="file" accept=".pdf,application/pdf" multiple style={{ display: 'none' }}
+                  <input type="file" accept={{ 'application/pdf': ['.pdf'] }} multiple style={{ display: 'none' }}
                     onChange={async e => {
                       const files = Array.from(e.target.files ?? []);
                       if (files.length) await handleDrop(files);

@@ -55,7 +55,7 @@
 
 //       {phase === 'upload' && (
 //         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-//           <UploadBox onFiles={handleDrop} maxFiles={1} label="Drop a PDF to convert to images" accept=".pdf,application/pdf" />
+//           <UploadBox onFiles={handleDrop} maxFiles={1} label="Drop a PDF to convert to images" accept={{ 'application/pdf': ['.pdf'] }} />
 //           {uploadState === 'uploading' && <ProgressBar uploadProgress={uploadProgress} />}
 //         </div>
 //       )}
