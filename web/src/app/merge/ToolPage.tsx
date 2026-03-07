@@ -241,8 +241,8 @@ export default function MergePage() {
     if (uploadedFiles.length < 2) { setError('Please upload at least 2 PDF files.'); return; }
     setError(null); setPhase('processing');
     try {
-      const j = await createMergeJob(uploadedFiles.map(f => f.id));
-      poll(j.id, done => {
+      const j = await createMergeJob(uploadedFiles.map(f => f.id)) as any;
+        poll((j as any).id, (done: any) => {
         if (done.status === 'COMPLETED') setPhase('done');
         if (done.status === 'FAILED') { setError(done.error || 'Merge failed'); setPhase('error'); }
       });
