@@ -61,3 +61,9 @@ brew install redis qpdf ghostscript imagemagick
 | `npm run start:web` | `cd web && npm run dev` |
 
 > **There is no `apps/` folder.** The structure is `web/`, `api/`, `worker/` directly inside the project root.
+
+```
+git add .                                     
+git commit -m "fix: replace hardcoded localhost with production API URL"
+git push
+```
