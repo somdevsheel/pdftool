@@ -536,7 +536,7 @@
 //   }): Promise<void> {
 //     const owner = opts.ownerPassword || opts.userPassword;
 //     await runCommand(
-//       `qpdf --encrypt "${opts.userPassword}" "${owner}" 128 -- "${opts.inputPath}" "${opts.outputPath}"`
+//       `qpdf --encrypt "${opts.userPassword}" "${owner}" 256 -- "${opts.inputPath}" "${opts.outputPath}"`
 //     );
 //   }
 
@@ -823,7 +823,7 @@
 //   }): Promise<void> {
 //     const owner = opts.ownerPassword || opts.userPassword;
 //     await runCommand(
-//       `qpdf --encrypt "${opts.userPassword}" "${owner}" 128 -- "${opts.inputPath}" "${opts.outputPath}"`
+//       `qpdf --encrypt "${opts.userPassword}" "${owner}" 256 -- "${opts.inputPath}" "${opts.outputPath}"`
 //     );
 //   }
 
@@ -1079,7 +1079,7 @@ export class CommandService {
 
   async protectPdf(opts: { inputPath: string; outputPath: string; userPassword: string; ownerPassword?: string; }): Promise<void> {
     const owner = opts.ownerPassword || opts.userPassword;
-    await runCommand(`qpdf --encrypt "${opts.userPassword}" "${owner}" 128 -- "${opts.inputPath}" "${opts.outputPath}"`);
+    await runCommand(`qpdf --encrypt "${opts.userPassword}" "${owner}" 256 -- "${opts.inputPath}" "${opts.outputPath}"`);
   }
 
   async insertPages(opts: { basePath: string; insertPath: string; outputPath: string; afterPage: number; }): Promise<void> {
