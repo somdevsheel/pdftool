@@ -34,7 +34,7 @@ export default function ProtectToolPage() {
     if (userPw !== confirmPw) { setError('Passwords do not match'); return; }
     setError(null); setPhase('processing');
     try {
-      const res = await fetch('http://localhost:3001/api/v1/jobs/protect', {
+      const res = await fetch('https://pdftoolapi.arutechconsultancy.com/api/v1/jobs/protect', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ fileId: file.id, userPassword: userPw }),
       });

@@ -36,7 +36,7 @@
 //     if (!baseFile || !insertFile) return;
 //     setError(null); setPhase('processing');
 //     try {
-//       const res = await fetch('http://localhost:3001/api/v1/jobs/insert-pages', {
+//       const res = await fetch('https://pdftoolapi.arutechconsultancy.com/api/v1/jobs/insert-pages', {
 //         method: 'POST', headers: { 'Content-Type': 'application/json' },
 //         body: JSON.stringify({ baseFileId: baseFile.id, insertFileId: insertFile.id, afterPage: afterPage === '' ? 0 : Number(afterPage) }),
 //       });
@@ -168,7 +168,7 @@ export default function InsertPagesToolPage() {
     setError(null);
     setPhase('processing');
     try {
-      const res = await fetch('http://localhost:3001/api/v1/jobs/insert-pages', {
+      const res = await fetch('https://pdftoolapi.arutechconsultancy.com/api/v1/jobs/insert-pages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
