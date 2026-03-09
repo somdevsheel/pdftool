@@ -540,27 +540,30 @@ async function run(cmd: string, timeoutMs = 120_000): Promise<{ stdout: string; 
 /* ─────────────────────────────────────────────────────────────────────────────
    applyPdfEdits()
 
-   FIX: Old code used mutool FreeText annotations which float ON TOP of the
-   original text, causing double/overlapping text.
+   COORDINATE SYSTEM (important):
+   - Frontend sends pdfX / pdfY already in PDF coordinate space:
+       pdfX = (canvasX / canvasWidth)  * 595   → left-origin, 0–595
+       pdfY = (1 - canvasY / canvasH)  * 842   → BOTTOM-origin, 0–842  (pdf-lib native)
+   - So we must NOT flip or re-scale. Just map 595×842 → actual page size.
 
-   NEW: Uses pdf-lib only:
-     Step 1 — Draw a WHITE FILLED RECTANGLE over the original text area
-              This hides/erases the old text underneath
-     Step 2 — Draw the new text string on top of the white rectangle
-
-   Result: clean text replacement with no overlap.
+   FIX for overlap bug:
+   - Old code used mutool FreeText annotations which float ON TOP of original
+     text causing double/overlapping text.
+   - New approach (pdf-lib only):
+       Step 1 — Draw WHITE RECTANGLE over original text area  (erases old text)
+       Step 2 — Draw new text string on top
 ───────────────────────────────────────────────────────────────────────────── */
 
 export interface PdfEditInstruction {
   type: 'text' | 'annotation' | 'rotate';
-  page: number;        // 1-indexed
-  x: number;           // PDF units from LEFT  (reference: 0–595)
-  y: number;           // PDF units from TOP   (reference: 0–842)
+  page: number;     // 1-indexed
+  x: number;        // PDF units, left-origin,   0–595 reference
+  y: number;        // PDF units, BOTTOM-origin,  0–842 reference  ← already flipped by frontend
   content: string;
   fontSize?: number;
-  color?: string;      // hex e.g. "#000000"
-  eraseWidth?: number; // optional: explicit erase box width  (reference units)
-  eraseHeight?: number;// optional: explicit erase box height (reference units)
+  color?: string;   // hex e.g. "#000000"
+  eraseWidth?: number;
+  eraseHeight?: number;
 }
 
 function hexToRgbFloat(hex: string): [number, number, number] {
@@ -581,7 +584,6 @@ export async function applyPdfEdits(
 
   const pdfBytes = fs.readFileSync(inputPath);
   const pdfDoc = await PDFDocument.load(pdfBytes, { ignoreEncryption: true });
-
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
   const pages = pdfDoc.getPages();
 
@@ -590,7 +592,7 @@ export async function applyPdfEdits(
 
     const pageIdx = (ins.page || 1) - 1;
     if (pageIdx < 0 || pageIdx >= pages.length) {
-      console.warn(`[applyPdfEdits] Page ${ins.page} out of range — doc has ${pages.length} pages`);
+      console.warn(`[applyPdfEdits] Page ${ins.page} out of range (doc has ${pages.length} pages)`);
       continue;
     }
 
@@ -598,35 +600,37 @@ export async function applyPdfEdits(
     const { width, height } = page.getSize();
     const fontSize = ins.fontSize || 12;
 
-    // ── Scale from 595×842 reference space → actual page dimensions ──────
+    // ── Scale from 595×842 reference → actual page size ──────────────────
+    // pdfY is already in bottom-origin (pdf-lib native) — DO NOT flip.
     const scaleX = width / 595;
     const scaleY = height / 842;
 
     const pdfX = ins.x * scaleX;
+    const pdfY = ins.y * scaleY;   // no flip — frontend already did (1 - cy/h) * 842
 
-    // Frontend sends y from TOP (0 = top). pdf-lib measures from BOTTOM (0 = bottom).
-    // Flip: pdfY = height - (ins.y * scaleY), nudge down slightly for baseline alignment.
-    const pdfY = height - (ins.y * scaleY) - fontSize * 0.2;
+    // ── Erase box ────────────────────────────────────────────────────────
+    // Covers the original text sitting at this position.
+    // Width estimated from content length; height ~1.6 lines.
+    const charW  = fontSize * 0.62 * scaleX;
+    const eraseW = ins.eraseWidth
+      ? ins.eraseWidth * scaleX
+      : ins.content.length * charW + fontSize * scaleX * 1.5;
+    const eraseH = ins.eraseHeight
+      ? ins.eraseHeight * scaleY
+      : fontSize * scaleY * 1.6;
 
-    // ── Erase box: wide enough to cover original text ─────────────────────
-    const charW  = fontSize * 0.55;
-    const eraseW = ins.eraseWidth  ? ins.eraseWidth  * scaleX
-                                   : ins.content.length * charW + fontSize * 1.5;
-    const eraseH = ins.eraseHeight ? ins.eraseHeight * scaleY
-                                   : fontSize * 1.6;
-
-    // ── Step 1: white rectangle hides the original text ───────────────────
+    // ── Step 1: white rectangle erases original text ──────────────────────
     page.drawRectangle({
       x: pdfX - 1,
-      y: pdfY - fontSize * 0.25,
-      width: eraseW,
+      y: pdfY - fontSize * scaleY * 0.25,   // a little below baseline
+      width:  eraseW,
       height: eraseH,
       color: rgb(1, 1, 1),
       opacity: 1,
       borderWidth: 0,
     });
 
-    // ── Step 2: draw the new text on top ──────────────────────────────────
+    // ── Step 2: draw new text on top ──────────────────────────────────────
     const [r, g, b] = hexToRgbFloat(ins.color || '#000000');
     page.drawText(ins.content, {
       x: pdfX,
@@ -638,8 +642,9 @@ export async function applyPdfEdits(
     });
 
     console.log(
-      `[applyPdfEdits] p${ins.page}: erased (${pdfX.toFixed(0)},${pdfY.toFixed(0)}) ` +
-      `${eraseW.toFixed(0)}×${eraseH.toFixed(0)} → "${ins.content.slice(0, 40)}"`,
+      `[applyPdfEdits] p${ins.page}: ` +
+      `erase (${pdfX.toFixed(1)}, ${pdfY.toFixed(1)}) ` +
+      `${eraseW.toFixed(1)}×${eraseH.toFixed(1)} → "${ins.content.slice(0, 40)}"`,
     );
   }
 
@@ -649,11 +654,41 @@ export async function applyPdfEdits(
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   convertPdfToDocx()
-   Step 1: PDF → HTML  using MuPDF  (mutool convert -o output.html input.pdf)
-   Step 2: HTML → DOCX using LibreOffice  (soffice --convert-to docx)
+   processEdit() — BullMQ job entry point
 ───────────────────────────────────────────────────────────────────────────── */
+import { Job } from 'bullmq';
+import { FileService } from '../services/file.service';
 
+export interface EditJobData {
+  jobId: string;
+  type: 'edit';
+  inputPath: string;
+  outputPath: string;
+  instructions: PdfEditInstruction[];
+}
+
+export async function processEdit(
+  job: Job<EditJobData>,
+  fileService: FileService,
+): Promise<{ outputPath: string }> {
+  const { jobId, inputPath, outputPath, instructions } = job.data;
+  console.log(`[Edit] job=${jobId} instructions=${instructions?.length ?? 0}`);
+
+  if (!fileService.fileExists(inputPath)) {
+    throw new Error(`Input file not found: ${inputPath}`);
+  }
+
+  await job.updateProgress(10);
+  await applyPdfEdits(inputPath, outputPath, instructions || []);
+  await job.updateProgress(100);
+
+  console.log(`[Edit] Done: ${outputPath}`);
+  return { outputPath };
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   convertPdfToDocx()
+───────────────────────────────────────────────────────────────────────────── */
 export async function convertPdfToDocx(
   inputPath: string,
   outputPath: string,
@@ -667,7 +702,7 @@ export async function convertPdfToDocx(
     try {
       await run(`mutool convert -o "${htmlOut}" "${inputPath}"`);
     } catch (e: any) {
-      console.warn(`[convertPdfToDocx] mutool direct failed: ${e.message}, trying wildcard`);
+      console.warn(`[convertPdfToDocx] mutool direct failed: ${e.message}`);
     }
 
     let htmlFile = fs.readdirSync(workDir).find(f => f.endsWith('.html'));
@@ -700,11 +735,7 @@ export async function convertPdfToDocx(
 
 /* ─────────────────────────────────────────────────────────────────────────────
    performOcr()
-   Step 1: PDF pages → PNG images using ImageMagick (convert -density 300)
-   Step 2: Each image → text using Tesseract OCR
-   Returns path to combined .txt file
 ───────────────────────────────────────────────────────────────────────────── */
-
 export async function performOcr(
   inputPath: string,
   outputPath: string,
@@ -723,7 +754,7 @@ export async function performOcr(
       .sort()
       .map(f => path.join(workDir, f));
 
-    if (images.length === 0) throw new Error('ImageMagick produced no page images — is it installed?');
+    if (images.length === 0) throw new Error('ImageMagick produced no page images');
     console.log(`[performOcr] Got ${images.length} page image(s)`);
 
     const textParts: string[] = [];
