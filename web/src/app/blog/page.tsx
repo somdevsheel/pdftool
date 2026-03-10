@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const API_BASE = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'http://localhost:3002';
+const API_BASE = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'https://pdftooladmin.arutechconsultancy.com';
 const CATEGORIES = ['All', 'PDF Tips', 'Tutorials', 'How-To', 'Merge PDF', 'Split PDF', 'Compress PDF', 'Convert PDF', 'Edit PDF', 'Sign PDF', 'OCR'];
 
 interface BlogPost {

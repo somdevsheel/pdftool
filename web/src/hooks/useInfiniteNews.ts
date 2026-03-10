@@ -3,7 +3,7 @@
 // import type { NewsArticle } from '@/types';
 
 // // const API_BASE = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'https://pdftooladmin.arutechconsultancy.com';
-// const API_BASE = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'http://localhost:3002';
+// const API_BASE = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'https://pdftooladmin.arutechconsultancy.com';
 
 // export function useInfiniteNews(tag: string) {
 //   const [articles, setArticles] = useState<NewsArticle[]>([]);
@@ -74,7 +74,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import type { NewsArticle } from '@/types';
 
-const API_BASE = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'http://localhost:3002';
+const API_BASE = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'https://pdftooladmin.arutechconsultancy.com';
 
 export function useInfiniteNews(tag: string) {
   const [articles, setArticles] = useState<NewsArticle[]>([]);

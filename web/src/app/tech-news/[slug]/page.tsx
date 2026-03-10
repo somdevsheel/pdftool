@@ -5,7 +5,7 @@
 // import Link from 'next/link';
 // import type { NewsArticle } from '@/types';
 
-// const API_BASE = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'http://localhost:3002';
+// const API_BASE = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'https://pdftooladmin.arutechconsultancy.com';
 
 // export default function ArticlePage() {
 //   const { slug } = useParams<{ slug: string }>();
@@ -157,7 +157,7 @@
 // import ReactMarkdown from 'react-markdown';
 // import type { NewsArticle } from '@/types';
 
-// const API_BASE = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'http://localhost:3002';
+// const API_BASE = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'https://pdftooladmin.arutechconsultancy.com';
 
 // export default function ArticlePage() {
 //   const { slug } = useParams<{ slug: string }>();
@@ -343,7 +343,7 @@ import ReactMarkdown from 'react-markdown';
 import SubscribePopup from '@/components/subscribe/SubscribePopup';
 import type { NewsArticle } from '@/types';
 
-const API_BASE = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'http://localhost:3002';
+const API_BASE = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'https://pdftooladmin.arutechconsultancy.com';
 
 export default function ArticlePage() {
   const { slug } = useParams<{ slug: string }>();
