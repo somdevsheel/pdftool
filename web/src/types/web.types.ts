@@ -34,6 +34,7 @@ export interface EditInstruction {
   fontSize?: number;
   color?: string;
   degrees?: number;
+  originalText?: string; 
 }
 
 export interface Tool {
