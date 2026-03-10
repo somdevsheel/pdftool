@@ -62,9 +62,11 @@ export async function POST(req: NextRequest) {
     if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
     const body = await req.json();
-    const { title, summary, content, tag, imageUrl, imageKey, source, sourceUrl, readTime, featured, published } = body;
+    const { title, summary, content, tag, source, sourceUrl, readTime, featured, published } = body;
+    const imageUrl = body.imageUrl || 'https://placehold.co/800x400/1c1c1c/444?text=Blog+Post';
+    const imageKey = body.imageKey || 'blog-placeholder';
 
-    if (!title || !summary || !content || !tag || !imageUrl || !imageKey) {
+    if (!title || !summary || !content || !tag) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
