@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
     const adminView = searchParams.get('admin') === 'true';
     const search = searchParams.get('search') || '';
 
-    const query: Record<string, unknown> = {};
+    const query: Record<string, unknown> = { contentType: { $ne: 'blog' } };
     if (!adminView) query.published = true;
     if (tag && tag !== 'All') query.tag = tag;
     if (featured) query.featured = true;
