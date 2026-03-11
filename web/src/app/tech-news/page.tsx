@@ -271,7 +271,7 @@ export default function TechNewsPage() {
               </a>
             ))}
           </nav>
-          <div className="stamp hidden sm:flex">Free · No account · Files auto-deleted</div>
+          {/* <div className="stamp hidden sm:flex">Free · No account · Files auto-deleted</div> */}
         </div>
       </header>
 

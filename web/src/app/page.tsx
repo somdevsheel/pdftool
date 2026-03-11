@@ -2489,9 +2489,9 @@ export default function HomePage() {
             ))}
           </nav>
 
-          <div className="stamp hidden sm:flex">
+          {/* <div className="stamp hidden sm:flex">
             Free · No account · Files auto-deleted
-          </div>
+          </div> */}
         </div>
       </header>
 
