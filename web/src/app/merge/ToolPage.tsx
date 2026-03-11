@@ -255,7 +255,7 @@ export default function MergePage() {
   }
 
   return (
-    <ToolLayout
+    <ToolLayout toolTag="Merge PDF"
       title="Merge PDF"
       tagline="Combine multiple PDFs into one. Click any thumbnail to preview — drag to reorder."
       icon="📎"

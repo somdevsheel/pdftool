@@ -39,7 +39,7 @@ export default function PdfToExcelToolPage() {
   function handleReset() { setFile(null); setRawFile(null); setViewerFile(null); setPhase('upload'); setError(null); resetJob(); }
 
   return (
-    <ToolLayout title="PDF to Excel" tagline="Convert PDF tables to editable Excel spreadsheets (.xlsx)." icon="📈" accentColor="#1E7E34">
+    <ToolLayout toolTag="PDF to Excel" title="PDF to Excel" tagline="Convert PDF tables to editable Excel spreadsheets (.xlsx)." icon="📈" accentColor="#1E7E34">
       {viewerFile && <PdfViewerModal file={viewerFile} onClose={() => setViewerFile(null)} />}
 
       {phase === 'upload' && (

@@ -61,7 +61,7 @@ export default function ReorderPagesPage() {
   const accent = '#E87CF3';
 
   return (
-    <ToolLayout title="Reorder Pages" tagline="Drag and drop pages into the order you want." icon="↕️" accentColor={accent}>
+    <ToolLayout toolTag="Reorder Pages" title="Reorder Pages" tagline="Drag and drop pages into the order you want." icon="↕️" accentColor={accent}>
       {viewerFile && <PdfViewerModal file={viewerFile} onClose={() => setViewerFile(null)} />}
 
       {phase === 'upload' && (

@@ -94,7 +94,7 @@ export default function CompressPage() {
   }
 
   return (
-    <ToolLayout
+    <ToolLayout toolTag="Compress PDF"
       title="Compress PDF"
       tagline="Reduce PDF file size using Ghostscript. Choose your quality level."
       icon="🗜️"

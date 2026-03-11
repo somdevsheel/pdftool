@@ -66,7 +66,7 @@ export default function OrganizePagesPage() {
   const removedCount = pageCount ? pageCount - pageOrder.length : 0;
 
   return (
-    <ToolLayout title="Organize Pages" tagline="Drag pages to reorder, click × to remove, then save." icon="📋" accentColor={accent}>
+    <ToolLayout toolTag="Organize PDF" title="Organize Pages" tagline="Drag pages to reorder, click × to remove, then save." icon="📋" accentColor={accent}>
       {viewerFile && <PdfViewerModal file={viewerFile} onClose={() => setViewerFile(null)} />}
 
             {phase === 'upload' && (

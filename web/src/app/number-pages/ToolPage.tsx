@@ -64,7 +64,7 @@ export default function NumberPagesToolPage() {
   });
 
   return (
-    <ToolLayout title="Number Pages" tagline="Stamp page numbers onto your PDF." icon="🔢" accentColor={accent}>
+    <ToolLayout toolTag="Number Pages" title="Number Pages" tagline="Stamp page numbers onto your PDF." icon="🔢" accentColor={accent}>
       {viewerFile && <PdfViewerModal file={viewerFile} onClose={() => setViewerFile(null)} />}
 
       {phase === 'upload' && (

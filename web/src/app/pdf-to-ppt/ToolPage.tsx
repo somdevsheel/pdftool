@@ -39,7 +39,7 @@ export default function PdfToPptToolPage() {
   function handleReset() { setFile(null); setRawFile(null); setViewerFile(null); setPhase('upload'); setError(null); resetJob(); }
 
   return (
-    <ToolLayout title="PDF to PPT" tagline="Convert PDF documents to editable PowerPoint presentations (.pptx)." icon="📊" accentColor="#E8522A">
+    <ToolLayout toolTag="PDF to PPT" title="PDF to PPT" tagline="Convert PDF documents to editable PowerPoint presentations (.pptx)." icon="📊" accentColor="#E8522A">
       {viewerFile && <PdfViewerModal file={viewerFile} onClose={() => setViewerFile(null)} />}
 
       {phase === 'upload' && (

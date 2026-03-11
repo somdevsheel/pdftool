@@ -1,39 +1,3 @@
-// import { exec } from 'child_process';
-// import { promisify } from 'util';
-
-// const execAsync = promisify(exec);
-
-// export interface ExecResult {
-//   stdout: string;
-//   stderr: string;
-// }
-
-// export async function runCommand(
-//   command: string,
-//   timeoutMs = 120_000,
-// ): Promise<ExecResult> {
-//   try {
-//     const result = await execAsync(command, { timeout: timeoutMs });
-//     return result;
-//   } catch (err: any) {
-//     // exec throws on non-zero exit code; rethrow with clean message
-//     const msg = err.stderr || err.stdout || err.message || 'Command failed';
-//     throw new Error(`Command failed: ${msg.trim()}`);
-//   }
-// }
-
-// export async function checkToolAvailable(tool: string): Promise<boolean> {
-//   try {
-//     await execAsync(`which ${tool}`);
-//     return true;
-//   } catch {
-//     return false;
-//   }
-// }
-
-
-
-
 import { exec } from 'child_process';
 import { promisify } from 'util';
 

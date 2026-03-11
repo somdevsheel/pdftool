@@ -81,7 +81,7 @@ export default function DeletePagesPage() {
   const accent = '#C17EE8';
 
   return (
-    <ToolLayout title="Delete Pages" tagline="Click pages to mark for deletion, then download." icon="🗑️" accentColor={accent}>
+    <ToolLayout toolTag="Delete Pages" title="Delete Pages" tagline="Click pages to mark for deletion, then download." icon="🗑️" accentColor={accent}>
       {viewerFile && <PdfViewerModal file={viewerFile} onClose={() => setViewerFile(null)} />}
 
       {phase === 'upload' && (

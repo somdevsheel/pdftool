@@ -64,7 +64,7 @@ export default function SplitPage() {
   const isZip = mode === 'all';
 
   return (
-    <ToolLayout
+    <ToolLayout toolTag="Split PDF"
       title="Split PDF"
       tagline="Extract specific pages or split every page into separate PDFs — downloaded as a ZIP."
       icon="✂️"

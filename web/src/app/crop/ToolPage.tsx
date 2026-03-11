@@ -62,7 +62,7 @@ export default function CropToolPage() {
   });
 
   return (
-    <ToolLayout title="Crop Pages" tagline="Trim margins and resize PDF pages." icon="✂️" accentColor={accent}>
+    <ToolLayout toolTag="Crop PDF" title="Crop Pages" tagline="Trim margins and resize PDF pages." icon="✂️" accentColor={accent}>
       {viewerFile && <PdfViewerModal file={viewerFile} onClose={() => setViewerFile(null)} />}
 
       {phase === 'upload' && (

@@ -39,7 +39,7 @@ export default function PdfToWordToolPage() {
   function handleReset() { setFile(null); setRawFile(null); setViewerFile(null); setPhase('upload'); setError(null); resetJob(); }
 
   return (
-    <ToolLayout title="PDF to Word" tagline="Convert PDF documents to editable Word files (.docx)." icon="📝" accentColor="#2B5EE8">
+    <ToolLayout toolTag="PDF to Word" title="PDF to Word" tagline="Convert PDF documents to editable Word files (.docx)." icon="📝" accentColor="#2B5EE8">
       {viewerFile && <PdfViewerModal file={viewerFile} onClose={() => setViewerFile(null)} />}
 
       {phase === 'upload' && (

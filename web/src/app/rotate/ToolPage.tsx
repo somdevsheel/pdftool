@@ -59,7 +59,7 @@ export default function RotatePage() {
   }
 
   return (
-    <ToolLayout
+    <ToolLayout toolTag="Rotate PDF"
       title="Rotate PDF"
       tagline="Fix page orientation by rotating all pages or specific ones."
       icon="🔄"
