@@ -3,8 +3,8 @@
 
 
 // Set to true when Google AdSense is approved and connected
-// export const ADS_ENABLED = false;
-export const ADS_ENABLED = true;
+export const ADS_ENABLED = false;
+// export const ADS_ENABLED = true;
 
 // Your Google AdSense publisher ID — fill this in when approved
 export const ADSENSE_CLIENT = 'ca-pub-XXXXXXXXXXXXXXXXX';
