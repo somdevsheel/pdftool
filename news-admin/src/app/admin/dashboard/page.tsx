@@ -5,6 +5,7 @@ import { User } from '@/lib/models/User';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import AdminLayout from '@/components/admin/AdminLayout';
+import AutomationPanel from '@/components/admin/AutomationPanel';
 
 export default async function DashboardPage() {
   const user = await getAuthUser();
@@ -61,6 +62,11 @@ export default async function DashboardPage() {
           </div>
         ))}
       </div>
+
+      {/* Automation Panel */}
+        <div className="mb-8">
+          <AutomationPanel />
+        </div>
 
       {/* Recent Articles */}
       <div className="rounded-xl overflow-hidden" style={{ border: '1px solid #2a2a2a' }}>
