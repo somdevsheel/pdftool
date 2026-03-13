@@ -17,7 +17,7 @@ export default function MobileHeader() {
       className="sticky top-0 z-20 backdrop-blur-sm"
       style={{ background: 'rgba(28,28,28,0.92)', borderBottom: '1px solid var(--border)' }}
     >
-      <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 py-0 flex items-center justify-between">
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3" style={{ textDecoration: 'none' }}>
