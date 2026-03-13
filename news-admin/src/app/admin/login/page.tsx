@@ -39,7 +39,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md p-8 rounded-2xl" style={{ background: '#1a1a1a', border: '1px solid #2a2a2a' }}>
         {/* Logo */}
         <div className="flex items-center gap-3 mb-8">
-          <img src="/logo.png" alt="Freenoo" style={{ height: '86px', width: 'auto' }} />
+          <img src="/logo.png" alt="Freenoo" style={{ height: '66px', width: 'auto' }} />
           <div>
             <p className="font-bold text-white text-lg">Freenoo</p>
             <p className="text-xs" style={{ color: '#666' }}>Admin Panel</p>

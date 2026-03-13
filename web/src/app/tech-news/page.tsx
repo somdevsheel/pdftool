@@ -188,7 +188,7 @@ export default function TechNewsPage() {
       <footer style={{ borderTop: '1px solid var(--border)' }}>
         <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <span className="font-bold" style={{ color: 'var(--text)' }}>
-            <img src="/logo.png" alt="Freenoo" style={{ height: '86px', width: 'auto' }} />
+            <img src="/logo.png" alt="Freenoo" style={{ height: '66px', width: 'auto' }} />
           </span>
           <p className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>Free · Anonymous · Open source</p>
         </div>

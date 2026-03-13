@@ -102,7 +102,7 @@ export default function AdminLayout({ children, user }: { children: ReactNode; u
       {/* Sidebar */}
       <aside className="w-56 flex-shrink-0 flex flex-col" style={{ background: '#111', borderRight: '1px solid #1f1f1f' }}>
         <div className="p-5 flex items-center gap-3" style={{ borderBottom: '1px solid #1f1f1f' }}>
-          <img src="/logo.png" alt="Freenoo" style={{ height: '86px', width: 'auto' }} />
+          <img src="/logo.png" alt="Freenoo" style={{ height: '66px', width: 'auto' }} />
           {/* <div>
             <p className="text-sm font-bold text-white">Freenoo</p>
             <p className="text-xs" style={{ color: '#555' }}>Admin Panel</p>

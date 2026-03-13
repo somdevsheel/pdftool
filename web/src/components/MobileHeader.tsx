@@ -2,11 +2,22 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
+// const NAV_LINKS = [
+//   ['Edit',      '#edit'],
+//   ['Convert',   '#convert'],
+//   ['E-Sign',    '#esign'],
+//   ['Tech News', '/tech-news'],
+// ];
+
 const NAV_LINKS = [
-  ['Edit',      '#edit'],
-  ['Convert',   '#convert'],
-  ['E-Sign',    '#esign'],
-  ['Tech News', '/tech-news'],
+  ['Merge',      '/merge-pdf'],
+  ['Split',      '/split-pdf'],
+  ['Compress',   '/compress-pdf'],
+  ['Rotate',     '/rotate-pdf'],
+  ['JPG→PDF',    '/jpg-to-pdf'],
+  ['Edit',       '/edit-pdf'],
+  ['Tech News',  '/tech-news'],
+  ['All tools →', '/'],
 ];
 
 export default function MobileHeader() {
@@ -17,11 +28,14 @@ export default function MobileHeader() {
       className="sticky top-0 z-20 backdrop-blur-sm"
       style={{ background: 'rgba(28,28,28,0.92)', borderBottom: '1px solid var(--border)' }}
     >
-      <div className="max-w-7xl mx-auto px-6 py-0 flex items-center justify-between">
+      {/* <div className="max-w-7xl mx-auto px-6 py-0 flex items-center justify-between"> */}
+      {/* <div className="max-w-5xl mx-auto px-6 py-1 flex items-center justify-between">   */}
+      <div className="max-w-7xl mx-auto px-6 py-1 flex items-center justify-between">
+
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3" style={{ textDecoration: 'none' }}>
-          <img src="/logo.png" alt="Freenoo" style={{ height: '86px', width: 'auto' }} />
+          <img src="/logo.png" alt="Freenoo" style={{ height: '66px', width: 'auto' }} />
         </Link>
 
         {/* Desktop nav */}
@@ -112,7 +126,8 @@ export default function MobileHeader() {
               onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
             >
               <span style={{ fontSize: 16 }}>
-                {label === 'Edit' ? '✏️' : label === 'Convert' ? '🔄' : label === 'E-Sign' ? '🖊️' : label === 'Tech News' ? '⚡' : '📝'}
+                {/* {label === 'Edit' ? '✏️' : label === 'Convert' ? '🔄' : label === 'E-Sign' ? '🖊️' : label === 'Tech News' ? '⚡' : '📝'} */}
+                {label === 'Merge' ? '📄' : label === 'Split' ? '✂️' : label === 'Compress' ? '🗜️' : label === 'Rotate' ? '🔄' : label === 'JPG→PDF' ? '🖼️' : label === 'Edit' ? '✏️' : label === 'Tech News' ? '⚡' : '🏠'}
               </span>
               {label}
             </a>
