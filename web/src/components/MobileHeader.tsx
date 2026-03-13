@@ -46,9 +46,14 @@ export default function MobileHeader() {
   const NAV_LINKS = isHome ? HOME_NAV : TOOL_NAV;
 
   return (
+    // <header
+    //   className="sticky top-0 z-20 backdrop-blur-sm"
+    //   style={{ background: 'rgba(28,28,28,0.92)', borderBottom: '1px solid var(--border)' }}
+    // >
+
     <header
       className="sticky top-0 z-20 backdrop-blur-sm"
-      style={{ background: 'rgba(28,28,28,0.92)', borderBottom: '1px solid var(--border)' }}
+      style={{ background: 'rgba(28,28,28,0.92)', borderBottom: '1px solid var(--border)', position: 'relative' }}
     >
       {/* <div className="max-w-7xl mx-auto px-6 py-0 flex items-center justify-between"> */}
       {/* <div className="max-w-5xl mx-auto px-6 py-1 flex items-center justify-between">   */}
@@ -118,7 +123,7 @@ export default function MobileHeader() {
         </div>
       </div>
 
-      {/* Mobile dropdown */}
+      {/* Mobile dropdown
       <div
         className="md:hidden overflow-hidden transition-all duration-200"
         style={{
@@ -129,6 +134,27 @@ export default function MobileHeader() {
         <nav
           className="flex flex-col px-4 py-3 gap-1"
           style={{ background: 'rgba(28,28,28,0.98)' }}
+        > */}
+
+        {/* Mobile dropdown */}
+      <div
+        className="md:hidden overflow-hidden transition-all duration-200"
+        style={{
+          maxHeight: open ? 600 : 0,
+          position: 'absolute',
+          top: '100%',
+          right: '16px',
+          width: '200px',
+          zIndex: 50,
+          borderRadius: '12px',
+          overflow: 'hidden',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+          border: open ? '1px solid var(--border)' : 'none',
+        }}
+      >
+        <nav
+          className="flex flex-col px-2 py-2 gap-0.5"
+          style={{ background: 'rgba(20,20,20,0.85)', backdropFilter: 'blur(12px)' }}
         >
           {NAV_LINKS.map(([label, href]) => (
             <a
@@ -149,7 +175,7 @@ export default function MobileHeader() {
             >
               <span style={{ fontSize: 16 }}>
                 {/* {label === 'Edit' ? '✏️' : label === 'Convert' ? '🔄' : label === 'E-Sign' ? '🖊️' : label === 'Tech News' ? '⚡' : '📝'} */}
-                {label === 'Merge' ? '📄' : label === 'Split' ? '✂️' : label === 'Compress' ? '🗜️' : label === 'Rotate' ? '🔄' : label === 'JPG→PDF' ? '🖼️' : label === 'Edit' ? '✏️' : label === 'Tech News' ? '⚡' : '🏠'}
+                {/* {label === 'Merge' ? '📄' : label === 'Split' ? '✂️' : label === 'Compress' ? '🗜️' : label === 'Rotate' ? '🔄' : label === 'JPG→PDF' ? '🖼️' : label === 'Edit' ? '✏️' : label === 'Tech News' ? '⚡' : '🏠'} */}
               </span>
               {label}
             </a>
