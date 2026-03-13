@@ -148,10 +148,6 @@ export function ToolLayout({
         style={{ background: 'rgba(28,28,28,0.92)', borderBottom: '1px solid var(--border)' }}>
         <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold text-white"
-              style={{ background: 'var(--accent)' }}>
-              P
-            </div>
             <span className="font-bold text-base hidden sm:block" style={{ color: 'var(--text)' }}>
               <img src="/logo.png" alt="Freenoo" style={{ height: '86px', width: 'auto' }} />
             </span>
