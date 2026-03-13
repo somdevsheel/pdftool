@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-
+import { usePathname } from 'next/navigation';
 // const NAV_LINKS = [
 //   ['Edit',      '#edit'],
 //   ['Convert',   '#convert'],
@@ -9,19 +9,41 @@ import Link from 'next/link';
 //   ['Tech News', '/tech-news'],
 // ];
 
-const NAV_LINKS = [
-  ['Merge',      '/merge-pdf'],
-  ['Split',      '/split-pdf'],
-  ['Compress',   '/compress-pdf'],
-  ['Rotate',     '/rotate-pdf'],
-  ['JPG→PDF',    '/jpg-to-pdf'],
-  ['Edit',       '/edit-pdf'],
-  ['Tech News',  '/tech-news'],
+// const NAV_LINKS = [
+//   ['Merge',      '/merge-pdf'],
+//   ['Split',      '/split-pdf'],
+//   ['Compress',   '/compress-pdf'],
+//   ['Rotate',     '/rotate-pdf'],
+//   ['JPG→PDF',    '/jpg-to-pdf'],
+//   ['Edit',       '/edit-pdf'],
+//   ['Tech News',  '/tech-news'],
+//   ['All tools →', '/'],
+// ];
+
+
+const HOME_NAV = [
+  ['Edit',      '#edit'],
+  ['Convert',   '#convert'],
+  ['E-Sign',    '#esign'],
+  ['Tech News', '/tech-news'],
+];
+
+const TOOL_NAV = [
+  ['Merge',       '/merge-pdf'],
+  ['Split',       '/split-pdf'],
+  ['Compress',    '/compress-pdf'],
+  ['Rotate',      '/rotate-pdf'],
+  ['JPG→PDF',     '/jpg-to-pdf'],
+  ['Edit',        '/edit-pdf'],
+  ['Tech News',   '/tech-news'],
   ['All tools →', '/'],
 ];
 
 export default function MobileHeader() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === '/';
+  const NAV_LINKS = isHome ? HOME_NAV : TOOL_NAV;
 
   return (
     <header
@@ -100,7 +122,7 @@ export default function MobileHeader() {
       <div
         className="md:hidden overflow-hidden transition-all duration-200"
         style={{
-          maxHeight: open ? 320 : 0,
+          maxHeight: open ? 600 : 0,
           borderTop: open ? '1px solid var(--border)' : 'none',
         }}
       >
