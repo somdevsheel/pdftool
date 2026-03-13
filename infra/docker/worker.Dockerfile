@@ -1,6 +1,6 @@
 FROM node:20-bookworm AS builder
 
-# Install system PDF tools
+# Install system Freenoo
 RUN apt-get update && apt-get install -y \
     qpdf \
     ghostscript \
@@ -16,7 +16,7 @@ RUN npm run build
 
 FROM node:20-bookworm AS production
 
-# Install system PDF tools
+# Install system Freenoo
 RUN apt-get update && apt-get install -y \
     qpdf \
     ghostscript \

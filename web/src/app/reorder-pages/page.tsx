@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Reorder PDF Pages Online Free — Drag to Sort';
 const DESCRIPTION = 'Reorder pages in a PDF by dragging thumbnails. Free online PDF page sorter. No account or software needed.';
-const CANONICAL   = 'https://pdf.tools/reorder-pages';
+const CANONICAL   = 'https://Freenoo/reorder-pages';
 
 export const metadata: Metadata = {
   title: TITLE,

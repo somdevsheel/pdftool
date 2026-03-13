@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Crop PDF Pages Online Free — Trim PDF Margins';
 const DESCRIPTION = 'Crop PDF pages to remove unwanted margins or white space. Free online PDF crop tool, no account needed.';
-const CANONICAL   = 'https://pdf.tools/crop';
+const CANONICAL   = 'https://Freenoo/crop';
 
 export const metadata: Metadata = {
   title: TITLE,

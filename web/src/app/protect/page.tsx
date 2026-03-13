@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   robots: { index: false, follow: true },
-  alternates: { canonical: 'https://pdf.tools/protect-pdf' },
+  alternates: { canonical: 'https://Freenoo/protect-pdf' },
 };
 
 import { ToolLayout } from '../../components/ToolLayout';

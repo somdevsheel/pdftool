@@ -3,7 +3,7 @@ import EditPage from './ToolPage';
 
 export const metadata: Metadata = {
   robots: { index: false, follow: true },
-  alternates: { canonical: 'https://pdf.tools/edit-pdf' },
+  alternates: { canonical: 'https://Freenoo/edit-pdf' },
 };
 
 export default function Page() {

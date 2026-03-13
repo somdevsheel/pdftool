@@ -5,7 +5,7 @@ import ToolPage from './ToolPage';
 
 const TITLE       = 'Protect PDF with Password Online Free | Encrypt PDF';
 const DESCRIPTION = 'Add password protection to a PDF file online. Encrypt PDF with 128-bit AES. Free, no account required.';
-const CANONICAL   = 'https://pdf.tools/protect-pdf';
+const CANONICAL   = 'https://Freenoo/protect-pdf';
 
 export const metadata: Metadata = {
   title: TITLE,

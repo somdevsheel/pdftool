@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'E-Sign Branding — Custom Logo for PDF Agreements';
 const DESCRIPTION = 'Add your brand logo and custom URL to e-signature requests. Professional e-sign branding for PDF documents.';
-const CANONICAL   = 'https://pdf.tools/esign-branding';
+const CANONICAL   = 'https://Freenoo/esign-branding';
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -41,7 +41,7 @@ const relatedTools = [
 ];
 
 const body = [
-  'E-sign branding lets you replace the default PDF.tools branding on signature request emails and signing pages with your own company name, logo, and website URL. This creates a professional, white-labelled signing experience for your clients and partners.',
+  'E-sign branding lets you replace the default Freenoo branding on signature request emails and signing pages with your own company name, logo, and website URL. This creates a professional, white-labelled signing experience for your clients and partners.',
   'When you send a signature request with custom branding, the recipient sees your company logo in the email header, your company name as the sender, and your logo again at the top of the secure signing page. This builds trust and makes the request look like it comes from your own platform.',
   'Branding is particularly important for high-value or sensitive documents such as client contracts, non-disclosure agreements, employment offers, and financial agreements. A professionally branded signing experience reassures recipients that the request is legitimate and from an organisation they know.',
   'Once you have set up your branding, it applies automatically to all future signature requests. You do not need to configure it for each document. If you represent multiple brands or clients, branding can be updated before each batch of requests.',

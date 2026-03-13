@@ -51,7 +51,7 @@ function unsubscribePage(title: string, message: string, success: boolean) {
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>${title} — PDF.tools</title>
+  <title>${title} — Freenoo</title>
 </head>
 <body style="margin:0;padding:0;background:#0f0f0f;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;">
   <div style="max-width:400px;width:100%;margin:40px auto;background:#111;border-radius:16px;border:1px solid #1e1e1e;overflow:hidden;">
@@ -62,7 +62,7 @@ function unsubscribePage(title: string, message: string, success: boolean) {
       <p style="margin:0 0 28px;font-size:14px;color:#888;line-height:1.6;">${message}</p>
       <a href="${SITE_URL}"
          style="display:inline-block;background:#eb1000;color:#fff;font-weight:700;font-size:14px;padding:12px 24px;border-radius:10px;text-decoration:none;">
-        Back to PDF.tools
+        Back to Freenoo
       </a>
     </div>
     <div style="padding:16px 40px;text-align:center;border-top:1px solid #1e1e1e;">

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'PDFTool News Admin',
+  title: 'Freenoo News Admin',
   description: 'Admin panel for managing tech news articles',
 };
 

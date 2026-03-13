@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 
-const BASE_URL = 'https://pdf.tools';
+const BASE_URL = 'https://Freenoo';
 
 export default function robots(): MetadataRoute.Robots {
   return {

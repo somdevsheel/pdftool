@@ -8,7 +8,7 @@ const EditPage = dynamic(() => import('../edit/ToolPage'), { ssr: false });
 
 const TITLE       = 'Edit PDF Online Free — Add Text & Annotations';
 const DESCRIPTION = 'Edit PDF files online. Add text, draw rectangles, and annotate pages. Free PDF editor, no account required.';
-const CANONICAL   = 'https://pdf.tools/edit-pdf';
+const CANONICAL   = 'https://Freenoo/edit-pdf';
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -43,7 +43,7 @@ const body = [
   'Editing a PDF online lets you add content to an existing document without converting it to another format. This is useful for filling in information on a template, labelling pages, or marking up a document for review before sharing.',
   'This editor offers two tools: a text overlay that places typed content at any position on any page, and a rectangle annotation that draws a box outline. Both support custom colors and can be placed on different pages within the same session.',
   'Coordinates are specified by clicking on the page canvas. The click position is translated into standard PDF coordinate units (points, with origin at the bottom-left corner) and sent to the server with your chosen content and style settings. The server processes all edits in a single pass using pdf-lib.',
-  'For making structural changes — such as removing pages or reordering content — use the Organize Pages or Split PDF tools. For adding password protection to an edited PDF, use the Protect PDF tool. All tools are free and do not require an account.',
+  'For making structural changes — such as removing pages or reordering content — use the Organize Pages or Split Freenoo. For adding password protection to an edited PDF, use the Protect PDF tool. All tools are free and do not require an account.',
 ];
 
 export default function EditPdfPage() {

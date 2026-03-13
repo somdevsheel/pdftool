@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Add Signature to PDF Online Free | E-Sign PDF';
 const DESCRIPTION = 'Add your electronic signature to any PDF online. Draw, type, or upload your signature. Free, no account needed.';
-const CANONICAL   = 'https://pdf.tools/add-signature';
+const CANONICAL   = 'https://Freenoo/add-signature';
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -1,5 +1,5 @@
-const SITE_URL  = 'https://pdf.tools';
-const SITE_NAME = 'PDF.tools';
+const SITE_URL  = 'https://Freenoo';
+const SITE_NAME = 'Freenoo';
 
 export interface JsonLdProps {
   toolName: string;

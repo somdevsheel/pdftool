@@ -24,7 +24,7 @@
 //       {/* Sidebar */}
 //       <aside className="w-56 flex-shrink-0 flex flex-col" style={{ background: '#111', borderRight: '1px solid #1f1f1f' }}>
 //         <div className="p-5 flex items-center gap-3" style={{ borderBottom: '1px solid #1f1f1f' }}>
-//           <div className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white text-sm" style={{ background: '#eb1000' }}>P</div>
+//           <div className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white text-sm" style={{ background: '#eb1000' }}>F</div>
 //           <div>
 //             <p className="text-sm font-bold text-white">PDF<span style={{ color: '#eb1000' }}>.tools</span></p>
 //             <p className="text-xs" style={{ color: '#555' }}>Admin</p>
@@ -102,11 +102,11 @@ export default function AdminLayout({ children, user }: { children: ReactNode; u
       {/* Sidebar */}
       <aside className="w-56 flex-shrink-0 flex flex-col" style={{ background: '#111', borderRight: '1px solid #1f1f1f' }}>
         <div className="p-5 flex items-center gap-3" style={{ borderBottom: '1px solid #1f1f1f' }}>
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white text-sm" style={{ background: '#eb1000' }}>P</div>
-          <div>
-            <p className="text-sm font-bold text-white">PDF<span style={{ color: '#eb1000' }}>.tools</span></p>
+          <img src="/logo.png" alt="Freenoo" style={{ height: '86px', width: 'auto' }} />
+          {/* <div>
+            <p className="text-sm font-bold text-white">Freenoo</p>
             <p className="text-xs" style={{ color: '#555' }}>Admin Panel</p>
-          </div>
+          </div> */}
         </div>
 
         <nav className="flex-1 p-3 flex flex-col gap-0.5 overflow-y-auto">

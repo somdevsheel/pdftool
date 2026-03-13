@@ -3,7 +3,7 @@ import ConvertPage from './ToolPage';
 
 export const metadata: Metadata = {
   robots: { index: false, follow: true },
-  alternates: { canonical: 'https://pdf.tools/jpg-to-pdf' },
+  alternates: { canonical: 'https://Freenoo/jpg-to-pdf' },
 };
 
 export default function Page() {

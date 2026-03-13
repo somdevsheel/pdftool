@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import { Analytics } from '@vercel/analytics/next';
 import '../styles/globals.css';
 
-const SITE_URL  = 'https://pdf.tools';
-const SITE_NAME = 'PDF.tools';
+const SITE_URL  = 'https://Freenoo';
+const SITE_NAME = 'Freenoo';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -15,16 +15,16 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
 
   title: {
-    default: `${SITE_NAME} — Free Online PDF Tools`,
+    default: `${SITE_NAME} — Free Online PDF`,
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    'Free online PDF tools: merge, split, compress, rotate, edit, convert, sign, and OCR your PDF files. No signup. Files deleted after 60 minutes.',
+    'Free Online PDF: merge, split, compress, rotate, edit, convert, sign, and OCR your PDF files. No signup. Files deleted after 60 minutes.',
 
   keywords: [
-    'PDF tools', 'merge PDF', 'split PDF', 'compress PDF', 'rotate PDF',
+    'Freenoo', 'merge PDF', 'split PDF', 'compress PDF', 'rotate PDF',
     'PDF editor', 'JPG to PDF', 'PDF to Word', 'PDF OCR', 'sign PDF',
-    'free PDF tools online',
+    'free Freenoo online',
   ],
 
   robots: {
@@ -38,14 +38,14 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: `${SITE_NAME} — Free Online PDF Tools`,
+    title: `${SITE_NAME} — Free Online PDF`,
     description:
-      'Free online PDF tools: merge, split, compress, rotate, edit, convert, sign, and OCR. No account needed.',
+      'Free Online PDF: merge, split, compress, rotate, edit, convert, sign, and OCR. No account needed.',
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: `${SITE_NAME} — Free Online PDF Tools`,
+    title: `${SITE_NAME} — Free Online PDF`,
     description: 'Merge, split, compress, rotate, convert and sign PDFs online for free.',
   },
 
@@ -61,7 +61,7 @@ function OrganizationJsonLd() {
     '@type': 'Organization',
     name: SITE_NAME,
     url: SITE_URL,
-    description: 'Free online PDF tools — merge, split, compress, rotate, edit, and convert PDFs.',
+    description: 'Free Online PDF — merge, split, compress, rotate, edit, and convert PDFs.',
     sameAs: [],
   };
   return (
@@ -79,7 +79,7 @@ function WebSiteJsonLd() {
     '@type': 'WebSite',
     name: SITE_NAME,
     url: SITE_URL,
-    description: 'Free online PDF tools: merge, split, compress, rotate, edit, convert, sign, and OCR.',
+    description: 'Free Online PDF: merge, split, compress, rotate, edit, convert, sign, and OCR.',
     potentialAction: {
       '@type': 'SearchAction',
       target: {

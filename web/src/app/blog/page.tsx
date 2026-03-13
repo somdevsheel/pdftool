@@ -72,8 +72,16 @@ export default function BlogPage() {
         style={{ background: 'rgba(28,28,28,0.92)', borderBottom: '1px solid var(--border)' }}>
         <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-lg text-white" style={{ background: 'var(--accent)' }}>P</div>
-            <span className="font-bold text-lg tracking-tight" style={{ color: 'var(--text)' }}>PDF<span style={{ color: 'var(--accent)' }}>.tools</span></span>
+            {/* <div className="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-lg text-white" style={{ background: 'var(--accent)' }}>F</div>
+            <span className="font-bold text-lg tracking-tight" style={{ color: 'var(--text)' }}><Image src="/logo.png" alt="Freenoo" width={100} height={30} style={{ height: '30px', width: 'auto' }} /></span> */}
+            <Image
+              src="/logo.png"
+              alt="Freenoo"
+              width={120}
+              height={36}
+              className="object-contain"
+              style={{ height: '86px', width: 'auto' }}
+            />
           </Link>
           <nav className="hidden md:flex items-center gap-1 text-sm">
             {[['Edit', '/#edit'], ['Convert', '/#convert'], ['Tech News', '/tech-news'], ['Blog', '/blog']].map(([label, href]) => (

@@ -98,7 +98,7 @@ export default function BlogPostForm({ initialData, postId }: BlogPostFormProps)
           content,
           imageUrl: form.imageUrl || 'https://placehold.co/800x400/1c1c1c/444?text=Blog+Post',
           imageKey: form.imageKey || 'blog-placeholder',
-          source: 'PDF.tools',
+          source: 'Freenoo',
           contentType: 'blog',
         }),
       });

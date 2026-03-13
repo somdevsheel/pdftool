@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Combine PDF Files Online Free — Fast PDF Joiner';
 const DESCRIPTION = 'Combine multiple PDF files into one. Free online PDF joiner with drag-to-reorder. No account, no watermark.';
-const CANONICAL   = 'https://pdf.tools/combine-pdf-files';
+const CANONICAL   = 'https://Freenoo/combine-pdf-files';
 
 export const metadata: Metadata = {
   title: TITLE,

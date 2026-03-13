@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Extract PDF Pages Online Free — Save Selected Pages';
 const DESCRIPTION = 'Extract specific pages from a PDF online. Click to select, then save as a new PDF. Free, no signup required.';
-const CANONICAL   = 'https://pdf.tools/extract-pages';
+const CANONICAL   = 'https://Freenoo/extract-pages';
 
 export const metadata: Metadata = {
   robots: { index: false, follow: true },

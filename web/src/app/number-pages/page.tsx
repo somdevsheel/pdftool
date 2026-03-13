@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Add Page Numbers to PDF Online Free';
 const DESCRIPTION = 'Add page numbers to a PDF document online. Choose position and starting number. Free, no account required.';
-const CANONICAL   = 'https://pdf.tools/number-pages';
+const CANONICAL   = 'https://Freenoo/number-pages';
 
 export const metadata: Metadata = {
   title: TITLE,

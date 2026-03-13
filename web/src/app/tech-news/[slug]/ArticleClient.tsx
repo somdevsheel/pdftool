@@ -78,11 +78,19 @@ export default function ArticleClient({ slug, initialArticle }: Props) {
         style={{ background: 'rgba(28,28,28,0.95)', borderBottom: '1px solid var(--border)' }}>
         <div className="max-w-3xl mx-auto px-6 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3" style={{ textDecoration: 'none' }}>
-            <div className="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-lg text-white"
-              style={{ background: 'var(--accent)' }}>P</div>
+            {/* <div className="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-lg text-white"
+              style={{ background: 'var(--accent)' }}>F</div>
             <span className="font-bold text-lg tracking-tight" style={{ color: 'var(--text)' }}>
-              PDF<span style={{ color: 'var(--accent)' }}>.tools</span>
-            </span>
+              <Image src="/logo.png" alt="Freenoo" width={100} height={30} style={{ height: '30px', width: 'auto' }} />
+            </span> */}
+
+          <Image
+              src="/logo.png"
+              alt="Freenoo"
+              width={120}
+              height={36}
+              style={{ height: '86px', width: 'auto' }}
+            />
           </Link>
           <Link href="/tech-news"
             className="text-sm px-4 py-1.5 rounded-lg transition-all"
@@ -250,7 +258,7 @@ export default function ArticleClient({ slug, initialArticle }: Props) {
       {/* Footer */}
       <footer className="max-w-3xl mx-auto px-6 py-8" style={{ borderTop: '1px solid var(--border)' }}>
         <p className="text-sm text-center" style={{ color: 'var(--text-muted)' }}>
-          © PDF.tools · <Link href="/tech-news" style={{ color: 'var(--accent)' }}>Tech News</Link>
+          © Freenoo · <Link href="/tech-news" style={{ color: 'var(--accent)' }}>Tech News</Link>
         </p>
       </footer>
     </div>

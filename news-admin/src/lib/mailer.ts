@@ -16,7 +16,7 @@ export interface MailOptions {
 
 export async function sendMail({ to, subject, html }: MailOptions) {
   const info = await transporter.sendMail({
-    from: `"${process.env.GMAIL_FROM_NAME || 'PDF.tools'}" <${process.env.GMAIL_USER}>`,
+    from: `"${process.env.GMAIL_FROM_NAME || 'Freenoo'}" <${process.env.GMAIL_USER}>`,
     to: Array.isArray(to) ? to.join(', ') : to,
     subject,
     html,
@@ -34,7 +34,7 @@ export function welcomeEmailHtml(email: string): string {
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Welcome to PDF.tools</title>
+  <title>Welcome to Freenoo</title>
 </head>
 <body style="margin:0;padding:0;background:#0f0f0f;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#0f0f0f;padding:40px 20px;">
@@ -50,8 +50,7 @@ export function welcomeEmailHtml(email: string): string {
             <tr>
               <td>
                 <div style="display:inline-flex;align-items:center;gap:10px;">
-                  <div style="width:36px;height:36px;background:#eb1000;border-radius:8px;display:inline-block;text-align:center;line-height:36px;font-weight:700;font-size:18px;color:#fff;">P</div>
-                  <span style="font-size:20px;font-weight:700;color:#fff;">PDF<span style="color:#eb1000;">.tools</span></span>
+                  <img src="https://freenoo.com/logo.png" alt="Freenoo" style="height:36px;width:auto;" />
                 </div>
               </td>
             </tr>
@@ -64,7 +63,7 @@ export function welcomeEmailHtml(email: string): string {
             You're subscribed! 🎉
           </h1>
           <p style="margin:0 0 20px;font-size:15px;line-height:1.7;color:#aaa;">
-            Welcome to the <strong style="color:#fff;">PDF.tools</strong> weekly digest. Every week we send you the best PDF tips, tool guides, and tech news — straight to your inbox.
+            Welcome to the <strong style="color:#fff;">Freenoo</strong> weekly digest. Every week we send you the best PDF tips, tool guides, and tech news — straight to your inbox.
           </p>
           <p style="margin:0 0 28px;font-size:15px;line-height:1.7;color:#aaa;">
             Here's what you can expect:
@@ -75,7 +74,7 @@ export function welcomeEmailHtml(email: string): string {
             ${[
               ['📝', 'Blog Posts', 'PDF tips & step-by-step tutorials'],
               ['📰', 'Tech News', 'Latest in AI, tools & tech'],
-              ['🛠️', 'Tool Guides', 'Get the most from PDF.tools'],
+              ['🛠️', 'Tool Guides', 'Get the most from Freenoo'],
             ].map(([icon, title, desc]) => `
             <tr>
               <td style="padding:10px 0;">
@@ -97,7 +96,7 @@ export function welcomeEmailHtml(email: string): string {
         <tr><td style="padding:0 40px 36px;">
           <a href="${process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://freenoo.com'}"
             style="display:inline-block;background:#eb1000;color:#fff;font-size:15px;font-weight:700;padding:14px 32px;border-radius:10px;text-decoration:none;">
-            Explore PDF Tools →
+            Explore Freenoo →
           </a>
         </td></tr>
 
@@ -107,7 +106,7 @@ export function welcomeEmailHtml(email: string): string {
         <!-- Footer -->
         <tr><td style="padding:24px 40px;text-align:center;">
           <p style="margin:0 0 8px;font-size:12px;color:#444;">
-            You subscribed to PDF.tools updates. No spam, ever.
+            You subscribed to Freenoo updates. No spam, ever.
           </p>
           <a href="${unsubUrl}" style="font-size:12px;color:#555;text-decoration:underline;">
             Unsubscribe
@@ -163,7 +162,7 @@ export function digestEmailHtml(
           <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
               <td>
-                <span style="font-size:20px;font-weight:700;color:#fff;">PDF<span style="color:#eb1000;">.tools</span></span>
+                <img src="https://freenoo.com/logo.png" alt="Freenoo" style="height:32px;width:auto;" />
                 <span style="margin-left:10px;font-size:12px;color:#444;font-weight:500;">Weekly Digest</span>
               </td>
               <td align="right" style="font-size:12px;color:#444;">
@@ -176,7 +175,7 @@ export function digestEmailHtml(
         <!-- Headline -->
         <tr><td style="padding:0 40px 28px;">
           <h1 style="margin:0 0 8px;font-size:24px;font-weight:800;color:#fff;">This week's highlights</h1>
-          <p style="margin:0;font-size:14px;color:#666;">${articles.length} new articles from PDF.tools</p>
+          <p style="margin:0;font-size:14px;color:#666;">${articles.length} new articles from Freenoo</p>
         </td></tr>
 
         <!-- Articles -->
@@ -202,7 +201,7 @@ export function digestEmailHtml(
 
         <!-- Footer — unsubscribe is per-email, injected at send time -->
         <tr><td style="padding:24px 40px;text-align:center;">
-          <p style="margin:0 0 8px;font-size:12px;color:#444;">PDF.tools · Weekly Digest · No spam</p>
+          <p style="margin:0 0 8px;font-size:12px;color:#444;">Freenoo · Weekly Digest · No spam</p>
           <span style="font-size:12px;color:#555;">{{UNSUBSCRIBE_LINK}}</span>
         </td></tr>
 

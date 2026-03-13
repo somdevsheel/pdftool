@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Split PDF Online Free — Extract Pages Instantly';
 const DESCRIPTION = 'Split a PDF into separate pages or extract a page range. Free online PDF splitter, no software needed.';
-const CANONICAL   = 'https://pdf.tools/split-pdf';
+const CANONICAL   = 'https://Freenoo/split-pdf';
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Insert Pages into PDF Online Free | Add PDF Pages';
 const DESCRIPTION = 'Insert pages into an existing PDF online. Add blank pages or pages from another PDF. Free, no signup needed.';
-const CANONICAL   = 'https://pdf.tools/insert';
+const CANONICAL   = 'https://Freenoo/insert';
 
 export const metadata: Metadata = {
   title: TITLE,

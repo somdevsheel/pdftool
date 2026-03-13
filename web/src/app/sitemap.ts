@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 
-const BASE_URL = 'https://pdf.tools';
+const BASE_URL = 'https://Freenoo';
 
 // ─── Priority tiers ────────────────────────────────────────────────────────
 //  1.0  Homepage

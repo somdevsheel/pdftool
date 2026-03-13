@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'JPG to PDF Converter Online Free | PNG & TIFF Too';
 const DESCRIPTION = 'Convert JPG, PNG, and TIFF images to PDF online. Free image to PDF converter, no account needed. Fast and secure.';
-const CANONICAL   = 'https://pdf.tools/jpg-to-pdf';
+const CANONICAL   = 'https://Freenoo/jpg-to-pdf';
 
 export const metadata: Metadata = {
   title: TITLE,

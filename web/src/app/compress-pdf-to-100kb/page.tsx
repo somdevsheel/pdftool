@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Compress PDF to 100KB Online — Reduce PDF Size';
 const DESCRIPTION = 'Compress a PDF to 100KB or less online. Maximum compression mode for small email attachments. Free, no signup.';
-const CANONICAL   = 'https://pdf.tools/compress-pdf-to-100kb';
+const CANONICAL   = 'https://Freenoo/compress-pdf-to-100kb';
 
 export const metadata: Metadata = {
   title: TITLE,

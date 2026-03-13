@@ -8,7 +8,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const FROM = `"${process.env.GMAIL_FROM_NAME || 'PDF.tools'}" <${process.env.GMAIL_USER}>`;
+const FROM = `"${process.env.GMAIL_FROM_NAME || 'Freenoo'}" <${process.env.GMAIL_USER}>`;
 const SITE_URL = process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://freenoo.com';
 const ADMIN_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://admin.freenoo.com';
 
@@ -16,7 +16,7 @@ function wrapHTML(body: string, unsubscribeToken?: string) {
   const footer = unsubscribeToken ? `
     <tr><td style="padding:24px 40px;text-align:center;border-top:1px solid #222;">
       <p style="margin:0;font-size:12px;color:#555;">
-        You subscribed at PDF.tools.<br/>
+        You subscribed at Freenoo.<br/>
         <a href="${ADMIN_URL}/api/unsubscribe?token=${unsubscribeToken}" style="color:#eb1000;text-decoration:underline;">Unsubscribe</a>
       </p>
     </td></tr>` : '';
@@ -47,7 +47,7 @@ export async function sendWelcomeEmail(email: string, unsubscribeToken: string) 
   const body = `
 <tr><td style="padding:40px;">
   <p style="margin:0 0 8px;font-size:28px;">👋</p>
-  <h1 style="margin:0 0 12px;font-size:22px;font-weight:800;color:#fff;">Welcome to PDF.tools!</h1>
+  <h1 style="margin:0 0 12px;font-size:22px;font-weight:800;color:#fff;">Welcome to Freenoo!</h1>
   <p style="margin:0 0 20px;font-size:14px;color:#aaa;line-height:1.7;">You are now subscribed to our weekly digest. Every week you will get:</p>
   <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;">
     <tr><td style="padding:10px 0;border-bottom:1px solid #1e1e1e;font-size:14px;color:#ccc;">📰 &nbsp;Latest tech news from the PDF world</td></tr>
@@ -60,7 +60,7 @@ export async function sendWelcomeEmail(email: string, unsubscribeToken: string) 
 
   await transporter.sendMail({
     from: FROM, to: email,
-    subject: "👋 Welcome to PDF.tools — You're subscribed!",
+    subject: "👋 Welcome to Freenoo — You're subscribed!",
     html: wrapHTML(body, unsubscribeToken),
   });
 }
@@ -96,7 +96,7 @@ export async function sendDigestEmail(email: string, unsubscribeToken: string, a
   const body = `
 <tr><td style="padding:28px 40px 20px;background:#1a1a1a;border-bottom:1px solid #1e1e1e;">
   <p style="margin:0 0 4px;font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.1em;">Weekly Digest · ${weekStr}</p>
-  <h1 style="margin:0;font-size:20px;font-weight:800;color:#fff;">Your PDF.tools weekly roundup</h1>
+  <h1 style="margin:0;font-size:20px;font-weight:800;color:#fff;">Your Freenoo weekly roundup</h1>
   <p style="margin:6px 0 0;font-size:13px;color:#888;">${articles.length} new article${articles.length !== 1 ? 's' : ''} this week</p>
 </td></tr>
 ${section('Tech News', '📰', news)}
@@ -104,16 +104,16 @@ ${section('Blog Posts', '📝', blog)}
 <tr><td style="padding:28px 40px;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#1a1a1a;border-radius:10px;">
     <tr><td style="padding:18px 22px;">
-      <p style="margin:0 0 4px;font-size:13px;font-weight:700;color:#fff;">Free PDF Tools — No signup needed</p>
+      <p style="margin:0 0 4px;font-size:13px;font-weight:700;color:#fff;">Free Freenoo — No signup needed</p>
       <p style="margin:0 0 10px;font-size:12px;color:#666;">Merge, split, compress, convert and more.</p>
-      <a href="${SITE_URL}" style="display:inline-block;background:#eb1000;color:#fff;font-weight:700;font-size:12px;padding:10px 18px;border-radius:8px;text-decoration:none;">Try PDF.tools →</a>
+      <a href="${SITE_URL}" style="display:inline-block;background:#eb1000;color:#fff;font-weight:700;font-size:12px;padding:10px 18px;border-radius:8px;text-decoration:none;">Try Freenoo →</a>
     </td></tr>
   </table>
 </td></tr>`;
 
   await transporter.sendMail({
     from: FROM, to: email,
-    subject: `📬 Your PDF.tools Weekly Digest — ${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`,
+    subject: `📬 Your Freenoo Weekly Digest — ${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`,
     html: wrapHTML(body, unsubscribeToken),
   });
 }

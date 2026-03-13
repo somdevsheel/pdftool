@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useInfiniteNews } from '@/hooks/useInfiniteNews';
 import { FeaturedCard, NewsCard, SkeletonCard } from '@/components/news/NewsCard';
 import AdPlaceholder from '@/components/news/AdPlaceholder';
@@ -8,6 +9,7 @@ import { TopAd } from '@/components/ads/TopAd';
 import { BottomAd } from '@/components/ads/BottomAd';
 import { SidebarAd } from '@/components/ads/SidebarAd';
 import SubscribeSidebar from '@/components/subscribe/SubscribeSidebar';
+
 
 const CATEGORIES = ['All', 'AI', 'Security', 'Cloud', 'Tools', 'Web', 'Mobile', 'Open Source', 'Startups'];
 
@@ -43,11 +45,21 @@ export default function TechNewsPage() {
         style={{ background: 'rgba(28,28,28,0.92)', borderBottom: '1px solid var(--border)' }}>
         <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-lg text-white"
-              style={{ background: 'var(--accent)' }}>P</div>
+            {/* <div className="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-lg text-white"
+              style={{ background: 'var(--accent)' }}>F</div>
             <span className="font-bold text-lg tracking-tight" style={{ color: 'var(--text)' }}>
-              PDF<span style={{ color: 'var(--accent)' }}>.tools</span>
-            </span>
+              <Image src="/logo.png" alt="Freenoo" width={100} height={30} style={{ height: '30px', width: 'auto' }} />
+            </span> */}
+
+            <Image
+              src="/logo.png"
+              alt="Freenoo"
+              width={120}
+              height={36}
+              style={{ height: '86px', width: 'auto' }}
+            />
+
+
           </Link>
           <nav className="hidden md:flex items-center gap-1 text-sm">
             {[['Edit', '/#edit'], ['Convert', '/#convert'], ['E-Sign', '/#esign'], ['Tech News', '/tech-news']].map(([label, href]) => (
@@ -158,7 +170,7 @@ export default function TechNewsPage() {
           <SubscribeSidebar />
           <AdPlaceholder size="rectangle" />
           <div className="p-4 rounded-xl" style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}>
-            <h3 className="text-sm font-semibold mb-1" style={{ color: 'var(--text)' }}>PDF Tools</h3>
+            <h3 className="text-sm font-semibold mb-1" style={{ color: 'var(--text)' }}>Freenoo</h3>
             <p className="text-xs mb-3" style={{ color: 'var(--text-muted)' }}>Free online tools — no signup needed</p>
             <Link href="/"
               className="block w-full text-center py-2 rounded-lg text-sm font-medium text-white transition-all"
@@ -176,7 +188,7 @@ export default function TechNewsPage() {
       <footer style={{ borderTop: '1px solid var(--border)' }}>
         <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <span className="font-bold" style={{ color: 'var(--text)' }}>
-            PDF<span style={{ color: 'var(--accent)' }}>.tools</span>
+            <img src="/logo.png" alt="Freenoo" style={{ height: '86px', width: 'auto' }} />
           </span>
           <p className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>Free · Anonymous · Open source</p>
         </div>

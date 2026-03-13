@@ -39,7 +39,7 @@
 //               P
 //             </div>
 //             <span className="font-bold text-base hidden sm:block" style={{ color: 'var(--text)' }}>
-//               PDF<span style={{ color: 'var(--accent)' }}>.tools</span>
+//               <Image src="/logo.png" alt="Freenoo" width={100} height={30} style={{ height: '30px', width: 'auto' }} />
 //             </span>
 //           </Link>
 
@@ -97,7 +97,7 @@
 //       <footer style={{ borderTop: '1px solid var(--border)' }}>
 //         <div className="max-w-6xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
 //           <p className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
-//             PDF.tools — Free online PDF utilities
+//             Freenoo — Free online PDF utilities
 //           </p>
 //           <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
 //             Files auto-deleted after 60 minutes · No account required
@@ -153,7 +153,7 @@ export function ToolLayout({
               P
             </div>
             <span className="font-bold text-base hidden sm:block" style={{ color: 'var(--text)' }}>
-              PDF<span style={{ color: 'var(--accent)' }}>.tools</span>
+              <img src="/logo.png" alt="Freenoo" style={{ height: '86px', width: 'auto' }} />
             </span>
           </Link>
 
@@ -212,7 +212,7 @@ export function ToolLayout({
       <footer style={{ borderTop: '1px solid var(--border)' }}>
         <div className="max-w-6xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
-            PDF.tools — Free online PDF utilities
+            Freenoo — Free online PDF utilities
           </p>
           <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
             Files auto-deleted after 60 minutes · No account required

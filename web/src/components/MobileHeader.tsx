@@ -21,13 +21,7 @@ export default function MobileHeader() {
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3" style={{ textDecoration: 'none' }}>
-          <div
-            className="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-lg text-white"
-            style={{ background: 'var(--accent)' }}
-          >P</div>
-          <span className="font-bold text-lg tracking-tight" style={{ color: 'var(--text)' }}>
-            PDF<span style={{ color: 'var(--accent)' }}>.tools</span>
-          </span>
+          <img src="/logo.png" alt="Freenoo" style={{ height: '86px', width: 'auto' }} />
         </Link>
 
         {/* Desktop nav */}

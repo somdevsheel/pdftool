@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
       title, summary, content, tag,
       tagColor: BLOG_TAGS[tag] || TAG_COLORS[tag as keyof typeof TAG_COLORS] || '#eb1000',
       imageUrl, imageKey,
-      source: source || 'PDF.tools',
+      source: source || 'Freenoo',
       sourceUrl: sourceUrl || '',
       readTime: readTime || 5,
       featured: featured || false,

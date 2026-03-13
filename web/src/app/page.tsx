@@ -5,14 +5,14 @@
 // import type { Metadata } from 'next';
 
 // export const metadata: Metadata = {
-//   title: 'PDF.tools — Free Online PDF Tools | Merge, Compress, Split',
+//   title: 'Freenoo — Free Online PDF | Merge, Compress, Split',
 //   description:
-//     'Free online PDF tools: merge, split, compress, rotate, convert, edit and sign PDFs. No account needed. Files auto-deleted after 60 minutes.',
-//   alternates: { canonical: 'https://pdf.tools' },
+//     'Free Online PDF: merge, split, compress, rotate, convert, edit and sign PDFs. No account needed. Files auto-deleted after 60 minutes.',
+//   alternates: { canonical: 'https://Freenoo' },
 //   openGraph: {
-//     title: 'PDF.tools — Free Online PDF Tools',
+//     title: 'Freenoo — Free Online PDF',
 //     description: 'Merge, split, compress, rotate, convert and sign PDFs online for free. No signup required.',
-//     url: 'https://pdf.tools',
+//     url: 'https://Freenoo',
 //     type: 'website',
 //   },
 // };
@@ -495,9 +495,9 @@
 //         <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
 //           <div className="flex items-center gap-3">
 //             <div className="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-lg text-white"
-//               style={{ background: 'var(--accent)' }}>P</div>
+//               style={{ background: 'var(--accent)' }}>F</div>
 //             <span className="font-bold text-lg tracking-tight" style={{ color: 'var(--text)' }}>
-//               PDF<span style={{ color: 'var(--accent)' }}>.tools</span>
+//               <Image src="/logo.png" alt="Freenoo" width={100} height={30} style={{ height: '30px', width: 'auto' }} />
 //             </span>
 //           </div>
 //           <nav className="hidden md:flex items-center gap-1 text-sm">
@@ -593,7 +593,7 @@
 //       <footer style={{ borderTop: '1px solid var(--border)' }}>
 //         <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
 //           <span className="font-bold" style={{ color: 'var(--text)' }}>
-//             PDF<span style={{ color: 'var(--accent)' }}>.tools</span>
+//             <Image src="/logo.png" alt="Freenoo" width={100} height={30} style={{ height: '30px', width: 'auto' }} />
 //           </span>
 //           <p className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>Free · Anonymous · Open source</p>
 //         </div>
@@ -611,14 +611,14 @@
 // import type { Metadata } from 'next';
 
 // export const metadata: Metadata = {
-//   title: 'PDF.tools — Free Online PDF Tools | Merge, Compress, Split',
+//   title: 'Freenoo — Free Online PDF | Merge, Compress, Split',
 //   description:
-//     'Free online PDF tools: merge, split, compress, rotate, convert, edit and sign PDFs. No account needed. Files auto-deleted after 60 minutes.',
-//   alternates: { canonical: 'https://pdf.tools' },
+//     'Free Online PDF: merge, split, compress, rotate, convert, edit and sign PDFs. No account needed. Files auto-deleted after 60 minutes.',
+//   alternates: { canonical: 'https://Freenoo' },
 //   openGraph: {
-//     title: 'PDF.tools — Free Online PDF Tools',
+//     title: 'Freenoo — Free Online PDF',
 //     description: 'Merge, split, compress, rotate, convert and sign PDFs online for free. No signup required.',
-//     url: 'https://pdf.tools',
+//     url: 'https://Freenoo',
 //     type: 'website',
 //   },
 // };
@@ -1101,9 +1101,9 @@
 //         <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
 //           <div className="flex items-center gap-3">
 //             <div className="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-lg text-white"
-//               style={{ background: 'var(--accent)' }}>P</div>
+//               style={{ background: 'var(--accent)' }}>F</div>
 //             <span className="font-bold text-lg tracking-tight" style={{ color: 'var(--text)' }}>
-//               PDF<span style={{ color: 'var(--accent)' }}>.tools</span>
+//               <Image src="/logo.png" alt="Freenoo" width={100} height={30} style={{ height: '30px', width: 'auto' }} />
 //             </span>
 //           </div>
 //           <nav className="hidden md:flex items-center gap-1 text-sm">
@@ -1199,7 +1199,7 @@
 //       <footer style={{ borderTop: '1px solid var(--border)' }}>
 //         <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
 //           <span className="font-bold" style={{ color: 'var(--text)' }}>
-//             PDF<span style={{ color: 'var(--accent)' }}>.tools</span>
+//             <Image src="/logo.png" alt="Freenoo" width={100} height={30} style={{ height: '30px', width: 'auto' }} />
 //           </span>
 //           <p className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>Free · Anonymous · Open source</p>
 //         </div>
@@ -1220,14 +1220,14 @@
 // import type { Metadata } from 'next';
 
 // export const metadata: Metadata = {
-//   title: 'PDF.tools — Free Online PDF Tools | Merge, Compress, Split',
+//   title: 'Freenoo — Free Online PDF | Merge, Compress, Split',
 //   description:
-//     'Free online PDF tools: merge, split, compress, rotate, convert, edit and sign PDFs. No account needed. Files auto-deleted after 60 minutes.',
-//   alternates: { canonical: 'https://pdf.tools' },
+//     'Free Online PDF: merge, split, compress, rotate, convert, edit and sign PDFs. No account needed. Files auto-deleted after 60 minutes.',
+//   alternates: { canonical: 'https://Freenoo' },
 //   openGraph: {
-//     title: 'PDF.tools — Free Online PDF Tools',
+//     title: 'Freenoo — Free Online PDF',
 //     description: 'Merge, split, compress, rotate, convert and sign PDFs online for free. No signup required.',
-//     url: 'https://pdf.tools',
+//     url: 'https://Freenoo',
 //     type: 'website',
 //   },
 // };
@@ -1710,9 +1710,9 @@
 //         <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
 //           <div className="flex items-center gap-3">
 //             <div className="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-lg text-white"
-//               style={{ background: 'var(--accent)' }}>P</div>
+//               style={{ background: 'var(--accent)' }}>F</div>
 //             <span className="font-bold text-lg tracking-tight" style={{ color: 'var(--text)' }}>
-//               PDF<span style={{ color: 'var(--accent)' }}>.tools</span>
+//               <Image src="/logo.png" alt="Freenoo" width={100} height={30} style={{ height: '30px', width: 'auto' }} />
 //             </span>
 //           </div>
 //           <nav className="hidden md:flex items-center gap-1 text-sm">
@@ -1826,7 +1826,7 @@
 //       <footer style={{ borderTop: '1px solid var(--border)' }}>
 //         <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
 //           <span className="font-bold" style={{ color: 'var(--text)' }}>
-//             PDF<span style={{ color: 'var(--accent)' }}>.tools</span>
+//             <Image src="/logo.png" alt="Freenoo" width={100} height={30} style={{ height: '30px', width: 'auto' }} />
 //           </span>
 //           <p className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>Free · Anonymous · Open source</p>
 //         </div>
@@ -1845,16 +1845,17 @@ import { BottomAd } from '../components/ads/BottomAd';
 import FeaturedNewsSection from '@/components/FeaturedNewsSection';
 import MobileHeader from '@/components/MobileHeader';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: 'PDF.tools — Free Online PDF Tools | Merge, Compress, Split',
+  title: 'Freenoo — Free Online PDF | Merge, Compress, Split',
   description:
-    'Free online PDF tools: merge, split, compress, rotate, convert, edit and sign PDFs. No account needed. Files auto-deleted after 60 minutes.',
-  alternates: { canonical: 'https://pdf.tools' },
+    'Free Online PDF: merge, split, compress, rotate, convert, edit and sign PDFs. No account needed. Files auto-deleted after 60 minutes.',
+  alternates: { canonical: 'https://Freenoo' },
   openGraph: {
-    title: 'PDF.tools — Free Online PDF Tools',
+    title: 'Freenoo — Free Online PDF',
     description: 'Merge, split, compress, rotate, convert and sign PDFs online for free. No signup required.',
-    url: 'https://pdf.tools',
+    url: 'https://Freenoo',
     type: 'website',
   },
 };
@@ -2443,7 +2444,7 @@ export default function HomePage() {
       <footer style={{ borderTop: '1px solid var(--border)' }}>
         <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <span className="font-bold" style={{ color: 'var(--text)' }}>
-            PDF<span style={{ color: 'var(--accent)' }}>.tools</span>
+            <img src="/logo.png" alt="Freenoo" style={{ height: '86px', width: 'auto' }} />
           </span>
           <p className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
             Free · Anonymous · Open source
