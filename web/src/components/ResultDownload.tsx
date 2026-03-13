@@ -59,12 +59,17 @@ export function ResultDownload({
       <a
         href={downloadUrl}
         download={filename}
+        // className={clsx(
+        //   'flex items-center gap-3 px-8 py-4 rounded-md',
+        //   'bg-[var(--ink)] text-paper font-medium text-sm',
+        //   'hover:bg-[var(--ink-soft)] transition-colors duration-200',
+        //   'shadow-paper-lg',
+        // )}
         className={clsx(
           'flex items-center gap-3 px-8 py-4 rounded-md',
-          'bg-[var(--ink)] text-paper font-medium text-sm',
-          'hover:bg-[var(--ink-soft)] transition-colors duration-200',
-          'shadow-paper-lg',
+          'font-medium text-sm transition-colors duration-200',
         )}
+        style={{ background: '#eb1000', color: '#ffffff' }}
       >
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
           <path d="M9 3v9M5 8l4 4 4-4" stroke="currentColor" strokeWidth="1.8"
