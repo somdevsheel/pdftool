@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 
-const API_BASE = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'https://pdftooladmin.arutechconsultancy.com';
+const API_BASE = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'https://admin.freenoo.com';
 
 interface SubscribeBoxProps {
   source?: 'popup' | 'sidebar' | 'footer';

@@ -40,7 +40,7 @@ export default function CropToolPage() {
     if (!file) return;
     setError(null); setPhase('processing');
     try {
-      const res = await fetch('https://pdftoolapi.arutechconsultancy.com/api/v1/jobs/crop', {
+      const res = await fetch('https://api.freenoo.com/api/v1/jobs/crop', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ fileId: file.id, top, bottom, left, right }),
       });

@@ -7,7 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import SubscribePopup from '@/components/subscribe/SubscribePopup';
 import type { NewsArticle } from '@/types';
 
-const API_BASE = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'https://pdftooladmin.arutechconsultancy.com';
+const API_BASE = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'https://admin.freenoo.com';
 
 export default function ArticlePage() {
   const { slug } = useParams<{ slug: string }>();

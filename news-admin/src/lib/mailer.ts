@@ -95,7 +95,7 @@ export function welcomeEmailHtml(email: string): string {
 
         <!-- CTA -->
         <tr><td style="padding:0 40px 36px;">
-          <a href="${process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://pdftool.arutechconsultancy.com'}"
+          <a href="${process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://freenoo.com'}"
             style="display:inline-block;background:#eb1000;color:#fff;font-size:15px;font-weight:700;padding:14px 32px;border-radius:10px;text-decoration:none;">
             Explore PDF Tools →
           </a>
@@ -125,7 +125,7 @@ export function digestEmailHtml(
   articles: { title: string; summary: string; slug: string; tag: string; tagColor: string; imageUrl: string; contentType: string }[],
   emails: string[]
 ): string {
-  const frontendUrl = process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://pdftool.arutechconsultancy.com';
+  const frontendUrl = process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://freenoo.com';
 
   const articleCards = articles.slice(0, 8).map(a => {
     const href = `${frontendUrl}/${a.contentType === 'blog' ? 'blog' : 'tech-news'}/${a.slug}`;

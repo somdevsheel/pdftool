@@ -42,7 +42,7 @@ export default function NumberPagesToolPage() {
     if (!file) return;
     setError(null); setPhase('processing');
     try {
-      const res = await fetch('https://pdftoolapi.arutechconsultancy.com/api/v1/jobs/number-pages', {
+      const res = await fetch('https://api.freenoo.com/api/v1/jobs/number-pages', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ fileId: file.id, position, startNumber, fontSize }),
       });

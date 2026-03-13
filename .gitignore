@@ -7,3 +7,4 @@ storage/uploads
 storage/output
 storage/processing
 *.zip
+LightsailDefaultKey-ap-south-1.pem
