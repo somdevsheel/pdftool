@@ -74,7 +74,7 @@ export default function SubscribersPage() {
           <button onClick={sendDigest} disabled={sending}
             className="px-4 py-2 rounded-lg text-sm font-medium text-white"
             style={{ background: sending ? '#555' : '#eb1000', cursor: sending ? 'not-allowed' : 'pointer' }}>
-            {sending ? 'Sending...' : '📬 Send Weekly Digest'}
+            {sending ? 'Sending...' : '✉️ Send Weekly Digest'}
           </button>
         </div>
       </div>

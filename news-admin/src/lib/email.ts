@@ -113,7 +113,7 @@ ${section('Blog Posts', '📝', blog)}
 
   await transporter.sendMail({
     from: FROM, to: email,
-    subject: `📬 Your Freenoo Weekly Digest — ${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`,
+    subject: `✉️ Your Freenoo Weekly Digest — ${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`,
     html: wrapHTML(body, unsubscribeToken),
   });
 }
