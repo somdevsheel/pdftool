@@ -13,6 +13,10 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  
+   verification: {
+    google: 'e610fc5e555de602',
+  },
 
   title: {
     default: `${SITE_NAME} — Free Online PDF`,
