@@ -290,7 +290,8 @@ export function ToolLayout({
       <BottomAd />
 
       {/* Footer */}
-      <footer style={{ borderTop: '1px solid var(--border)' }}>
+      {/* <footer style={{ borderTop: '1px solid var(--border)' }}> */}
+      <footer style={{ borderTop: '1px solid var(--border)', marginTop: '24px' }}>
         <div className="max-w-6xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
             Freenoo — Free online PDF utilities
@@ -301,10 +302,6 @@ export function ToolLayout({
           <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
             Files auto-deleted after 60 minutes · No account required
           </p>
-          <div className="flex items-center gap-4 text-xs">
-            <Link href="/privacy" style={{ color: 'var(--text-muted)' }}>Privacy Policy</Link>
-            <Link href="/terms" style={{ color: 'var(--text-muted)' }}>Terms & Conditions</Link>
-          </div>
         </div>
       </footer>
     </div>

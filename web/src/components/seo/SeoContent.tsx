@@ -114,6 +114,12 @@ export function SeoContent({ heading, body, faqs, relatedTools }: SeoContentProp
             </div>
           </div>
         )}
+        {/* Privacy & Terms */}
+        <div style={{ marginTop: '40px', paddingTop: '16px', borderTop: '1px solid var(--border)', display: 'flex', gap: '16px' }}>
+          <Link href="/privacy" style={{ fontSize: '12px', color: 'var(--text-muted)', textDecoration: 'none' }}>Privacy Policy</Link>
+          <Link href="/terms" style={{ fontSize: '12px', color: 'var(--text-muted)', textDecoration: 'none' }}>Terms & Conditions</Link>
+        </div>
+
       </section>
     </>
   );
