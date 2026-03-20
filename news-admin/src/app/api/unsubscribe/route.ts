@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
 }
 
 function unsubscribePage(title: string, message: string, success: boolean) {
-  const SITE_URL = process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://freenoo.com';
+  const SITE_URL = process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://freenoo.com.com';
   const icon = success ? '✅' : '❌';
   const color = success ? '#059669' : '#eb1000';
 

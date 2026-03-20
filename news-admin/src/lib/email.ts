@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const FROM = `"${process.env.GMAIL_FROM_NAME || 'Freenoo'}" <${process.env.GMAIL_USER}>`;
-const SITE_URL = process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://freenoo.com';
+const SITE_URL = process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://freenoo.com.com';
 const ADMIN_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://admin.freenoo.com';
 
 function wrapHTML(body: string, unsubscribeToken?: string) {

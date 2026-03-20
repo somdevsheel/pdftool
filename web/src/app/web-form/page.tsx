@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Create PDF Web Form — Embeddable Signature Form';
 const DESCRIPTION = 'Create embeddable web forms from PDF documents. Collect signatures and data online. Free PDF web form builder.';
-const CANONICAL   = 'https://Freenoo/web-form';
+const CANONICAL   = 'https://freenoo.com/web-form';
 
 export const metadata: Metadata = {
   title: TITLE,

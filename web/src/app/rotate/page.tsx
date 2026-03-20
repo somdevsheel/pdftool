@@ -3,7 +3,7 @@ import RotatePage from './ToolPage';
 
 export const metadata: Metadata = {
   robots: { index: false, follow: true },
-  alternates: { canonical: 'https://Freenoo/rotate-pdf' },
+  alternates: { canonical: 'https://freenoo.com/rotate-pdf' },
 };
 
 export default function Page() {

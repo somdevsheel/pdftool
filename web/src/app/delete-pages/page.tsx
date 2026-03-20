@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Delete PDF Pages Online Free — Remove Pages Instantly';
 const DESCRIPTION = 'Delete specific pages from a PDF online. Click thumbnails to select pages to remove. Free, no account needed.';
-const CANONICAL   = 'https://Freenoo/delete-pages';
+const CANONICAL   = 'https://freenoo.com/delete-pages';
 
 export const metadata: Metadata = {
   title: TITLE,

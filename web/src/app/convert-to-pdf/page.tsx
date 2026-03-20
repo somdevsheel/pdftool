@@ -3,11 +3,11 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: "Convert Files to PDF Online Free",
   description: "Convert Word, PowerPoint, Excel, and image files to PDF online. Free file to PDF converter, no signup required.",
-  alternates: { canonical: 'https://Freenoo/convert-to-pdf' },
+  alternates: { canonical: 'https://freenoo.com/convert-to-pdf' },
   openGraph: {
     title: "Convert Files to PDF Online Free",
     description: "Convert Word, PowerPoint, Excel, and image files to PDF online. Free file to PDF converter, no signup required.",
-    url: 'https://Freenoo/convert-to-pdf',
+    url: 'https://freenoo.com/convert-to-pdf',
     type: 'website',
   },
 };

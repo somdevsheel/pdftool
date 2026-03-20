@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Compress PDF Online Free — Reduce File Size';
 const DESCRIPTION = 'Reduce PDF file size online using Ghostscript. Choose quality level: screen, ebook, or print. Free, no signup.';
-const CANONICAL   = 'https://Freenoo/compress-pdf';
+const CANONICAL   = 'https://freenoo.com/compress-pdf';
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -3,9 +3,9 @@ import MergePage from '../merge/ToolPage';
 import { SeoContent } from '../../components/seo/SeoContent';
 import { JsonLd } from '../../components/seo/JsonLd';
 
-const TITLE       = 'Merge PDF Files Online Free | Freenoo';
-const DESCRIPTION = 'Combine multiple PDF files into one document online. Free, fast, no signup required. Drag to reorder before merging.';
-const CANONICAL   = 'https://Freenoo/merge-pdf';
+const TITLE       = 'Merge PDF Files Online Free - Combine PDFs | Freenoo';
+const DESCRIPTION = 'Merge multiple PDF files into one in seconds. Free PDF combiner with drag-drop reordering, no watermarks, unlimited pages.';
+const CANONICAL   = 'https://freenoo.com.com/merge-pdf';
 
 export const metadata: Metadata = {
   title: TITLE,

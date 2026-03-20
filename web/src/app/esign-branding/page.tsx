@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'E-Sign Branding — Custom Logo for PDF Agreements';
 const DESCRIPTION = 'Add your brand logo and custom URL to e-signature requests. Professional e-sign branding for PDF documents.';
-const CANONICAL   = 'https://Freenoo/esign-branding';
+const CANONICAL   = 'https://freenoo.com/esign-branding';
 
 export const metadata: Metadata = {
   title: TITLE,

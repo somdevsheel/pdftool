@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Reduce PDF Size Online Free — PDF File Reducer';
 const DESCRIPTION = 'Reduce PDF file size online without losing quality. Three compression levels. Free PDF reducer, no signup needed.';
-const CANONICAL   = 'https://Freenoo/reduce-pdf-size';
+const CANONICAL   = 'https://freenoo.com/reduce-pdf-size';
 
 export const metadata: Metadata = {
   title: TITLE,

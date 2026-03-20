@@ -1,4 +1,4 @@
-const SITE_URL  = 'https://Freenoo';
+const SITE_URL  = 'https://freenoo.com';
 const SITE_NAME = 'Freenoo';
 
 export interface JsonLdProps {

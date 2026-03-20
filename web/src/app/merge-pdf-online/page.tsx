@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Merge PDF Online — Combine Files in Your Browser';
 const DESCRIPTION = 'Merge PDF files online without installing software. Works in any browser. Free, private, no account needed.';
-const CANONICAL   = 'https://Freenoo/merge-pdf-online';
+const CANONICAL   = 'https://freenoo.com/merge-pdf-online';
 
 export const metadata: Metadata = {
   title: TITLE,

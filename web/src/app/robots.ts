@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 
-const BASE_URL = 'https://Freenoo';
+const BASE_URL = 'https://freenoo.com';
 
 export default function robots(): MetadataRoute.Robots {
   return {

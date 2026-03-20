@@ -190,7 +190,14 @@ export default function TechNewsPage() {
           <span className="font-bold" style={{ color: 'var(--text)' }}>
             <img src="/logo.png" alt="Freenoo" style={{ height: '66px', width: 'auto' }} />
           </span>
-          <p className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>Free · Anonymous · Open source</p>
+          {/* <p className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>Free · Anonymous · Open source</p> */}
+          <p className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
+            Free · Anonymous · Open source
+          </p>
+          <div className="flex items-center gap-4 text-xs" style={{ color: 'var(--text-muted)' }}>
+            <Link href="/privacy" style={{ color: 'var(--text-muted)' }}>Privacy Policy</Link>
+            <Link href="/terms" style={{ color: 'var(--text-muted)' }}>Terms & Conditions</Link>
+          </div>
         </div>
       </footer>
     </div>

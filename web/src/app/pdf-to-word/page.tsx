@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'PDF to Word Converter Online Free | DOC & DOCX';
 const DESCRIPTION = 'Convert PDF to Word document online. Free PDF to DOC converter. Preserves formatting. No signup required.';
-const CANONICAL   = 'https://Freenoo/pdf-to-word';
+const CANONICAL   = 'https://freenoo.com/pdf-to-word';
 
 export const metadata: Metadata = {
   title: TITLE, description: DESCRIPTION,

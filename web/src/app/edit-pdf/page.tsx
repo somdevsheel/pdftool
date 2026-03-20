@@ -8,7 +8,7 @@ const EditPage = dynamic(() => import('../edit/ToolPage'), { ssr: false });
 
 const TITLE       = 'Edit PDF Online Free — Add Text & Annotations';
 const DESCRIPTION = 'Edit PDF files online. Add text, draw rectangles, and annotate pages. Free PDF editor, no account required.';
-const CANONICAL   = 'https://Freenoo/edit-pdf';
+const CANONICAL   = 'https://freenoo.com/edit-pdf';
 
 export const metadata: Metadata = {
   title: TITLE,

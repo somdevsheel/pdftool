@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Rotate PDF Pages Online Free | Fix Orientation';
 const DESCRIPTION = 'Rotate PDF pages 90, 180, or 270 degrees online. Fix upside-down or sideways pages. Free, no signup needed.';
-const CANONICAL   = 'https://Freenoo/rotate-pdf';
+const CANONICAL   = 'https://freenoo.com/rotate-pdf';
 
 export const metadata: Metadata = {
   title: TITLE,

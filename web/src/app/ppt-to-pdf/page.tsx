@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'PowerPoint to PDF Converter Online Free | PPT to PDF';
 const DESCRIPTION = 'Convert PowerPoint presentations to PDF online. Free PPT and PPTX to PDF converter. No signup, no software needed.';
-const CANONICAL   = 'https://Freenoo/ppt-to-pdf';
+const CANONICAL   = 'https://freenoo.com/ppt-to-pdf';
 
 export const metadata: Metadata = {
   title: TITLE, description: DESCRIPTION,

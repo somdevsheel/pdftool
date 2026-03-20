@@ -8,11 +8,11 @@
 //   title: 'Freenoo — Free Online PDF | Merge, Compress, Split',
 //   description:
 //     'Free Online PDF: merge, split, compress, rotate, convert, edit and sign PDFs. No account needed. Files auto-deleted after 60 minutes.',
-//   alternates: { canonical: 'https://Freenoo' },
+//   alternates: { canonical: 'https://freenoo.com' },
 //   openGraph: {
 //     title: 'Freenoo — Free Online PDF',
 //     description: 'Merge, split, compress, rotate, convert and sign PDFs online for free. No signup required.',
-//     url: 'https://Freenoo',
+//     url: 'https://freenoo.com',
 //     type: 'website',
 //   },
 // };
@@ -614,11 +614,11 @@
 //   title: 'Freenoo — Free Online PDF | Merge, Compress, Split',
 //   description:
 //     'Free Online PDF: merge, split, compress, rotate, convert, edit and sign PDFs. No account needed. Files auto-deleted after 60 minutes.',
-//   alternates: { canonical: 'https://Freenoo' },
+//   alternates: { canonical: 'https://freenoo.com' },
 //   openGraph: {
 //     title: 'Freenoo — Free Online PDF',
 //     description: 'Merge, split, compress, rotate, convert and sign PDFs online for free. No signup required.',
-//     url: 'https://Freenoo',
+//     url: 'https://freenoo.com',
 //     type: 'website',
 //   },
 // };
@@ -1223,11 +1223,11 @@
 //   title: 'Freenoo — Free Online PDF | Merge, Compress, Split',
 //   description:
 //     'Free Online PDF: merge, split, compress, rotate, convert, edit and sign PDFs. No account needed. Files auto-deleted after 60 minutes.',
-//   alternates: { canonical: 'https://Freenoo' },
+//   alternates: { canonical: 'https://freenoo.com' },
 //   openGraph: {
 //     title: 'Freenoo — Free Online PDF',
 //     description: 'Merge, split, compress, rotate, convert and sign PDFs online for free. No signup required.',
-//     url: 'https://Freenoo',
+//     url: 'https://freenoo.com',
 //     type: 'website',
 //   },
 // };
@@ -1848,14 +1848,14 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: 'Freenoo — Free Online PDF | Merge, Compress, Split',
+  title: 'Freenoo - Online PDF Tools Free | Convert, Edit, Sign PDFs',
   description:
-    'Free Online PDF: merge, split, compress, rotate, convert, edit and sign PDFs. No account needed. Files auto-deleted after 60 minutes.',
-  alternates: { canonical: 'https://Freenoo' },
+    'Every PDF tool in one place. Convert PDF to Word, JPG to PDF, merge, compress, e-sign—100% free, no watermarks, no login. From Bharat to the World.',
+  alternates: { canonical: 'https://freenoo.com.com' },
   openGraph: {
     title: 'Freenoo — Free Online PDF',
     description: 'Merge, split, compress, rotate, convert and sign PDFs online for free. No signup required.',
-    url: 'https://Freenoo',
+    url: 'https://freenoo.com.com',
     type: 'website',
   },
 };
@@ -2357,8 +2357,19 @@ export default function HomePage() {
               <span style={{ color: 'var(--accent)' }}>in one place.</span>
             </h1>
             <p className="text-base mb-8 max-w-xl" style={{ color: 'var(--text-muted)' }}>
-              Edit, merge, split, compress, rotate, protect, convert PDFs and more.
-              No login. No watermarks. Files deleted in 60 minutes.
+              Freenoo offers 25+ professional PDF tools that are completely free to use. You can convert, edit, compress, merge, and e-sign PDFs easily, without any registration, watermarks, or usage limits.
+            </p>
+            <p className="text-base mb-4 max-w-xl" style={{ color: 'var(--text-muted)' }}>
+              <strong>Why choose Freenoo?</strong>
+            </p>
+            <ul className="text-base mb-6 max-w-xl list-disc pl-5" style={{ color: 'var(--text-muted)' }}>
+              <li>100% free forever — no trials, no credit card required</li>
+              <li>Privacy-first — your files are automatically deleted after 1 hour</li>
+              <li>No watermarks or page limits</li>
+              <li>Works on any device and any browser</li>
+            </ul>
+            <p className="text-base max-w-xl" style={{ color: 'var(--text-muted)' }}>
+              <strong>Popular Tools:</strong> PDF to Word, JPG to PDF, Merge PDF, Compress PDF, Fill & Sign
             </p>
             <div className="flex flex-wrap gap-3">
               <Link href="/merge" className="btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded text-sm font-medium text-white">
@@ -2446,9 +2457,16 @@ export default function HomePage() {
           <span className="font-bold" style={{ color: 'var(--text)' }}>
             <img src="/logo.png" alt="Freenoo" style={{ height: '66px', width: 'auto' }} />
           </span>
+          {/* <p className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
+            Free · Anonymous · Open source
+          </p> */}
           <p className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
             Free · Anonymous · Open source
           </p>
+          <div className="flex items-center gap-4 text-xs" style={{ color: 'var(--text-muted)' }}>
+            <Link href="/privacy" style={{ color: 'var(--text-muted)' }}>Privacy Policy</Link>
+            <Link href="/terms" style={{ color: 'var(--text-muted)' }}>Terms & Conditions</Link>
+          </div>
         </div>
       </footer>
     </div>

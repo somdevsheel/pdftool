@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'PDF OCR Online — Make Scanned PDFs Searchable';
 const DESCRIPTION = 'Run OCR on scanned PDF files online. Make text searchable and selectable. Free PDF OCR tool, no signup needed.';
-const CANONICAL   = 'https://Freenoo/pdf-ocr';
+const CANONICAL   = 'https://freenoo.com/pdf-ocr';
 
 export const metadata: Metadata = {
   title: TITLE,

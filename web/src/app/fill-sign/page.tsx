@@ -3,11 +3,11 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: "Fill and Sign PDF Online Free | Complete PDF Forms",
   description: "Fill in PDF forms and add your signature online. Free fill & sign PDF tool. No account or software needed.",
-  alternates: { canonical: 'https://Freenoo/fill-sign' },
+  alternates: { canonical: 'https://freenoo.com/fill-sign' },
   openGraph: {
     title: "Fill and Sign PDF Online Free | Complete PDF Forms",
     description: "Fill in PDF forms and add your signature online. Free fill & sign PDF tool. No account or software needed.",
-    url: 'https://Freenoo/fill-sign',
+    url: 'https://freenoo.com/fill-sign',
     type: 'website',
   },
 };
