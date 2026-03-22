@@ -2358,19 +2358,7 @@ export default function HomePage() {
             </h1>
             <p className="text-base mb-8 max-w-xl" style={{ color: 'var(--text-muted)' }}>
               Freenoo offers 25+ professional PDF tools that are completely free to use. You can convert, edit, compress, merge, and e-sign PDFs easily, without any registration, watermarks, or usage limits.
-            </p>
-            <p className="text-base mb-4 max-w-xl" style={{ color: 'var(--text-muted)' }}>
-              <strong>Why choose Freenoo?</strong>
-            </p>
-            <ul className="text-base mb-6 max-w-xl list-disc pl-5" style={{ color: 'var(--text-muted)' }}>
-              <li>100% free forever — no trials, no credit card required</li>
-              <li>Privacy-first — your files are automatically deleted after 1 hour</li>
-              <li>No watermarks or page limits</li>
-              <li>Works on any device and any browser</li>
-            </ul>
-            <p className="text-base max-w-xl" style={{ color: 'var(--text-muted)' }}>
-              <strong>Popular Tools:</strong> PDF to Word, JPG to PDF, Merge PDF, Compress PDF, Fill & Sign
-            </p>
+            </p>           
             <div className="flex flex-wrap gap-3">
               <Link href="/merge" className="btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded text-sm font-medium text-white">
                 Get started
