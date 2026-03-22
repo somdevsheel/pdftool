@@ -50,7 +50,7 @@ export function welcomeEmailHtml(email: string): string {
             <tr>
               <td>
                 <div style="display:inline-flex;align-items:center;gap:10px;">
-                  <img src="https://freenoo.com.com/logo.png" alt="Freenoo" style="height:36px;width:auto;" />
+                  <img src="https://freenoo.com/logo.png" alt="Freenoo" style="height:36px;width:auto;" />
                 </div>
               </td>
             </tr>
@@ -94,7 +94,7 @@ export function welcomeEmailHtml(email: string): string {
 
         <!-- CTA -->
         <tr><td style="padding:0 40px 36px;">
-          <a href="${process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://freenoo.com.com'}"
+          <a href="${process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://freenoo.com'}"
             style="display:inline-block;background:#eb1000;color:#fff;font-size:15px;font-weight:700;padding:14px 32px;border-radius:10px;text-decoration:none;">
             Explore Freenoo →
           </a>
@@ -124,7 +124,7 @@ export function digestEmailHtml(
   articles: { title: string; summary: string; slug: string; tag: string; tagColor: string; imageUrl: string; contentType: string }[],
   emails: string[]
 ): string {
-  const frontendUrl = process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://freenoo.com.com';
+  const frontendUrl = process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://freenoo.com';
 
   const articleCards = articles.slice(0, 8).map(a => {
     const href = `${frontendUrl}/${a.contentType === 'blog' ? 'blog' : 'tech-news'}/${a.slug}`;
@@ -162,7 +162,7 @@ export function digestEmailHtml(
           <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
               <td>
-                <img src="https://freenoo.com.com/logo.png" alt="Freenoo" style="height:32px;width:auto;" />
+                <img src="https://freenoo.com/logo.png" alt="Freenoo" style="height:32px;width:auto;" />
                 <span style="margin-left:10px;font-size:12px;color:#444;font-weight:500;">Weekly Digest</span>
               </td>
               <td align="right" style="font-size:12px;color:#444;">
