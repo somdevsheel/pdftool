@@ -11,8 +11,8 @@ const BLOG_TAGS = [
   'Delete Pages', 'Extract Pages', 'Insert Pages', 'Reorder Pages', 'Crop PDF',
   'Number Pages', 'Protect PDF', 'Edit PDF',
   // Convert tools
-  'Convert PDF', 'PDF to Word', 'PDF to JPG', 'PDF to Excel', 'PDF to PPT',
-  'Word to PDF', 'JPG to PDF', 'Excel to PDF', 'PPT to PDF',
+  'Convert PDF', 'PDF to Word', 'PDF to Image', 'PDF to Excel', 'PDF to PPT',
+  'Word to PDF', 'Image to PDF', 'Excel to PDF', 'PPT to PDF',
   // Sign tools
   'Sign PDF', 'Fill & Sign', 'E-Sign',
   // Other

@@ -25,7 +25,7 @@ const relatedTools = [
   { href: '/ppt-to-pdf',   label: 'PPT to PDF',   desc: 'Convert PowerPoint presentations back to PDF' },
   { href: '/pdf-ocr',      label: 'PDF OCR',       desc: 'Make scanned PDFs searchable before converting' },
   { href: '/compress-pdf', label: 'Compress PDF',  desc: 'Reduce PDF size before extracting slides' },
-  { href: '/pdf-to-jpg',   label: 'PDF to JPG',    desc: 'Export PDF pages as images for presentations' },
+  { href: '/pdf-to-jpg',   label: 'PDF to Image',    desc: 'Export PDF pages as images for presentations' },
 ];
 
 const body = [

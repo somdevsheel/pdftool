@@ -75,7 +75,7 @@ export default function PdfToJpgToolPage() {
 
   return (
     <ToolLayout
-      title="PDF to JPG"
+      title="PDF to Image"
       tagline="Convert every PDF page to a JPG or PNG image."
       icon="🖼️"
       accentColor={accent}

@@ -3,7 +3,7 @@ import MergePage from '../merge/ToolPage';
 import { SeoContent } from '../../components/seo/SeoContent';
 import { JsonLd } from '../../components/seo/JsonLd';
 
-const TITLE       = 'Merge PDF Online — Combine Files in Your Browser';
+const TITLE       = 'Merge PDF Online — Merge pdf files in Your Browser';
 const DESCRIPTION = 'Merge PDF files online without installing software. Works in any browser. Free, private, no account needed.';
 const CANONICAL   = 'https://freenoo.com/merge-pdf-online';
 

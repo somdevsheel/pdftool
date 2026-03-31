@@ -9,7 +9,7 @@ import Image from 'next/image';
 export const metadata: Metadata = {
   title: 'Freenoo - Online PDF Tools Free | Convert, Edit, Sign PDFs',
   description:
-    'Every PDF tool in one place. Convert PDF to Word, JPG to PDF, merge, compress, e-sign—100% free, no watermarks, no login. From Bharat to the World.',
+    'Every PDF tool in one place. Convert PDF to Word, Image to PDF, merge, compress, e-sign—100% free, no watermarks, no login. From Bharat to the World.',
   alternates: { canonical: 'https://freenoo.com' },
   openGraph: {
     title: 'Freenoo — Free Online PDF',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 const EDIT_TOOLS = [
   {
     id: 'merge',
-    name: 'Combine files',
+    name: 'Merge PDFs',
     desc: 'Merge multiple PDF files into one document',
     route: '/merge-pdf',
     color: '#6B7FD7',
@@ -278,7 +278,7 @@ const CONVERT_TOOLS = [
   },
   {
     id: 'pdf-to-jpg',
-    name: 'PDF to JPG',
+    name: 'PDF to Image',
     desc: 'Convert PDFs to JPG or other image formats',
     route: '/pdf-to-jpg',
     color: '#C17EE8',
@@ -339,7 +339,7 @@ const CONVERT_TOOLS = [
   },
   {
     id: 'convert',
-    name: 'JPG to PDF',
+    name: 'Image to PDF',
     desc: 'Convert JPG, PNG, and other images to PDF',
     route: '/jpg-to-pdf',
     color: '#5BB8F5',

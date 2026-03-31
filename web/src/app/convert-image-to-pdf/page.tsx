@@ -38,7 +38,7 @@ const faqs = [
 ];
 
 const relatedTools = [
-  { href: '/jpg-to-pdf',    label: 'JPG to PDF',    desc: 'Convert JPEG images specifically' },
+  { href: '/jpg-to-pdf',    label: 'Image to PDF',    desc: 'Convert JPEG images specifically' },
   { href: '/compress-pdf',  label: 'Compress PDF',  desc: 'Reduce size of your converted PDF' },
   { href: '/merge-pdf',     label: 'Merge PDF',     desc: 'Add more pages to your image PDF' },
   { href: '/rotate-pdf',    label: 'Rotate PDF',    desc: 'Fix orientation after converting' },

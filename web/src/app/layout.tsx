@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 
   keywords: [
     'Freenoo', 'merge PDF', 'split PDF', 'compress PDF', 'rotate PDF',
-    'PDF editor', 'JPG to PDF', 'PDF to Word', 'PDF OCR', 'sign PDF',
+    'PDF editor', 'Image to PDF', 'PDF to Word', 'PDF OCR', 'sign PDF',
     'free Freenoo online',
   ],
 

@@ -9,7 +9,8 @@ export interface RelatedTool {
 export interface SeoContentProps {
   heading: string;
   /** Array of paragraph strings — target 250–400 words total. */
-  body: string[];
+  // body: string[];
+  body: (string | React.ReactNode)[];
   faqs: { q: string; a: string }[];
   relatedTools: RelatedTool[];
 }
