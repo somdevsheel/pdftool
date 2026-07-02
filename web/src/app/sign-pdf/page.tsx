@@ -92,8 +92,8 @@ const faqs = [
 
 const relatedTools = [
   { href: '/add-signature',        label: 'Add Signature',        desc: 'Create reusable signatures' },
-  { href: '/request-signature',    label: 'Request Signature',    desc: 'Get others to sign' },
-  { href: '/signature-templates',  label: 'Signature Templates',  desc: 'Use pre-made forms' },
+  { href: '/request-signatures',    label: 'Request Signature',    desc: 'Get others to sign' },
+  { href: '/esign-template',  label: 'Signature Templates',  desc: 'Use pre-made forms' },
 ];
 
 const body = [

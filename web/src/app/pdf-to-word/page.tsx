@@ -71,7 +71,7 @@ const faqs = [
 const relatedTools = [
   { href: '/word-to-pdf', label: 'Word to PDF', desc: 'reverse conversion' },
   { href: '/compress-pdf', label: 'Compress PDF', desc: 'reduce file size before converting' },
-  { href: '/fill-and-sign', label: 'Fill & Sign', desc: 'sign your converted documents' },
+  { href: '/sign-pdf', label: 'Fill & Sign', desc: 'sign your converted documents' },
 ];
 
 // Using Markdown (**) for bolding to satisfy the string[] type

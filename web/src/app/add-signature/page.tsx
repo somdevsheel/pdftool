@@ -96,7 +96,7 @@ const faqs = [
 
 const relatedTools = [
   { href: '/fill-sign',        label: 'Fill & Sign',        desc: 'Use saved signatures on PDFs' },
-  { href: '/request-signature', label: 'Request Signature', desc: 'Add your signature before sending' },
+  { href: '/request-signatures', label: 'Request Signature', desc: 'Add your signature before sending' },
   { href: '/edit-pdf',         label: 'Edit PDF',           desc: 'Place signatures with annotations' },
 ];
 
