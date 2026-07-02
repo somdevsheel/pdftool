@@ -5,7 +5,7 @@
 
 // const TITLE       = 'Request E-Signatures Online — Send PDF for Signing';
 // const DESCRIPTION = 'Send PDF documents to others for electronic signature online. Free e-signature request tool, no account needed.';
-// const CANONICAL   = 'https://freenoo.com/request-signatures';
+// const CANONICAL   = 'https://www.freenoo.com/request-signatures';
 
 // export const metadata: Metadata = {
 //   title: TITLE,
@@ -75,7 +75,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Request E-Signatures Online — Send PDF for Signing';
 const DESCRIPTION = 'Send PDF documents to others for electronic signature online. Free e-signature request tool, no account needed.';
-const CANONICAL   = 'https://freenoo.com/request-signatures';
+const CANONICAL   = 'https://www.freenoo.com/request-signatures';
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -5,7 +5,7 @@
 
 // const TITLE       = 'Merge PDF Files Online Free - Combine PDFs | Freenoo';
 // const DESCRIPTION = 'Merge multiple PDF files into one in seconds. Free PDF combiner with drag-drop reordering, no watermarks, unlimited pages.';
-// const CANONICAL   = 'https://freenoo.com/merge-pdf';
+// const CANONICAL   = 'https://www.freenoo.com/merge-pdf';
 
 // export const metadata: Metadata = {
 //   title: TITLE,
@@ -83,7 +83,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Merge PDF Files Online Free - Combine PDFs | Freenoo';
 const DESCRIPTION = 'Merge multiple PDF files into one in seconds. Free PDF combiner with drag-drop reordering, no watermarks, unlimited pages.';
-const CANONICAL   = 'https://freenoo.com/merge-pdf';
+const CANONICAL   = 'https://www.freenoo.com/merge-pdf';
 
 export const metadata: Metadata = {
   title: TITLE,

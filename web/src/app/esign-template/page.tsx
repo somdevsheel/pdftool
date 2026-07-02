@@ -5,7 +5,7 @@
 
 // const TITLE       = 'Create E-Sign Template — Reusable PDF Signature Form';
 // const DESCRIPTION = 'Create reusable e-signature templates for PDF documents. Save time on recurring signature workflows. Free.';
-// const CANONICAL   = 'https://freenoo.com/esign-template';
+// const CANONICAL   = 'https://www.freenoo.com/esign-template';
 
 // export const metadata: Metadata = {
 //   title: TITLE,
@@ -74,7 +74,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Create E-Sign Template — Reusable PDF Signature Form';
 const DESCRIPTION = 'Create reusable e-signature templates for PDF documents. Save time on recurring signature workflows. Free.';
-const CANONICAL   = 'https://freenoo.com/esign-template';
+const CANONICAL   = 'https://www.freenoo.com/esign-template';
 
 export const metadata: Metadata = {
   title: TITLE,

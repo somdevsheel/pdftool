@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Send PDF for Bulk Signing Online — Mass E-Signature';
 const DESCRIPTION = 'Send a PDF to multiple signatories at once. Bulk e-signature requests for PDF documents. Free, no account needed.';
-const CANONICAL   = 'https://freenoo.com/send-bulk';
+const CANONICAL   = 'https://www.freenoo.com/send-bulk';
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -3,7 +3,7 @@ import MergePage from './ToolPage';
 
 export const metadata: Metadata = {
   robots: { index: false, follow: true },
-  alternates: { canonical: 'https://freenoo.com/merge-pdf' },
+  alternates: { canonical: 'https://www.freenoo.com/merge-pdf' },
 };
 
 export default function Page() {

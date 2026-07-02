@@ -5,7 +5,7 @@
 
 // const TITLE       = 'Word to PDF Converter Online Free | DOC to PDF';
 // const DESCRIPTION = 'Convert Word documents to PDF online. Free DOC and DOCX to PDF converter. Preserves formatting, no signup.';
-// const CANONICAL   = 'https://freenoo.com/word-to-pdf';
+// const CANONICAL   = 'https://www.freenoo.com/word-to-pdf';
 
 // export const metadata: Metadata = {
 //   title: TITLE, description: DESCRIPTION,
@@ -52,7 +52,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Word to PDF Converter Online Free | DOC to PDF';
 const DESCRIPTION = 'Convert any Word document to a high-quality PDF in seconds with Freenoo. Our Word to PDF tool keeps your fonts, spacing, images, and page layout exactly as in the original DOC or DOCX file.';
-const CANONICAL   = 'https://freenoo.com/word-to-pdf';
+const CANONICAL   = 'https://www.freenoo.com/word-to-pdf';
 
 export const metadata: Metadata = {
   title: TITLE, description: DESCRIPTION,

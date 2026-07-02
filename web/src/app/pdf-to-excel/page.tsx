@@ -5,7 +5,7 @@
 
 // const TITLE       = "PDF to Excel Converter Online Free | PDF to XLS";
 // const DESCRIPTION = "Convert PDF tables to Excel spreadsheets online. Free PDF to XLSX converter. Extract data from PDF. No signup.";
-// const CANONICAL   = "https://freenoo.com/pdf-to-excel";
+// const CANONICAL   = "https://www.freenoo.com/pdf-to-excel";
 
 // export const metadata: Metadata = {
 //   title: TITLE,
@@ -55,7 +55,7 @@ import { JsonLd } from "../../components/seo/JsonLd";
 
 const TITLE       = "PDF to Excel Converter Online Free | PDF to XLS";
 const DESCRIPTION = "Freenoo extracts tables and data from PDFs into clean, editable Excel spreadsheets (.xlsx)—perfect for invoices, financial reports, and scanned documents. No software installation required.";
-const CANONICAL   = "https://freenoo.com/pdf-to-excel";
+const CANONICAL   = "https://www.freenoo.com/pdf-to-excel";
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -3,11 +3,11 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: "Export PDF Online — Download & Convert PDF Free",
   description: "Export and download PDF files in various formats. Free online PDF export tool, no account required.",
-  alternates: { canonical: 'https://freenoo.com/export-pdf' },
+  alternates: { canonical: 'https://www.freenoo.com/export-pdf' },
   openGraph: {
     title: "Export PDF Online — Download & Convert PDF Free",
     description: "Export and download PDF files in various formats. Free online PDF export tool, no account required.",
-    url: 'https://freenoo.com/export-pdf',
+    url: 'https://www.freenoo.com/export-pdf',
     type: 'website',
   },
 };

@@ -5,7 +5,7 @@
 
 // const TITLE       = 'Image to PDF Converter Online Free | PNG & TIFF Too';
 // const DESCRIPTION = 'Convert JPG, PNG, and TIFF images to PDF online. Free image to PDF converter, no account needed. Fast and secure.';
-// const CANONICAL   = 'https://freenoo.com/jpg-to-pdf';
+// const CANONICAL   = 'https://www.freenoo.com/jpg-to-pdf';
 
 // export const metadata: Metadata = {
 //   title: TITLE,
@@ -68,7 +68,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Image to PDF Converter Online Free | PNG & TIFF Too';
 const DESCRIPTION = 'Convert any JPG or JPEG image into a clean, shareable PDF in just a few clicks with Freenoo. Perfect for ID proofs, invoices, scanned notes, and photo collections.';
-const CANONICAL   = 'https://freenoo.com/jpg-to-pdf';
+const CANONICAL   = 'https://www.freenoo.com/jpg-to-pdf';
 
 export const metadata: Metadata = {
   title: TITLE,

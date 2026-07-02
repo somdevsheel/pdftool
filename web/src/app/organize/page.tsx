@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Organize PDF Pages Online Free — Rearrange & Sort';
 const DESCRIPTION = 'Organize, rearrange, and sort pages in a PDF online. Drag and drop to reorder pages. Free, no signup required.';
-const CANONICAL   = 'https://freenoo.com/organize-pages';
+const CANONICAL   = 'https://www.freenoo.com/organize-pages';
 
 export const metadata: Metadata = {
   title: TITLE,

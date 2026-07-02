@@ -10,11 +10,11 @@ export const metadata: Metadata = {
   title: 'Freenoo - Online PDF Tools Free | Convert, Edit, Sign PDFs',
   description:
     'Every PDF tool in one place. Convert PDF to Word, Image to PDF, merge, compress, e-sign—100% free, no watermarks, no login. From Bharat to the World.',
-  alternates: { canonical: 'https://freenoo.com' },
+  alternates: { canonical: 'https://www.freenoo.com' },
   openGraph: {
     title: 'Freenoo — Free Online PDF',
     description: 'Merge, split, compress, rotate, convert and sign PDFs online for free. No signup required.',
-    url: 'https://freenoo.com',
+    url: 'https://www.freenoo.com',
     type: 'website',
   },
 };

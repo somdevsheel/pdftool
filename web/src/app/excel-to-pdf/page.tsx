@@ -5,7 +5,7 @@
 
 // const TITLE       = 'Excel to PDF Converter Online Free | XLS to PDF';
 // const DESCRIPTION = 'Convert Excel spreadsheets to PDF online. Free XLS and XLSX to PDF converter. Preserves tables and formatting. No signup.';
-// const CANONICAL   = 'https://freenoo.com/excel-to-pdf';
+// const CANONICAL   = 'https://www.freenoo.com/excel-to-pdf';
 
 // export const metadata: Metadata = {
 //   title: TITLE, description: DESCRIPTION,
@@ -53,7 +53,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'Excel to PDF Converter Online Free | XLS to PDF';
 const DESCRIPTION = 'Convert Excel spreadsheets to professional PDFs online free with Freenoo—no formatting issues, works with formulas and charts perfectly.';
-const CANONICAL   = 'https://freenoo.com/excel-to-pdf';
+const CANONICAL   = 'https://www.freenoo.com/excel-to-pdf';
 
 export const metadata: Metadata = {
   title: TITLE, description: DESCRIPTION,

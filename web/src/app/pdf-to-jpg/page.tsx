@@ -5,7 +5,7 @@
 
 // const TITLE       = 'PDF to Image Converter Online Free — PDF to Image';
 // const DESCRIPTION = 'Convert PDF pages to JPG images online. Each page becomes a separate JPG. Free, high quality, no signup.';
-// const CANONICAL   = 'https://freenoo.com/pdf-to-jpg';
+// const CANONICAL   = 'https://www.freenoo.com/pdf-to-jpg';
 
 // export const metadata: Metadata = {
 //   title: TITLE,
@@ -53,7 +53,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'PDF to Image Converter Online Free — PDF to Image';
 const DESCRIPTION = 'Turn any PDF into clear JPG images in seconds with Freenoo. Convert single pages or entire documents to high-quality images you can share, edit, or upload anywhere.';
-const CANONICAL   = 'https://freenoo.com/pdf-to-jpg';
+const CANONICAL   = 'https://www.freenoo.com/pdf-to-jpg';
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -5,7 +5,7 @@ import { JsonLd } from '../../components/seo/JsonLd';
 
 const TITLE       = 'PDF Compressor Online — Shrink PDF Files Free';
 const DESCRIPTION = 'Online PDF compressor with three quality settings. Shrink PDF files for email, web upload, or storage. Free.';
-const CANONICAL   = 'https://freenoo.com/pdf-compressor';
+const CANONICAL   = 'https://www.freenoo.com/pdf-compressor';
 
 export const metadata: Metadata = {
   title: TITLE,

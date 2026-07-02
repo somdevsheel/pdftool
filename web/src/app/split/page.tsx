@@ -3,7 +3,7 @@ import SplitPage from './ToolPage';
 
 export const metadata: Metadata = {
   robots: { index: false, follow: true },
-  alternates: { canonical: 'https://freenoo.com/split-pdf' },
+  alternates: { canonical: 'https://www.freenoo.com/split-pdf' },
 };
 
 export default function Page() {
