@@ -1,14 +1,14 @@
-// import type { Metadata } from 'next';
-// import EditPage from './ToolPage';
+import type { Metadata } from 'next';
+import EditPage from './ToolPage';
 
-// export const metadata: Metadata = {
-//   robots: { index: false, follow: true },
-//   alternates: { canonical: 'https://www.freenoo.com/edit-pdf' },
-// };
+export const metadata: Metadata = {
+  robots: { index: false, follow: true },
+  alternates: { canonical: 'https://www.freenoo.com/edit-pdf' },
+};
 
-// export default function Page() {
-//   return <EditPage />;
-// }
+export default function Page() {
+  return <EditPage />;
+}
 
 
 
