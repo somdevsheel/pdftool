@@ -6,7 +6,13 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { DocumentsService, FileRecord } from '../documents/documents.service';
-import { generateFileId, buildFilePath, ensureDirectoryExists } from '../../common/utils/file.util';
+import {
+  generateFileId,
+  buildFilePath,
+  ensureDirectoryExists,
+  isPdfStructurallyComplete,
+  deleteFile,
+} from '../../common/utils/file.util';
 import { ALLOWED_MIME_TYPES } from '../../common/constants';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -47,6 +53,17 @@ export class UploadService {
     // fs.renameSync fails when /tmp and storage are on different partitions/drives.
     fs.copyFileSync(file.path, destPath);
     try { fs.unlinkSync(file.path); } catch { /* ignore cleanup failure */ }
+
+    // A flaky mobile connection can drop mid-upload; Multer still reports a clean
+    // "finish" for whatever bytes arrived, so this is the only place that catches it —
+    // otherwise the truncated file sits silently until a later job fails on it with a
+    // cryptic qpdf error.
+    if (file.mimetype === 'application/pdf' && !isPdfStructurallyComplete(destPath)) {
+      deleteFile(destPath);
+      throw new BadRequestException(
+        'This PDF looks incomplete, likely cut off during upload. Please check your connection and try again.',
+      );
+    }
 
     const record = this.documentsService.registerFile({
       id: fileId,

@@ -3,8 +3,34 @@ node_modules
 dist
 .env
 .env.local
+.env.*
 storage/uploads
 storage/output
 storage/processing
 *.zip
 LightsailDefaultKey-ap-south-1.pem
+
+# Expo cache — android/ and ios/ build artifacts, .gradle, local.properties,
+# Pods, and Xcode cruft are already handled by the nested .gitignore files Expo
+# generates inside freenoo-app/android and freenoo-app/ios themselves.
+.expo
+.expo-shared
+
+# Signing material / secrets — bare filename patterns so they're caught no matter
+# which package's android/ios folder they end up in. debug.keystore is the
+# well-known, harmless stock Android SDK debug cert and is fine to commit; any
+# *real* release/upload keystore must never be.
+keystore.properties
+*.keystore
+!debug.keystore
+*.jks
+*.p12
+*.mobileprovision
+
+# Build outputs
+*.apk
+*.aab
+
+# OS / editor cruft
+.DS_Store
+*.log

@@ -57,7 +57,7 @@ export default function MobileHeader() {
     >
       {/* <div className="max-w-7xl mx-auto px-6 py-0 flex items-center justify-between"> */}
       {/* <div className="max-w-5xl mx-auto px-6 py-1 flex items-center justify-between">   */}
-      <div className="max-w-7xl mx-auto px-6 py-1 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
 
         {/* Logo */}

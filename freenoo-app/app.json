@@ -1,0 +1,73 @@
+{
+  "expo": {
+    "name": "FreeNoo",
+    "slug": "freenoo",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0B0B0F"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.freenoo.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0B0B0F"
+      },
+      "package": "com.freenoo.app",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "category": ["DEFAULT", "BROWSABLE"],
+          "data": [{ "mimeType": "application/pdf" }]
+        }
+      ],
+      "permissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
+    },
+    "plugins": [
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow FreeNoo to save files to your device.",
+          "savePhotosPermission": "Allow FreeNoo to save files to your device."
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow FreeNoo to access your camera for scanning."
+        }
+      ],
+      "expo-asset",
+      "expo-font",
+      [
+        "react-native-document-scanner-plugin",
+        {
+          "cameraPermission": "Allow FreeNoo to access your camera for scanning."
+        }
+      ],
+      "@config-plugins/react-native-pdf"
+    ],
+    "scheme": "freenoo",
+    "extra": {
+      "eas": {
+        "projectId": "eb451299-a9a9-4801-9870-eeccc1057a42"
+      }
+    }
+  }
+}

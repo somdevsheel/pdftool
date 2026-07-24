@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useInfiniteNews } from '@/hooks/useInfiniteNews';
 import { FeaturedCard, NewsCard, SkeletonCard } from '@/components/news/NewsCard';
 import AdPlaceholder from '@/components/news/AdPlaceholder';
@@ -9,6 +8,7 @@ import { TopAd } from '@/components/ads/TopAd';
 import { BottomAd } from '@/components/ads/BottomAd';
 import { SidebarAd } from '@/components/ads/SidebarAd';
 import SubscribeSidebar from '@/components/subscribe/SubscribeSidebar';
+import MobileHeader from '@/components/MobileHeader';
 
 
 const CATEGORIES = ['All', 'AI', 'Security', 'Cloud', 'Tools', 'Web', 'Mobile', 'Open Source', 'Startups'];
@@ -41,37 +41,7 @@ export default function TechNewsPage() {
       <TopAd />
 
       {/* Header */}
-      <header className="sticky top-0 z-20 backdrop-blur-sm"
-        style={{ background: 'rgba(28,28,28,0.92)', borderBottom: '1px solid var(--border)' }}>
-        <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
-            {/* <div className="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-lg text-white"
-              style={{ background: 'var(--accent)' }}>F</div>
-            <span className="font-bold text-lg tracking-tight" style={{ color: 'var(--text)' }}>
-              <Image src="/logo.png" alt="Freenoo" width={100} height={30} style={{ height: '30px', width: 'auto' }} />
-            </span> */}
-
-            <Image
-              src="/logo.png"
-              alt="Freenoo"
-              width={120}
-              height={36}
-              style={{ height: '86px', width: 'auto' }}
-            />
-
-
-          </Link>
-          <nav className="hidden md:flex items-center gap-1 text-sm">
-            {[['Edit', '/#edit'], ['Convert', '/#convert'], ['E-Sign', '/#esign'], ['Tech News', '/tech-news']].map(([label, href]) => (
-              <a key={href} href={href}
-                className="nav-link px-4 py-2 rounded text-sm transition-all duration-150"
-                style={label === 'Tech News' ? { color: 'var(--accent)' } : {}}>
-                {label}
-              </a>
-            ))}
-          </nav>
-        </div>
-      </header>
+      <MobileHeader />
 
       {/* Hero */}
       <div style={{ background: 'var(--surface)', borderBottom: '1px solid var(--border)' }}>
