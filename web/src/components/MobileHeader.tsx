@@ -62,7 +62,7 @@ export default function MobileHeader() {
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3" style={{ textDecoration: 'none' }}>
-          <img src="/logo.png" alt="Freenoo" style={{ height: '66px', width: 'auto' }} />
+          <img src="/logo.png" alt="Freenoo" style={{ height: '40px', width: 'auto' }} />
         </Link>
 
         {/* Desktop nav */}
