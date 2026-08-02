@@ -595,6 +595,41 @@ export default function HomePage() {
             </div>
           ))}
         </div>
+
+        {/* Mobile app */}
+        <div
+          className="mt-10 pt-10 flex flex-col sm:flex-row items-center justify-between gap-8"
+          style={{ borderTop: '1px solid var(--border)' }}
+        >
+          <div className="max-w-md text-center sm:text-left">
+            <h3 className="font-bold text-lg mb-2" style={{ color: 'var(--text)' }}>
+              Take Freenoo with you
+            </h3>
+            <p className="text-sm mb-4" style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>
+              Our Android app is now live on the Indus Appstore — scan, merge, split, and convert PDFs on the go.
+            </p>
+            <a href="https://indusapp.store/w4qowwp6" target="_blank" rel="noopener noreferrer">
+              <img
+                alt="Get it on Indus Appstore"
+                src="https://docstore.indusappstore.com/public/external/developerdashboard-static/badge-black-background-english.png"
+                style={{ height: '48px', width: 'auto' }}
+              />
+            </a>
+          </div>
+          <a
+            href="https://indusapp.store/w4qowwp6"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-shrink-0"
+          >
+            <img
+              src="/indus-qr.svg"
+              alt="Scan to download the Freenoo app from the Indus Appstore"
+              width={140}
+              height={140}
+            />
+          </a>
+        </div>
       </main>
 
       <BottomAd />
