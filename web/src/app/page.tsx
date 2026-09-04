@@ -606,15 +606,28 @@ export default function HomePage() {
               Take Freenoo with you
             </h3>
             <p className="text-sm mb-4" style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>
-              Our Android app is now live on the Indus Appstore — scan, merge, split, and convert PDFs on the go.
+              Our Android app is now live on Google Play and the Indus Appstore — scan, merge, split, and convert PDFs on the go.
             </p>
-            <a href="https://indusapp.store/w4qowwp6" target="_blank" rel="noopener noreferrer">
-              <img
-                alt="Get it on Indus Appstore"
-                src="https://docstore.indusappstore.com/public/external/developerdashboard-static/badge-black-background-english.png"
-                style={{ height: '48px', width: 'auto' }}
-              />
-            </a>
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href="https://play.google.com/store/apps/details?id=com.freenoo.app&pcampaignid=web_share"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  alt="Get it on Google Play"
+                  src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+                  style={{ height: '48px', width: 'auto' }}
+                />
+              </a>
+              <a href="https://indusapp.store/w4qowwp6" target="_blank" rel="noopener noreferrer">
+                <img
+                  alt="Get it on Indus Appstore"
+                  src="https://docstore.indusappstore.com/public/external/developerdashboard-static/badge-black-background-english.png"
+                  style={{ height: '48px', width: 'auto' }}
+                />
+              </a>
+            </div>
           </div>
           <a
             href="https://indusapp.store/w4qowwp6"
