@@ -1,6 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StyleSheet } from 'react-native';
 import { Navigation } from './src/navigation';
 import { ProcessingOverlay } from './src/components/common/ProcessingOverlay';
@@ -11,12 +12,14 @@ export default function App() {
   const theme = useTheme();
 
   return (
-    <GestureHandlerRootView style={[styles.root, { backgroundColor: theme.bg }]}>
-      <StatusBar style={theme.mode === 'dark' ? 'light' : 'dark'} backgroundColor={theme.bg} />
-      <Navigation />
-      <ProcessingOverlay />
-      <Toast />
-    </GestureHandlerRootView>
+    <SafeAreaProvider>
+      <GestureHandlerRootView style={[styles.root, { backgroundColor: theme.bg }]}>
+        <StatusBar style={theme.mode === 'dark' ? 'light' : 'dark'} />
+        <Navigation />
+        <ProcessingOverlay />
+        <Toast />
+      </GestureHandlerRootView>
+    </SafeAreaProvider>
   );
 }
 

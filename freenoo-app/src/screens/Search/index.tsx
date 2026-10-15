@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../../theme/useTheme';
 import { Theme } from '../../theme';
 import { Icon } from '../../components/common/Icon';
@@ -17,6 +18,7 @@ type ResultRow =
 export function SearchScreen({ navigation }: Props) {
   const theme = useTheme();
   const styles = makeStyles(theme);
+  const insets = useSafeAreaInsets();
   const showToast = useAppStore(s => s.showToast);
   const [query, setQuery] = useState('');
   const [files, setFiles] = useState<LocalFile[]>([]);
@@ -54,7 +56,7 @@ export function SearchScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <View style={[styles.header, { paddingTop: Math.max(48, insets.top + 12) }]}>
         <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()} activeOpacity={0.7}>
           <Icon name="arrow-back" size={20} color={theme.text} />
         </TouchableOpacity>

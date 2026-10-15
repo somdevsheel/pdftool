@@ -60,7 +60,7 @@ export function ProcessingOverlay() {
 function makeStyles(theme: Theme) {
   return StyleSheet.create({
     overlay: {
-      ...StyleSheet.absoluteFillObject, zIndex: 9999,
+      ...StyleSheet.absoluteFill, zIndex: 9999,
       backgroundColor: 'rgba(0,0,0,0.85)', alignItems: 'center', justifyContent: 'center',
     },
     card: {

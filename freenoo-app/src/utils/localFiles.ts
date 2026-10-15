@@ -1,4 +1,4 @@
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system/legacy';
 import * as IntentLauncher from 'expo-intent-launcher';
 import { Platform } from 'react-native';
 
@@ -57,7 +57,7 @@ export async function listLocalFiles(): Promise<LocalFile[]> {
   const names = await FileSystem.readDirectoryAsync(DIR);
   const files: LocalFile[] = [];
   for (const name of names) {
-    const info = await FileSystem.getInfoAsync(DIR + name, { size: true });
+    const info = await FileSystem.getInfoAsync(DIR + name);
     if (info.exists && !info.isDirectory) {
       files.push({ uri: info.uri, name, size: info.size || 0, modifiedAt: info.modificationTime || 0 });
     }

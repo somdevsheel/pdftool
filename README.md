@@ -65,5 +65,5 @@ brew install redis qpdf ghostscript imagemagick
 ```
 git add .                                     
 git commit -m "fix: replace hardcoded localhost with production API URL"
-git push
+git push origin main
 ```

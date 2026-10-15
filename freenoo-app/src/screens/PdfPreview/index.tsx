@@ -3,7 +3,8 @@ import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, Modal, Tex
 import Pdf, { PdfRef } from 'react-native-pdf';
 import * as Sharing from 'expo-sharing';
 import * as Print from 'expo-print';
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system/legacy';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../../theme/useTheme';
 import { Theme } from '../../theme';
 import { Icon } from '../../components/common/Icon';
@@ -37,6 +38,7 @@ export function PdfPreviewScreen({ navigation, route }: Props) {
   const { uri, fileName } = route.params;
   const theme = useTheme();
   const styles = makeStyles(theme);
+  const insets = useSafeAreaInsets();
   const showToast = useAppStore(s => s.showToast);
   const pdfRef = useRef<PdfRef>(null);
 
@@ -146,7 +148,7 @@ export function PdfPreviewScreen({ navigation, route }: Props) {
   return (
     <View style={styles.container}>
       {!fullscreen && (
-        <View style={styles.header}>
+        <View style={[styles.header, { paddingTop: Math.max(48, insets.top + 12) }]}>
           <TouchableOpacity style={styles.iconBtn} onPress={() => navigation.goBack()} activeOpacity={0.7}>
             <Icon name="arrow-back" size={20} color={theme.text} />
           </TouchableOpacity>
@@ -249,7 +251,7 @@ export function PdfPreviewScreen({ navigation, route }: Props) {
       {/* More options — share, download, zoom, layout, quick tools */}
       <Modal visible={menuVisible} transparent animationType="fade" onRequestClose={() => setMenuVisible(false)}>
         <TouchableOpacity style={styles.sheetOverlay} activeOpacity={1} onPress={() => setMenuVisible(false)}>
-          <TouchableOpacity style={styles.sheet} activeOpacity={1}>
+          <TouchableOpacity style={[styles.sheet, { paddingBottom: Math.max(32, insets.bottom + 16) }]} activeOpacity={1}>
             <View style={styles.sheetHandle} />
 
             <TouchableOpacity style={styles.sheetRow} onPress={handleShare} activeOpacity={0.7}>

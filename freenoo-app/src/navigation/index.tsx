@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, TouchableOpacity, StyleSheet, Animated, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../theme/useTheme';
 import { Theme } from '../theme';
 import { ensurePreviewableUri } from '../utils/localFiles';
@@ -32,9 +33,11 @@ const TAB_ITEMS = [
 function TabBar({ state, descriptors, navigation }: any) {
   const theme = useTheme();
   const styles = makeTabBarStyles(theme);
+  // Android 15+ is edge-to-edge, so the system nav bar now overlaps the tab bar.
+  const insets = useSafeAreaInsets();
 
   return (
-    <View style={styles.tabBar}>
+    <View style={[styles.tabBar, { paddingBottom: insets.bottom + 20 }]}>
       {state.routes.map((route: any, index: number) => {
         const isFocused = state.index === index;
         const item = TAB_ITEMS[index];

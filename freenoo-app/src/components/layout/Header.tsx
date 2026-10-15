@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, StatusBar, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../../theme/useTheme';
 import { Theme } from '../../theme';
 
@@ -17,10 +18,11 @@ interface Props {
 export function Header({ title, showSearch = true, showMenu = true, onSearch, onMenu }: Props) {
   const theme = useTheme();
   const styles = makeStyles(theme);
+  const insets = useSafeAreaInsets();
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle={theme.mode === 'dark' ? 'light-content' : 'dark-content'} backgroundColor={theme.bg} />
+    <View style={[styles.container, { paddingTop: Math.max(48, insets.top + 12) }]}>
+      <StatusBar barStyle={theme.mode === 'dark' ? 'light-content' : 'dark-content'} />
       <View style={styles.left}>
         <Image source={LOGO} style={styles.logo} resizeMode="contain" />
         {title && <Text style={styles.title}>{title}</Text>}

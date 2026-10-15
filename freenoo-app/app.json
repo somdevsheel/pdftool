@@ -7,11 +7,6 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#0B0B0F"
-    },
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.freenoo.app"
@@ -25,13 +20,26 @@
       "intentFilters": [
         {
           "action": "VIEW",
-          "category": ["DEFAULT", "BROWSABLE"],
-          "data": [{ "mimeType": "application/pdf" }]
+          "category": [
+            "DEFAULT",
+            "BROWSABLE"
+          ],
+          "data": [
+            {
+              "mimeType": "application/pdf"
+            }
+          ]
         }
       ],
       "permissions": [
         "CAMERA",
         "android.permission.CAMERA"
+      ],
+      "versionCode": 3,
+      "blockedPermissions": [
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
       ]
     },
     "plugins": [
@@ -43,7 +51,16 @@
           "cameraPermission": "Allow FreeNoo to access your camera for scanning."
         }
       ],
-      "@config-plugins/react-native-pdf"
+      "@config-plugins/react-native-pdf",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#0B0B0F",
+          "imageWidth": 200
+        }
+      ]
     ],
     "scheme": "freenoo",
     "extra": {

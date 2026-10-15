@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert, Image, Platform, PermissionsAndroid } from 'react-native';
 import DocumentScanner, { ScanDocumentResponseStatus } from 'react-native-document-scanner-plugin';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../../theme/useTheme';
 import { Theme } from '../../theme';
 import { uploadFile } from '../../api/services/upload.service';
@@ -13,6 +14,7 @@ import { Icon } from '../../components/common/Icon';
 export function ScannerScreen({ navigation }: any) {
   const theme = useTheme();
   const styles = makeStyles(theme);
+  const insets = useSafeAreaInsets();
   const { setProcessing, showToast } = useAppStore();
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
   const [scannedImages, setScannedImages] = useState<string[]>([]);
@@ -74,7 +76,7 @@ export function ScannerScreen({ navigation }: any) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <View style={[styles.header, { paddingTop: Math.max(52, insets.top + 16) }]}>
         <Text style={styles.headerTitle}>Scanner</Text>
         <Text style={styles.headerSub}>Scan and convert to PDF</Text>
       </View>

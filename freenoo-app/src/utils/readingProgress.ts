@@ -1,4 +1,4 @@
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system/legacy';
 
 // Keyed by file uri, so it only survives across reopens for files with a stable path
 // (i.e. anything already saved under FreeNoo's own storage) — a freshly-picked or
