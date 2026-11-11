@@ -2,56 +2,6 @@
  * news-admin/src/app/api/automation/run/route.ts
  *
  * POST /api/automation/run
- * Manually triggers a news automation run from the admin dashboard.
- * Protected — admin/editor only.
- */
-
-// import { NextResponse } from 'next/server';
-// import { getAuthUser } from '@/lib/auth';
-// import { runNewsAutomation } from '@/services/newsAutomation/newsAutomation';
-
-// // Track running state to prevent concurrent runs
-// let isRunning = false;
-
-// export async function POST() {
-//   const user = await getAuthUser();
-//   if (!user) {
-//     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-//   }
-
-//   if (isRunning) {
-//     return NextResponse.json(
-//       { error: 'Automation is already running. Please wait.' },
-//       { status: 409 }
-//     );
-//   }
-
-//   // Fire and forget — don't await so the HTTP response returns immediately
-//   isRunning = true;
-//   runNewsAutomation()
-//     .catch(err => console.error('[AUTOMATION API] Run failed:', err))
-//     .finally(() => { isRunning = false; });
-
-//   return NextResponse.json({
-//     success: true,
-//     message: 'News automation started. Articles will appear within 1–2 minutes.',
-//     startedAt: new Date().toISOString(),
-//   });
-// }
-
-// export async function GET() {
-//   const user = await getAuthUser();
-//   if (!user) {
-//     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-//   }
-//   return NextResponse.json({ isRunning });
-// }
-
-
-/**
- * news-admin/src/app/api/automation/run/route.ts
- *
- * POST /api/automation/run
  * Triggered either by:
  *   1. Admin user from dashboard (cookie auth)
  *   2. Server cron job via secret token:
@@ -63,17 +13,14 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuthUser } from '@/lib/auth';
+import { safeEqual } from '@/lib/security';
 import { runNewsAutomation } from '@/services/newsAutomation/newsAutomation';
 
 let isRunning = false;
 
 function isCronRequest(req: NextRequest): boolean {
-  const secret = process.env.CRON_SECRET;
-  if (!secret) return false;
-  // Accept secret via header or query param
-  const headerSecret = req.headers.get('x-cron-secret');
-  const querySecret  = req.nextUrl.searchParams.get('secret');
-  return headerSecret === secret || querySecret === secret;
+  // Header only: a secret in the query string ends up in access logs and browser history.
+  return safeEqual(req.headers.get('x-cron-secret'), process.env.CRON_SECRET);
 }
 
 export async function POST(req: NextRequest) {

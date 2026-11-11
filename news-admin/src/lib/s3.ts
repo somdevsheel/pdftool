@@ -1,6 +1,6 @@
 import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { v4 as uuidv4 } from 'uuid';
+import { randomUUID } from 'crypto';
 
 const s3 = new S3Client({
   region: process.env.AWS_REGION!,
@@ -19,7 +19,7 @@ const CF_DOMAIN = process.env.CLOUDFRONT_DOMAIN!;
 
 export async function getPresignedUploadUrl(fileType: string, folder = 'news') {
   const ext = fileType.split('/')[1]?.replace('jpeg', 'jpg') || 'jpg';
-  const key = `${folder}/${uuidv4()}.${ext}`;
+  const key = `${folder}/${randomUUID()}.${ext}`;
 
   const command = new PutObjectCommand({
     Bucket: BUCKET,

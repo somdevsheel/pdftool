@@ -37,9 +37,12 @@ async function bootstrap() {
   }
 
   // Start cleanup scheduler
-  const cleanupService = new CleanupService([processingDir, outputDir], 60);
-  cleanupService.startInterval();
-  console.log('\n🧹 Cleanup scheduler started (every 60 min)');
+  // Same expiry as the API, checked every 10 minutes so files don't outlive the
+  // "deleted after about 1 hour" promise on the website.
+  const expiryMinutes = parseInt(process.env.FILE_EXPIRY_MINUTES || '60', 10);
+  const cleanupService = new CleanupService([processingDir, outputDir], expiryMinutes);
+  cleanupService.startInterval(10 * 60 * 1000);
+  console.log(`\n🧹 Cleanup scheduler started (files older than ${expiryMinutes} min, checked every 10 min)`);
 
   // Start worker
   const worker = createWorker(

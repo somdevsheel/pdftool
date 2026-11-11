@@ -96,7 +96,7 @@ export default function CompressPage() {
   return (
     <ToolLayout toolTag="Compress PDF"
       title="Compress PDF"
-      tagline="Reduce PDF file size using Ghostscript. Choose your quality level."
+      tagline="Make your PDF smaller while keeping text sharp. Choose how much to compress."
       icon="🗜️"
       accentColor="var(--accent-gold)"
     >
@@ -167,7 +167,7 @@ export default function CompressPage() {
         <div className="py-12 max-w-md mx-auto">
           <ProgressBar job={job} />
           <p className="text-sm text-center text-ink-muted mt-4">
-            Compressing with Ghostscript ({quality} quality)…
+            Compressing your PDF ({quality} quality)…
           </p>
         </div>
       )}

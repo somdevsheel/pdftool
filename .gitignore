@@ -7,6 +7,9 @@ dist
 storage/uploads
 storage/output
 storage/processing
+# Never commit documents produced by running the tools locally
+worker/**/*.pdf
+api/**/*.pdf
 *.zip
 LightsailDefaultKey-ap-south-1.pem
 

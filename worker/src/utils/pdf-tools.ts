@@ -1,18 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { exec } from 'child_process';
-import { promisify } from 'util';
-
-const execAsync = promisify(exec);
-
-async function run(cmd: string, timeoutMs = 120_000): Promise<{ stdout: string; stderr: string }> {
-  try {
-    return await execAsync(cmd, { timeout: timeoutMs });
-  } catch (err: any) {
-    if (err.code === 3) return { stdout: err.stdout || '', stderr: err.stderr || '' };
-    throw new Error((err.stderr || err.stdout || err.message || 'Command failed').trim());
-  }
-}
+import { runCommand } from './exec.util';
+import { toNumber } from './validate.util';
 
 /* ─────────────────────────────────────────────────────────────────────────────
    applyPdfEdits()
@@ -31,7 +20,7 @@ export interface PdfEditInstruction {
 }
 
 function hexToRgbFloat(hex: string): [number, number, number] {
-  const h = hex.replace('#', '');
+  const h = /^#?[0-9a-fA-F]{6}$/.test(hex || '') ? hex.replace('#', '') : '000000';
   return [
     parseInt(h.slice(0, 2), 16) / 255,
     parseInt(h.slice(2, 4), 16) / 255,
@@ -52,18 +41,20 @@ export async function applyPdfEdits(
     const jsLines: string[] = [`var doc = Document.openDocument(${JSON.stringify(inputPath)});`];
 
     for (const ins of instructions) {
-      if (!ins.content?.trim()) continue;
-      const pageIdx = (ins.page || 1) - 1;
-      const fs_ = ins.fontSize || 12;
+      if (typeof ins?.content !== 'string' || !ins.content.trim()) continue;
+      // Only clamped numbers and JSON-encoded strings go into the MuPDF script.
+      const pageIdx = Math.floor(toNumber(ins.page, 1, 1, 100_000)) - 1;
+      const fs_ = toNumber(ins.fontSize, 12, 4, 200);
+      const x = toNumber(ins.x, 0, -10_000, 10_000);
+      const y = toNumber(ins.y, 0, -10_000, 10_000);
       const [r, g, b] = hexToRgbFloat(ins.color || '#000000');
-      const txt = ins.content.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 
       jsLines.push(`
 (function() {
   var page = doc.loadPage(${pageIdx});
   var annot = page.createAnnotation("FreeText");
-  annot.setRect([${ins.x}, ${ins.y - fs_}, ${ins.x + txt.length * fs_ * 0.6 + 8}, ${ins.y + 4}]);
-  annot.setContents("${txt}");
+  annot.setRect([${x}, ${y - fs_}, ${x + ins.content.length * fs_ * 0.6 + 8}, ${y + 4}]);
+  annot.setContents(${JSON.stringify(ins.content)});
   annot.setDefaultAppearance("Helv ${fs_} Tf ${r.toFixed(3)} ${g.toFixed(3)} ${b.toFixed(3)} rg");
   annot.update();
 })();`);
@@ -76,7 +67,7 @@ export async function applyPdfEdits(
     fs.writeFileSync(jsFile, jsLines.join('\n'));
 
     try {
-      await run(`mutool run "${jsFile}"`);
+      await runCommand('mutool', ['run', jsFile]);
       if (!fs.existsSync(outputPath)) throw new Error('mutool produced no output');
       return;
     } catch (mutoolErr: any) {
@@ -131,7 +122,7 @@ export async function convertPdfToDocx(
     const htmlOut = path.join(workDir, 'output.html');
     console.log('[convertPdfToDocx] Step 1: mutool convert PDF → HTML');
     try {
-      await run(`mutool convert -o "${htmlOut}" "${inputPath}"`);
+      await runCommand('mutool', ['convert', '-o', htmlOut, inputPath]);
     } catch (e: any) {
       // mutool may produce numbered files like output001.html
       console.warn(`[convertPdfToDocx] mutool direct failed: ${e.message}, trying wildcard`);
@@ -142,7 +133,7 @@ export async function convertPdfToDocx(
     if (!htmlFile) {
       // Last resort: try LibreOffice direct PDF→DOCX (writer_pdf_import)
       console.warn('[convertPdfToDocx] No HTML from mutool, falling back to LibreOffice direct');
-      await run(`soffice --headless --infilter="writer_pdf_import" --convert-to docx --outdir "${workDir}" "${inputPath}"`);
+      await runCommand('soffice', ['--headless', '--infilter=writer_pdf_import', '--convert-to', 'docx', '--outdir', workDir, inputPath], 300_000);
       const docxFallback = fs.readdirSync(workDir).find(f => f.endsWith('.docx'));
       if (!docxFallback) throw new Error('All PDF→DOCX conversion methods failed');
       const finalPath = outputPath + '.docx';
@@ -153,7 +144,7 @@ export async function convertPdfToDocx(
     // Step 2 — HTML → DOCX via LibreOffice
     const htmlFullPath = path.join(workDir, htmlFile);
     console.log(`[convertPdfToDocx] Step 2: LibreOffice HTML → DOCX (${htmlFile})`);
-    await run(`soffice --headless --convert-to docx --outdir "${workDir}" "${htmlFullPath}"`);
+    await runCommand('soffice', ['--headless', '--convert-to', 'docx', '--outdir', workDir, htmlFullPath], 300_000);
 
     const docxFile = fs.readdirSync(workDir).find(f => f.endsWith('.docx'));
     if (!docxFile) throw new Error('LibreOffice produced no DOCX output');
@@ -187,7 +178,7 @@ export async function performOcr(
     // Step 1 — PDF → images via ImageMagick
     console.log('[performOcr] Step 1: ImageMagick PDF → PNG pages');
     const imgPattern = path.join(workDir, 'page-%04d.png');
-    await run(`convert -density 300 -quality 100 "${inputPath}" "${imgPattern}"`);
+    await runCommand('convert', ['-density', '300', '-quality', '100', inputPath, imgPattern], 300_000);
 
     const images = fs.readdirSync(workDir)
       .filter(f => f.match(/^page-\d+\.png$/))
@@ -203,7 +194,8 @@ export async function performOcr(
       const imgPath = images[i];
       const outBase = path.join(workDir, `ocr-${i}`);
       console.log(`[performOcr] OCR page ${i + 1}/${images.length}`);
-      await run(`tesseract "${imgPath}" "${outBase}" -l ${language} txt`);
+      const lang = /^[a-z_]{3,8}(\+[a-z_]{3,8})*$/i.test(language) ? language : 'eng';
+      await runCommand('tesseract', [imgPath, outBase, '-l', lang, 'txt']);
       const txtFile = outBase + '.txt';
       if (fs.existsSync(txtFile)) {
         const text = fs.readFileSync(txtFile, 'utf8').trim();

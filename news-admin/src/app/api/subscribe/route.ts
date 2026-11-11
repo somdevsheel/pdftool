@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/lib/mongodb';
 import { Subscriber } from '@/lib/models/Subscriber';
 import { sendWelcomeEmail } from '@/lib/email';
+import { getAuthUser } from '@/lib/auth';
 
 export async function POST(req: NextRequest) {
   try {
@@ -44,10 +45,16 @@ export async function POST(req: NextRequest) {
   }
 }
 
+// Admin-only: the subscriber list is personal data, and each unsubscribe token
+// would let anyone unsubscribe that person.
 export async function GET() {
+  const user = await getAuthUser();
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   try {
     await connectDB();
-    const subscribers = await Subscriber.find({ active: true }).sort({ createdAt: -1 });
+    const subscribers = await Subscriber.find({ active: true })
+      .select('email source createdAt')
+      .sort({ createdAt: -1 });
     return NextResponse.json({ subscribers, total: subscribers.length });
   } catch {
     return NextResponse.json({ error: 'Server error' }, { status: 500 });

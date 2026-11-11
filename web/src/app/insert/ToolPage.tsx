@@ -7,6 +7,7 @@ import { ResultDownload } from '../../components/ResultDownload';
 import { FileThumbnailCard, PdfViewerModal } from '../../components/PdfViewer';
 import { useUpload } from '../../hooks/useUpload';
 import { useJobStatus } from '../../hooks/useJobStatus';
+import { createInsertPagesJob } from '../../lib/jobsClient';
 
 type Phase = 'upload-base' | 'upload-insert' | 'configure' | 'processing' | 'done' | 'error';
 const accent = '#10b981';
@@ -38,22 +39,7 @@ export default function InsertPagesToolPage() {
     setError(null);
     setPhase('processing');
     try {
-      const res = await fetch('https://api.freenoo.com/api/v1/jobs/insert-pages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          baseFileId: baseFile.id,
-          insertFileId: insertFile.id,
-          afterPage: afterPage === '' ? 0 : Number(afterPage),
-        }),
-      });
-      if (!res.ok) {
-        const text = await res.text();
-        throw new Error(`Server error: ${text}`);
-      }
-      const json = await res.json();
-      // handle { success, data: { id } } or { id } directly
-      const jobData = json.data ?? json;
+      const jobData = await createInsertPagesJob(baseFile.id, insertFile.id, afterPage === '' ? 0 : Number(afterPage));
       const jobId = jobData.id;
       if (!jobId) throw new Error('No job ID returned from server');
       poll(jobId, (done: any) => {

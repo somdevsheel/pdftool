@@ -3,6 +3,7 @@ import { connectDB } from '@/lib/mongodb';
 import { News } from '@/lib/models/News';
 import '@/lib/models/User';
 import { getAuthUser } from '@/lib/auth';
+import { escapeRegex, clampInt } from '@/lib/security';
 import { TAG_COLORS } from '@/types';
 
 const BLOG_TAGS: Record<string, string> = {
@@ -22,22 +23,23 @@ export async function GET(req: NextRequest) {
   try {
     await connectDB();
     const { searchParams } = new URL(req.url);
-    const page = parseInt(searchParams.get('page') || '1');
-    const limit = parseInt(searchParams.get('limit') || '12');
+    const page = clampInt(searchParams.get('page'), 1, 1, 10_000);
+    const limit = clampInt(searchParams.get('limit'), 12, 1, 50);
     const tag = searchParams.get('tag') || '';
-    const adminView = searchParams.get('admin') === 'true';
-    const search = searchParams.get('search') || '';
+    // Drafts are only visible to a logged-in editor, whatever the query string says.
+    const adminView = searchParams.get('admin') === 'true' && !!(await getAuthUser());
+    const search = (searchParams.get('search') || '').slice(0, 100);
 
     const query: Record<string, unknown> = { contentType: 'blog' };
     if (!adminView) query.published = true;
     if (tag && tag !== 'All') query.tag = tag;
-    if (search) query.title = { $regex: search, $options: 'i' };
+    if (search) query.title = { $regex: escapeRegex(search), $options: 'i' };
 
     const skip = (page - 1) * limit;
     const total = await News.countDocuments(query);
 
     const posts = await News.find(query)
-      .populate('author', 'name email')
+      .populate('author', 'name')
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)

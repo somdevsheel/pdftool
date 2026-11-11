@@ -20,7 +20,7 @@
   /* Text */
   --text:         #f0f0f0;   /* primary text */
   --text-soft:    #c0c0c0;   /* secondary text */
-  --text-muted:   #888888;   /* muted / placeholder */
+  --text-muted:   #a3a3a3;   /* muted / placeholder — 5.5:1 on --surface (WCAG AA) */
 
   /* Accent — Adobe red */
   --accent:       #eb1000;

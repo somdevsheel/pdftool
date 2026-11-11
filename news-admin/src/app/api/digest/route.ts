@@ -4,13 +4,14 @@ import { News } from '@/lib/models/News';
 import { Subscriber } from '@/lib/models/Subscriber';
 import '@/lib/models/User';
 import { sendDigestEmail, DigestArticle } from '@/lib/email';
+import { safeEqual } from '@/lib/security';
 
 // POST /api/digest  — call this weekly via cron or manually from admin
 // Protect with DIGEST_SECRET env var
 export async function POST(req: NextRequest) {
   try {
     const { secret } = await req.json().catch(() => ({}));
-    if (secret !== process.env.DIGEST_SECRET) {
+    if (!safeEqual(secret, process.env.DIGEST_SECRET)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -75,6 +76,7 @@ export async function POST(req: NextRequest) {
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    return NextResponse.json({ error: 'Server error', detail: message }, { status: 500 });
+    console.error('[POST /api/digest]', message);
+    return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
 }

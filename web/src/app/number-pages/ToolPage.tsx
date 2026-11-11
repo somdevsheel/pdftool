@@ -7,6 +7,7 @@ import { ResultDownload } from '../../components/ResultDownload';
 import { FileThumbnailCard, PdfViewerModal } from '../../components/PdfViewer';
 import { useUpload } from '../../hooks/useUpload';
 import { useJobStatus } from '../../hooks/useJobStatus';
+import { createNumberPagesJob } from '../../lib/jobsClient';
 
 type Phase = 'upload' | 'configure' | 'processing' | 'done' | 'error';
 type Position = 'bottom-center'|'bottom-right'|'bottom-left'|'top-center'|'top-right'|'top-left';
@@ -42,11 +43,7 @@ export default function NumberPagesToolPage() {
     if (!file) return;
     setError(null); setPhase('processing');
     try {
-      const res = await fetch('https://api.freenoo.com/api/v1/jobs/number-pages', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fileId: file.id, position, startNumber, fontSize }),
-      });
-      const j = await res.json().then(d => d.data ?? d);
+      const j = await createNumberPagesJob(file.id, position, startNumber, fontSize);
       poll(j.id, (done: any) => {
         if (done.status === 'COMPLETED') setPhase('done');
         if (done.status === 'FAILED') { setError(done.error || 'Failed'); setPhase('error'); }

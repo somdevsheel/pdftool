@@ -23,7 +23,18 @@ export async function processProtect(
   await job.updateProgress(10);
 
   const finalOutput = outputPath + '.pdf';
-  await commandService.protectPdf({ inputPath, outputPath: finalOutput, userPassword, ownerPassword });
+  let succeeded = false;
+  try {
+    await commandService.protectPdf({ inputPath, outputPath: finalOutput, userPassword, ownerPassword });
+    succeeded = true;
+  } finally {
+    // The job record stays in Redis after it finishes, so don't leave the user's
+    // password sitting there in plaintext. Keep it only while a retry may still need it.
+    const lastAttempt = job.attemptsMade + 1 >= (job.opts.attempts ?? 1);
+    if (succeeded || lastAttempt) {
+      await job.updateData({ ...job.data, userPassword: '', ownerPassword: undefined }).catch(() => {});
+    }
+  }
   await job.updateProgress(90);
 
   if (!fileService.fileExists(finalOutput)) throw new Error('Protect produced no output');

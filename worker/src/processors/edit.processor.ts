@@ -1,18 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { exec } from 'child_process';
-import { promisify } from 'util';
-
-const execAsync = promisify(exec);
-
-async function run(cmd: string, timeoutMs = 120_000): Promise<{ stdout: string; stderr: string }> {
-  try {
-    return await execAsync(cmd, { timeout: timeoutMs });
-  } catch (err: any) {
-    if (err.code === 3) return { stdout: err.stdout || '', stderr: err.stderr || '' };
-    throw new Error((err.stderr || err.stdout || err.message || 'Command failed').trim());
-  }
-}
+import { runCommand } from '../utils/exec.util';
+import { toNumber } from '../utils/validate.util';
 
 export interface PdfEditInstruction {
   type: 'text' | 'annotation' | 'rotate';
@@ -26,7 +15,8 @@ export interface PdfEditInstruction {
 }
 
 function hexToRgbArray(hex: string): [number, number, number] {
-  const h = (hex || '#000000').replace('#', '').padEnd(6, '0');
+  // Anything that isn't a 6-digit hex colour falls back to black.
+  const h = /^#?[0-9a-fA-F]{6}$/.test(hex || '') ? hex.replace('#', '') : '000000';
   return [
     parseInt(h.slice(0, 2), 16) / 255,
     parseInt(h.slice(2, 4), 16) / 255,
@@ -57,9 +47,11 @@ export async function applyPdfEdits(
     // Group by page
     const byPage = new Map<number, PdfEditInstruction[]>();
     for (const ins of instructions) {
-      if (!ins.content?.trim()) continue;
-      if (!byPage.has(ins.page)) byPage.set(ins.page, []);
-      byPage.get(ins.page)!.push(ins);
+      if (typeof ins?.content !== 'string' || !ins.content.trim()) continue;
+      const page = ins.page;
+      if (!Number.isInteger(page) || page < 1 || page > 100_000) continue;
+      if (!byPage.has(page)) byPage.set(page, []);
+      byPage.get(page)!.push(ins);
     }
 
     for (const [pageNum, pageInstructions] of byPage) {
@@ -70,14 +62,16 @@ export async function applyPdfEdits(
       lines.push(`  var pageH = b[3] - b[1];`);
 
       for (const ins of pageInstructions) {
-        const fontSize = ins.fontSize || 12;
+        // Everything interpolated into the MuPDF script is either a clamped number or
+        // a JSON-encoded string literal — user input must never become script code.
+        const fontSize = toNumber(ins.fontSize, 12, 4, 200);
+        const x = toNumber(ins.x, 0, -10_000, 10_000);
+        const y = toNumber(ins.y, 0, -10_000, 10_000);
         const [r, g, bVal] = hexToRgbArray(ins.color || '#000000');
-
-        // Escape strings for JS embedding
-        const searchText = (ins.originalText || ins.content)
-          .replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-        const newText = ins.content
-          .replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+        const searchText = JSON.stringify(
+          typeof ins.originalText === 'string' && ins.originalText ? ins.originalText : ins.content,
+        );
+        const newText = JSON.stringify(ins.content);
 
         // Scale font size from 595×842 reference to actual page
         const scaledFsExpr = `(${fontSize} * Math.min(pageW/595, pageH/842))`;
@@ -88,15 +82,15 @@ export async function applyPdfEdits(
         lines.push(`    var scaleY = pageH / 842;`);
 
         // Fallback coords: pdfY is bottom-origin → flip to MuPDF top-origin
-        lines.push(`    var fbX = ${ins.x} * scaleX;`);
-        lines.push(`    var fbY = pageH - (${ins.y} * scaleY) - fs;`);
-        lines.push(`    var fbW = "${searchText}".length * fs * 0.65 + fs;`);
+        lines.push(`    var fbX = ${x} * scaleX;`);
+        lines.push(`    var fbY = pageH - (${y} * scaleY) - fs;`);
+        lines.push(`    var fbW = ${searchText}.length * fs * 0.65 + fs;`);
         lines.push(`    var fbH = fs * 1.4;`);
         lines.push(`    var bbox = [fbX, fbY, fbX + fbW, fbY + fbH];`);
 
         // Search for exact position
         lines.push(`    try {`);
-        lines.push(`      var hits = page.search("${searchText}");`);
+        lines.push(`      var hits = page.search(${searchText});`);
         lines.push(`      if (hits && hits.length > 0) {`);
         lines.push(`        var q = hits[0];`);
         lines.push(`        var x0 = Math.min(q[0],q[2],q[4],q[6]);`);
@@ -118,10 +112,10 @@ export async function applyPdfEdits(
         lines.push(`    redact.update();`);
 
         // FreeText replacement — use tested 3-arg setDefaultAppearance
-        lines.push(`    var newW = "${newText}".length * fs * 0.65 + fs;`);
+        lines.push(`    var newW = ${newText}.length * fs * 0.65 + fs;`);
         lines.push(`    var ft = page.createAnnotation("FreeText");`);
         lines.push(`    ft.setRect([bbox[0], bbox[1], bbox[0] + newW, bbox[3]]);`);
-        lines.push(`    ft.setContents("${newText}");`);
+        lines.push(`    ft.setContents(${newText});`);
         lines.push(`    ft.setDefaultAppearance("Helvetica", fs, [${r.toFixed(4)}, ${g.toFixed(4)}, ${bVal.toFixed(4)}]);`);
         lines.push(`    ft.update();`);
         lines.push(`  })();`);
@@ -133,13 +127,13 @@ export async function applyPdfEdits(
     }
 
     lines.push(`doc.save(${JSON.stringify(outputPath)}, "incremental");`);
-    lines.push(`print("[edit] saved: ${outputPath}");`);
+    lines.push(`print("[edit] saved");`);
 
     const jsFile = path.join(workDir, 'edit.js');
     fs.writeFileSync(jsFile, lines.join('\n'));
 
     console.log(`[applyPdfEdits] Running mutool run "${jsFile}"`);
-    const result = await run(`mutool run "${jsFile}"`);
+    const result = await runCommand('mutool', ['run', jsFile]);
     if (result.stdout) console.log(result.stdout);
     if (result.stderr) console.warn(result.stderr);
 
@@ -186,17 +180,17 @@ export async function convertPdfToDocx(inputPath: string, outputPath: string): P
   const workDir = outputPath + '_docx_work';
   fs.mkdirSync(workDir, { recursive: true });
   try {
-    try { await run(`mutool convert -o "${path.join(workDir, 'output.html')}" "${inputPath}"`); } catch {}
+    try { await runCommand('mutool', ['convert', '-o', path.join(workDir, 'output.html'), inputPath]); } catch {}
     let htmlFile = fs.readdirSync(workDir).find(f => f.endsWith('.html'));
     if (!htmlFile) {
-      await run(`soffice --headless --infilter="writer_pdf_import" --convert-to docx --outdir "${workDir}" "${inputPath}"`);
+      await runCommand('soffice', ['--headless', '--infilter=writer_pdf_import', '--convert-to', 'docx', '--outdir', workDir, inputPath], 300_000);
       const fb = fs.readdirSync(workDir).find(f => f.endsWith('.docx'));
       if (!fb) throw new Error('All PDF→DOCX methods failed');
       const out = outputPath + '.docx';
       fs.copyFileSync(path.join(workDir, fb), out);
       return out;
     }
-    await run(`soffice --headless --convert-to docx --outdir "${workDir}" "${path.join(workDir, htmlFile)}"`);
+    await runCommand('soffice', ['--headless', '--convert-to', 'docx', '--outdir', workDir, path.join(workDir, htmlFile)], 300_000);
     const docxFile = fs.readdirSync(workDir).find(f => f.endsWith('.docx'));
     if (!docxFile) throw new Error('LibreOffice produced no DOCX');
     const out = outputPath + '.docx';
@@ -208,11 +202,16 @@ export async function convertPdfToDocx(inputPath: string, outputPath: string): P
 /* ─────────────────────────────────────────────────────────────────────────────
    performOcr()
 ───────────────────────────────────────────────────────────────────────────── */
+// Tesseract language codes look like "eng" or "eng+hin"; reject anything else.
+function safeOcrLanguage(language: string): string {
+  return /^[a-z_]{3,8}(\+[a-z_]{3,8})*$/i.test(language) ? language : 'eng';
+}
+
 export async function performOcr(inputPath: string, outputPath: string, language = 'eng'): Promise<string> {
   const workDir = outputPath + '_ocr_work';
   fs.mkdirSync(workDir, { recursive: true });
   try {
-    await run(`convert -density 300 -quality 100 "${inputPath}" "${path.join(workDir, 'page-%04d.png')}"`);
+    await runCommand('convert', ['-density', '300', '-quality', '100', inputPath, path.join(workDir, 'page-%04d.png')], 300_000);
     const images = fs.readdirSync(workDir)
       .filter(f => f.match(/^page-\d+\.png$/)).sort()
       .map(f => path.join(workDir, f));
@@ -220,7 +219,7 @@ export async function performOcr(inputPath: string, outputPath: string, language
     const textParts: string[] = [];
     for (let i = 0; i < images.length; i++) {
       const outBase = path.join(workDir, `ocr-${i}`);
-      await run(`tesseract "${images[i]}" "${outBase}" -l ${language} txt`);
+      await runCommand('tesseract', [images[i], outBase, '-l', safeOcrLanguage(language), 'txt']);
       const txt = outBase + '.txt';
       if (fs.existsSync(txt)) {
         const t = fs.readFileSync(txt, 'utf8').trim();

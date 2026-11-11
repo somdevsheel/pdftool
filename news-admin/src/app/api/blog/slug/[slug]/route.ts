@@ -3,7 +3,8 @@ import { connectDB } from '@/lib/mongodb';
 import { News } from '@/lib/models/News';
 import '@/lib/models/User';
 
-export async function GET(_: NextRequest, { params }: { params: { slug: string } }) {
+export async function GET(_: NextRequest, props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   try {
     await connectDB();
     const post = await News.findOne({

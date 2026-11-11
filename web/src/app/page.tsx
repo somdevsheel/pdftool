@@ -9,7 +9,7 @@ import Image from 'next/image';
 export const metadata: Metadata = {
   title: 'Freenoo - Online PDF Tools Free | Convert, Edit, Sign PDFs',
   description:
-    'Every PDF tool in one place. Convert PDF to Word, Image to PDF, merge, compress, e-sign—100% free, no watermarks, no login. From Bharat to the World.',
+    'Every PDF tool in one place. Convert PDF to Word, Image to PDF, merge, compress and edit — 100% free, no watermarks, no login. From Bharat to the World.',
   alternates: { canonical: 'https://www.freenoo.com' },
   openGraph: {
     title: 'Freenoo — Free Online PDF',
@@ -468,18 +468,32 @@ const ESIGN_TOOLS = [
 
 type ToolDef = { id: string; name: string; desc: string; route: string; color: string; icon: React.ReactNode };
 
+// Tools whose pages exist but only show a "coming soon" notice. Keep this in sync as
+// each one ships, so the homepage never presents an unfinished tool as working.
+const COMING_SOON = new Set([
+  'ocr', 'fill-sign', 'request-signatures', 'add-signature',
+  'esign-template', 'web-form', 'send-bulk', 'esign-branding',
+]);
+
+const AVAILABLE_TOOL_COUNT = [...EDIT_TOOLS, ...CONVERT_TOOLS, ...ESIGN_TOOLS]
+  .filter((t) => !COMING_SOON.has(t.id)).length;
+
 function ToolCard({ tool }: { tool: ToolDef }) {
+  const soon = COMING_SOON.has(tool.id);
   return (
     <Link href={tool.route} className="tool-card group flex flex-col gap-3 p-5 rounded-lg transition-all duration-150">
       <div className="tool-card-icon w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0 mb-1">
         {tool.icon}
       </div>
       <div>
-        <h3 className="font-semibold text-sm mb-1" style={{ color: 'var(--text)' }}>{tool.name}</h3>
+        <h3 className="font-semibold text-sm mb-1 flex items-center gap-2" style={{ color: 'var(--text)' }}>
+          {tool.name}
+          {soon && <span className="stamp" style={{ fontSize: 10 }}>Soon</span>}
+        </h3>
         <p className="text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>{tool.desc}</p>
       </div>
-      <p className="text-xs mt-auto" style={{ color: 'var(--text-muted)', opacity: 0.7 }}>
-        Drag and drop, or <span style={{ color: tool.color }}>select a file</span>
+      <p className="text-xs mt-auto font-medium" style={{ color: soon ? 'var(--text-muted)' : 'var(--text)' }}>
+        {soon ? 'Coming soon' : 'Open tool →'}
       </p>
     </Link>
   );
@@ -516,7 +530,7 @@ export default function HomePage() {
               <span style={{ color: 'var(--accent)' }}>in one place.</span>
             </h1>
             <p className="text-base mb-8 max-w-xl" style={{ color: 'var(--text-muted)' }}>
-              Freenoo offers 25+ professional PDF tools that are completely free to use. You can convert, edit, compress, merge, and e-sign PDFs easily, without any registration, watermarks, or usage limits.
+              Freenoo offers {AVAILABLE_TOOL_COUNT} professional PDF tools that are completely free to use. You can convert, edit, compress and merge PDFs easily, with no registration and no watermarks.
             </p>           
             <div className="flex flex-wrap gap-3">
               <Link href="/merge" className="btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded text-sm font-medium text-white">
@@ -554,7 +568,7 @@ export default function HomePage() {
 
         {/* E-Sign */}
         <section id="esign">
-          <SectionHeader title="E-Sign" count={ESIGN_TOOLS.length} />
+          <SectionHeader title="E-Sign (coming soon)" count={ESIGN_TOOLS.length} />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {ESIGN_TOOLS.map((t) => <ToolCard key={t.id} tool={t} />)}
           </div>
@@ -582,9 +596,9 @@ export default function HomePage() {
         {/* Feature strip */}
         <div className="pt-10 grid sm:grid-cols-3 gap-8" style={{ borderTop: '1px solid var(--border)' }}>
           {[
-            { icon: '🔒', title: 'Private by default', body: 'Files processed server-side and auto-deleted after 60 minutes.' },
-            { icon: '⚡', title: 'Powered by real tools', body: 'qpdf, Ghostscript, and pdf-lib for industry-standard processing.' },
-            { icon: '∞', title: 'Unlimited & free', body: 'No account needed. No watermarks. No file limits. Just upload and go.' },
+            { icon: '🔒', title: 'Private by default', body: 'Only you get the link to your result, and your files are deleted from our servers after about 1 hour.' },
+            { icon: '⚡', title: 'Powered by real tools', body: 'qpdf, Ghostscript and LibreOffice for industry-standard processing.' },
+            { icon: '∞', title: 'Free, no sign-up', body: 'No account needed. No watermarks. Files up to 100 MB.' },
           ].map((f) => (
             <div key={f.title} className="flex gap-4">
               <span className="text-2xl flex-shrink-0">{f.icon}</span>

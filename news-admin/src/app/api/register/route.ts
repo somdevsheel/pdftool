@@ -16,6 +16,9 @@ function getAllowedEmails(): string[] {
 export async function POST(req: NextRequest) {
   try {
     const { name, email, password, role } = await req.json();
+    if (typeof name !== 'string' || typeof email !== 'string' || typeof password !== 'string') {
+      return NextResponse.json({ error: 'All fields required' }, { status: 400 });
+    }
 
     if (!name || !email || !password) {
       return NextResponse.json({ error: 'All fields required' }, { status: 400 });
@@ -60,7 +63,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    const existing = await User.findOne({ email });
+    const existing = await User.findOne({ email: email.toLowerCase().trim() });
     if (existing) {
       return NextResponse.json({ error: 'Email already registered' }, { status: 409 });
     }
@@ -69,7 +72,7 @@ export async function POST(req: NextRequest) {
       name,
       email,
       password,
-      role: userCount === 0 ? 'admin' : (role || 'editor'),
+      role: userCount === 0 ? 'admin' : (role === 'admin' ? 'admin' : 'editor'),
     });
 
     const token = signToken({

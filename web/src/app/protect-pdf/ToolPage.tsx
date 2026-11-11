@@ -7,6 +7,7 @@ import { ResultDownload } from '../../components/ResultDownload';
 import { FileThumbnailCard, PdfViewerModal } from '../../components/PdfViewer';
 import { useUpload } from '../../hooks/useUpload';
 import { useJobStatus } from '../../hooks/useJobStatus';
+import { createProtectJob } from '../../lib/jobsClient';
 
 type Phase = 'upload' | 'configure' | 'processing' | 'done' | 'error';
 const accent = '#6366f1';
@@ -34,11 +35,7 @@ export default function ProtectToolPage() {
     if (userPw !== confirmPw) { setError('Passwords do not match'); return; }
     setError(null); setPhase('processing');
     try {
-      const res = await fetch('https://api.freenoo.com/api/v1/jobs/protect', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fileId: file.id, userPassword: userPw }),
-      });
-      const j = await res.json().then(d => d.data ?? d);
+      const j = await createProtectJob(file.id, userPw);
       poll(j.id, (done: any) => {
         if (done.status === 'COMPLETED') setPhase('done');
         if (done.status === 'FAILED') { setError(done.error || 'Failed'); setPhase('error'); }

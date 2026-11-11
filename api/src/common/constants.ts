@@ -11,11 +11,3 @@ export const JOB_TYPES = {
 export const JOB_STATUS = {
   PENDING: 'PENDING', PROCESSING: 'PROCESSING', COMPLETED: 'COMPLETED', FAILED: 'FAILED',
 } as const;
-
-export const ALLOWED_MIME_TYPES = [
-  'application/pdf', 'image/jpeg', 'image/png', 'image/tiff',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-  'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-  'application/msword', 'application/vnd.ms-powerpoint', 'application/vnd.ms-excel',
-];

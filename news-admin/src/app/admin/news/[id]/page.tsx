@@ -6,7 +6,8 @@ import AdminLayout from '@/components/admin/AdminLayout';
 import ArticleForm from '@/components/admin/ArticleForm';
 import Link from 'next/link';
 
-export default async function EditArticlePage({ params }: { params: { id: string } }) {
+export default async function EditArticlePage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const user = await getAuthUser();
   if (!user) redirect('/admin/login');
 

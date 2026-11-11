@@ -7,6 +7,7 @@ import { ResultDownload } from '../../components/ResultDownload';
 import { FileThumbnailCard, PdfViewerModal } from '../../components/PdfViewer';
 import { useUpload } from '../../hooks/useUpload';
 import { useJobStatus } from '../../hooks/useJobStatus';
+import { createCropJob } from '../../lib/jobsClient';
 
 type Phase = 'upload' | 'configure' | 'processing' | 'done' | 'error';
 const accent = '#f59e0b';
@@ -40,11 +41,7 @@ export default function CropToolPage() {
     if (!file) return;
     setError(null); setPhase('processing');
     try {
-      const res = await fetch('https://api.freenoo.com/api/v1/jobs/crop', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fileId: file.id, top, bottom, left, right }),
-      });
-      const j = await res.json().then(d => d.data ?? d);
+      const j = await createCropJob(file.id, { top, bottom, left, right });
       poll(j.id, (done: any) => {
         if (done.status === 'COMPLETED') setPhase('done');
         if (done.status === 'FAILED') { setError(done.error || 'Failed'); setPhase('error'); }

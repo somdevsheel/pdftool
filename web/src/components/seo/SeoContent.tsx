@@ -60,13 +60,15 @@ export function SeoContent({ heading, body, faqs, relatedTools }: SeoContentProp
           }}>
             {heading}
           </h2>
+          {/* A <div>, not <p>: some pages pass blocks containing lists, and <ul>/<ol>
+              inside <p> is invalid HTML that breaks hydration. */}
           {body.map((para, i) => (
-            <p key={i} style={{
+            <div key={i} style={{
               fontSize: 14, lineHeight: 1.78,
               color: 'var(--text-soft)', marginBottom: 14,
             }}>
               {para}
-            </p>
+            </div>
           ))}
         </div>
 

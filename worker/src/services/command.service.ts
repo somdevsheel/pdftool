@@ -1,6 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import { runCommand, checkToolAvailable } from '../utils/exec.util';
+import { toPageRange, toPageList, toNumber, oneOf } from '../utils/validate.util';
 
 export interface MergeOptions { inputPaths: string[]; outputPath: string; }
 export interface SplitOptions { inputPath: string; outputPath: string; pages?: string; }
@@ -14,91 +15,96 @@ const GS_QUALITY_MAP = { low: '/screen', medium: '/ebook', high: '/printer' };
 
 export class CommandService {
   async mergePdfs(opts: MergeOptions): Promise<void> {
-    const inputs = opts.inputPaths.map((p) => `"${p}"`).join(' ');
-    await runCommand(`qpdf --empty --pages ${inputs} -- "${opts.outputPath}"`);
+    await runCommand('qpdf', ['--empty', '--pages', ...opts.inputPaths, '--', opts.outputPath]);
   }
 
   async splitPdf(opts: SplitOptions): Promise<void> {
     if (opts.pages) {
-      await runCommand(`qpdf "${opts.inputPath}" --pages . ${opts.pages} -- "${opts.outputPath}"`);
+      await runCommand('qpdf', [opts.inputPath, '--pages', '.', toPageRange(opts.pages), '--', opts.outputPath]);
     } else {
-      await runCommand(`qpdf "${opts.inputPath}" --split-pages "${opts.outputPath}"`);
+      await runCommand('qpdf', [opts.inputPath, '--split-pages', opts.outputPath]);
     }
   }
 
   async compressPdf(opts: CompressOptions): Promise<void> {
-    const setting = GS_QUALITY_MAP[opts.quality];
-    await runCommand(['gs', '-sDEVICE=pdfwrite', '-dCompatibilityLevel=1.4',
+    const setting = GS_QUALITY_MAP[oneOf(opts.quality, ['low', 'medium', 'high'] as const, 'medium')];
+    // -dSAFER blocks PostScript file access from inside the (untrusted) input document.
+    await runCommand('gs', ['-dSAFER', '-sDEVICE=pdfwrite', '-dCompatibilityLevel=1.4',
       `-dPDFSETTINGS=${setting}`, '-dNOPAUSE', '-dQUIET', '-dBATCH',
-      `-sOutputFile="${opts.outputPath}"`, `"${opts.inputPath}"`].join(' '));
+      `-sOutputFile=${opts.outputPath}`, opts.inputPath]);
   }
 
   async rotatePdf(opts: RotateOptions): Promise<void> {
-    const pageSpec = opts.pages && opts.pages.length > 0 ? opts.pages.join(',') : '1-z';
-    await runCommand(`qpdf "${opts.inputPath}" --rotate=+${opts.degrees}:${pageSpec} "${opts.outputPath}"`);
+    const degrees = oneOf(opts.degrees, [90, 180, 270] as const, 90);
+    const pageSpec = opts.pages && opts.pages.length > 0 ? toPageList(opts.pages).join(',') : '1-z';
+    await runCommand('qpdf', [opts.inputPath, `--rotate=+${degrees}:${pageSpec}`, opts.outputPath]);
   }
 
   async imageToPdf(inputPaths: string | string[], outputPath: string): Promise<void> {
     const paths = Array.isArray(inputPaths) ? inputPaths : [inputPaths];
-    const inputs = paths.map((p) => `"${p}"`).join(' ');
     const candidates = ['img2pdf', '/usr/bin/img2pdf', '/usr/local/bin/img2pdf', `${process.env.HOME}/.local/bin/img2pdf`];
     let lastErr: Error | null = null;
     for (const bin of candidates) {
-      try { await runCommand(`"${bin}" ${inputs} -o "${outputPath}"`); return; } catch (e: any) { lastErr = e; }
+      try { await runCommand(bin, [...paths, '-o', outputPath]); return; } catch (e: any) { lastErr = e; }
     }
-    try { await runCommand(`python3 -m img2pdf ${inputs} -o "${outputPath}"`); return; } catch {}
+    try { await runCommand('python3', ['-m', 'img2pdf', ...paths, '-o', outputPath]); return; } catch {}
     throw new Error(`img2pdf not found. Install: pip3 install img2pdf\nLast error: ${lastErr?.message}`);
   }
 
   async pdfToImages(opts: PdfToImgOptions): Promise<string[]> {
-    const fmt = opts.format === 'jpg' ? '-jpeg' : '-png';
+    const fmt = opts.format === 'png' ? '-png' : '-jpeg';
     const prefix = path.join(opts.outputDir, 'page');
-    await runCommand(`pdftoppm ${fmt} -r ${opts.dpi} "${opts.inputPath}" "${prefix}"`);
+    const dpi = Math.round(toNumber(opts.dpi, 150, 72, 300));
+    await runCommand('pdftoppm', [fmt, '-r', String(dpi), opts.inputPath, prefix], 300_000);
     return fs.readdirSync(opts.outputDir)
       .filter((f) => f.match(/^page[-_]?\d+\.(jpg|jpeg|png)$/i))
       .sort().map((f) => path.join(opts.outputDir, f));
   }
 
   async officeToPdf(opts: OfficeToPdfOptions): Promise<string> {
-    await runCommand(`soffice --headless --convert-to pdf --outdir "${opts.outputDir}" "${opts.inputPath}"`);
+    await runCommand('soffice', ['--headless', '--convert-to', 'pdf', '--outdir', opts.outputDir, opts.inputPath], 300_000);
     const files = fs.readdirSync(opts.outputDir).filter((f) => f.endsWith('.pdf'));
     if (!files.length) throw new Error('LibreOffice produced no PDF output');
     return path.join(opts.outputDir, files[0]);
   }
 
   async pdfToOffice(opts: PdfToOfficeOptions): Promise<string> {
-    const { inputPath, outputDir, format } = opts;
+    const { inputPath, outputDir } = opts;
+    const format = oneOf(opts.format, ['docx', 'pptx', 'xlsx'] as const, 'docx');
     const filterMap: Record<string, string> = { docx: 'writer_pdf_import', pptx: 'impress_pdf_import', xlsx: 'writer_pdf_import' };
     const intermediateMap: Record<string, string> = { docx: 'odt', pptx: 'odp', xlsx: 'odt' };
     const infilter = filterMap[format] || 'writer_pdf_import';
     const intermediate = intermediateMap[format] || 'odt';
-    await runCommand(`soffice --headless --infilter="${infilter}" --convert-to ${intermediate} --outdir "${outputDir}" "${inputPath}"`);
+    await runCommand('soffice', ['--headless', `--infilter=${infilter}`, '--convert-to', intermediate, '--outdir', outputDir, inputPath], 300_000);
     let midFiles = fs.readdirSync(outputDir).filter((f) => f.endsWith(`.${intermediate}`));
     if (!midFiles.length) {
-      await runCommand(`soffice --headless --convert-to ${intermediate} --outdir "${outputDir}" "${inputPath}"`);
+      await runCommand('soffice', ['--headless', '--convert-to', intermediate, '--outdir', outputDir, inputPath], 300_000);
       midFiles = fs.readdirSync(outputDir).filter((f) => f.endsWith(`.${intermediate}`));
     }
     if (!midFiles.length) throw new Error(`LibreOffice failed to convert PDF to ${intermediate} (step 1)`);
     const midPath = path.join(outputDir, midFiles[0]);
-    await runCommand(`soffice --headless --convert-to ${format} --outdir "${outputDir}" "${midPath}"`);
+    await runCommand('soffice', ['--headless', '--convert-to', format, '--outdir', outputDir, midPath], 300_000);
     const outFiles = fs.readdirSync(outputDir).filter((f) => f.endsWith(`.${format}`));
     if (!outFiles.length) throw new Error(`LibreOffice produced no ${format} output (step 2)`);
     return path.join(outputDir, outFiles[0]);
   }
 
   async protectPdf(opts: { inputPath: string; outputPath: string; userPassword: string; ownerPassword?: string; }): Promise<void> {
-    const owner = opts.ownerPassword || opts.userPassword;
-    await runCommand(`qpdf --encrypt "${opts.userPassword}" "${owner}" 256 -- "${opts.inputPath}" "${opts.outputPath}"`);
+    if (typeof opts.userPassword !== 'string' || !opts.userPassword) throw new Error('Password required');
+    const owner = typeof opts.ownerPassword === 'string' && opts.ownerPassword ? opts.ownerPassword : opts.userPassword;
+    await runCommand('qpdf', ['--encrypt', opts.userPassword, owner, '256', '--', opts.inputPath, opts.outputPath]);
   }
 
   async insertPages(opts: { basePath: string; insertPath: string; outputPath: string; afterPage: number; }): Promise<void> {
-    const { basePath, insertPath, outputPath, afterPage } = opts;
+    const { basePath, insertPath, outputPath } = opts;
+    const afterPage = Math.floor(toNumber(opts.afterPage, 0, 0, 100_000));
     if (afterPage === 0) {
-      await runCommand(`qpdf --empty --pages "${insertPath}" 1-z "${basePath}" 1-z -- "${outputPath}"`);
+      await runCommand('qpdf', ['--empty', '--pages', insertPath, '1-z', basePath, '1-z', '--', outputPath]);
     } else {
-      await runCommand(`qpdf --empty --pages "${basePath}" 1-${afterPage} "${insertPath}" 1-z "${basePath}" ${afterPage + 1}-z -- "${outputPath}"`)
+      await runCommand('qpdf', ['--empty', '--pages', basePath, `1-${afterPage}`, insertPath, '1-z', basePath, `${afterPage + 1}-z`, '--', outputPath])
         .catch(async () => {
-          await runCommand(`qpdf --empty --pages "${basePath}" 1-z "${insertPath}" 1-z -- "${outputPath}"`);
+          // afterPage is the last page, so there is no "rest of base" range — append instead.
+          await runCommand('qpdf', ['--empty', '--pages', basePath, '1-z', insertPath, '1-z', '--', outputPath]);
         });
     }
   }
@@ -109,7 +115,10 @@ export class CommandService {
     inputPath: string; outputPath: string;
     position: string; startNumber: number; fontSize: number;
   }): Promise<void> {
-    const { inputPath, outputPath, position, startNumber, fontSize } = opts;
+    const { inputPath, outputPath } = opts;
+    const position = oneOf(opts.position, ['bottom-center', 'bottom-left', 'bottom-right', 'top-center', 'top-left', 'top-right'] as const, 'bottom-center');
+    const startNumber = Math.floor(toNumber(opts.startNumber, 1, 1, 1_000_000));
+    const fontSize = toNumber(opts.fontSize, 12, 6, 72);
 
     const script = `
 import sys, io
@@ -126,7 +135,7 @@ try:
 except ImportError:
     from PyPDF2 import PdfReader, PdfWriter
 
-reader = PdfReader("${inputPath}")
+reader = PdfReader(sys.argv[1])
 writer = PdfWriter()
 
 for i, page in enumerate(reader.pages):
@@ -168,7 +177,7 @@ for i, page in enumerate(reader.pages):
     page.merge_page(overlay_page)
     writer.add_page(page)
 
-with open("${outputPath}", "wb") as f:
+with open(sys.argv[2], "wb") as f:
     writer.write(f)
 print("done")
 `;
@@ -176,7 +185,7 @@ print("done")
     const scriptFile = outputPath + '_num.py';
     fs.writeFileSync(scriptFile, script);
     try {
-      const { stdout, stderr } = await runCommand(`python3 "${scriptFile}"`);
+      const { stdout, stderr } = await runCommand('python3', [scriptFile, inputPath, outputPath]);
       if (stdout.includes('ERR_NO_REPORTLAB') || stderr.includes('ERR_NO_REPORTLAB')) {
         throw new Error('reportlab not installed. Run: pip3 install reportlab --break-system-packages');
       }
@@ -188,27 +197,29 @@ print("done")
   // ─── Crop PDF (pypdf CropBox) ─────────────────────────────────────────────
 
   async cropPdf(opts: { inputPath: string; outputPath: string; top: number; bottom: number; left: number; right: number; }): Promise<void> {
-    const { inputPath, outputPath, top, bottom, left, right } = opts;
+    const { inputPath, outputPath } = opts;
+    const [top, bottom, left, right] = [opts.top, opts.bottom, opts.left, opts.right].map((v) => toNumber(v, 0, 0, 10_000));
     const script = `
+import sys
 try:
     from pypdf import PdfReader, PdfWriter
 except ImportError:
     from PyPDF2 import PdfReader, PdfWriter
-reader = PdfReader("${inputPath}")
+reader = PdfReader(sys.argv[1])
 writer = PdfWriter()
 for page in reader.pages:
     mb = page.mediabox
     page.cropbox.lower_left  = (float(mb.left) + ${left},  float(mb.bottom) + ${bottom})
     page.cropbox.upper_right = (float(mb.right) - ${right}, float(mb.top) - ${top})
     writer.add_page(page)
-with open("${outputPath}", "wb") as f:
+with open(sys.argv[2], "wb") as f:
     writer.write(f)
 print("done")
 `;
     const scriptFile = outputPath + '_crop.py';
     fs.writeFileSync(scriptFile, script);
     try {
-      await runCommand(`python3 "${scriptFile}"`);
+      await runCommand('python3', [scriptFile, inputPath, outputPath]);
     } finally {
       try { fs.unlinkSync(scriptFile); } catch {}
     }

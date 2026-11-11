@@ -1,5 +1,6 @@
 import { Job } from 'bullmq';
 import { runCommand } from '../utils/exec.util';
+import { toPageList } from '../utils/validate.util';
 import { CommandService } from '../services/command.service';
 import { FileService } from '../services/file.service';
 
@@ -19,7 +20,7 @@ function pagesToRange(pages: number[]): string {
 }
 
 async function getTotalPages(inputPath: string): Promise<number> {
-  const { stdout } = await runCommand(`qpdf --show-npages "${inputPath}"`);
+  const { stdout } = await runCommand('qpdf', ['--show-npages', inputPath]);
   const n = parseInt(stdout.trim(), 10);
   if (isNaN(n)) throw new Error(`Could not determine page count for ${inputPath}`);
   return n;
@@ -30,7 +31,8 @@ export async function processPages(
   _commandService: CommandService,
   fileService: FileService,
 ): Promise<{ outputPath: string; pageCount: number }> {
-  const { jobId, operation, inputPath, outputPath, pages } = job.data;
+  const { jobId, operation, inputPath, outputPath } = job.data;
+  const pages = toPageList(job.data.pages);
 
   console.log(`[Pages/${operation}] Job ${jobId}, pages=[${pages}]`);
 
@@ -53,8 +55,7 @@ export async function processPages(
       throw new Error('Cannot delete all pages from a PDF.');
     }
 
-    const cmd = `qpdf "${inputPath}" --pages . ${pagesToRange(keepPages)} -- "${outputPath}"`;
-    await runCommand(cmd);
+    await runCommand('qpdf', [inputPath, '--pages', '.', pagesToRange(keepPages), '--', outputPath]);
     await job.updateProgress(90);
 
     if (!fileService.fileExists(outputPath)) throw new Error('Delete pages produced no output');
@@ -68,8 +69,7 @@ export async function processPages(
     if (pages.length === 0) throw new Error('No pages specified for extraction.');
 
     const sorted = [...pages].sort((a, b) => a - b);
-    const cmd = `qpdf "${inputPath}" --pages . ${pagesToRange(sorted)} -- "${outputPath}"`;
-    await runCommand(cmd);
+    await runCommand('qpdf', [inputPath, '--pages', '.', pagesToRange(sorted), '--', outputPath]);
     await job.updateProgress(90);
 
     if (!fileService.fileExists(outputPath)) throw new Error('Extract pages produced no output');
@@ -82,8 +82,7 @@ export async function processPages(
   if (operation === 'reorder' || operation === 'organize') {
     if (pages.length === 0) throw new Error('No page order specified.');
 
-    const cmd = `qpdf "${inputPath}" --pages . ${pagesToRange(pages)} -- "${outputPath}"`;
-    await runCommand(cmd);
+    await runCommand('qpdf', [inputPath, '--pages', '.', pagesToRange(pages), '--', outputPath]);
     await job.updateProgress(90);
 
     if (!fileService.fileExists(outputPath)) throw new Error('Reorder pages produced no output');

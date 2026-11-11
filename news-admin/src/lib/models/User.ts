@@ -6,6 +6,8 @@ export interface IUser extends Document {
   email: string;
   password: string;
   role: 'admin' | 'editor';
+  failedLoginCount: number;
+  lockUntil?: Date;
   createdAt: Date;
   comparePassword(password: string): Promise<boolean>;
 }
@@ -16,6 +18,9 @@ const UserSchema = new Schema<IUser>(
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     password: { type: String, required: true, minlength: 8 },
     role: { type: String, enum: ['admin', 'editor'], default: 'editor' },
+    // Brute-force protection for /api/auth/login (see MAX_FAILED_LOGINS there).
+    failedLoginCount: { type: Number, default: 0 },
+    lockUntil: { type: Date },
   },
   { timestamps: true }
 );

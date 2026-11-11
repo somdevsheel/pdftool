@@ -1,14 +1,14 @@
-version: '3.9'
-
+# Requires REDIS_PASSWORD in the environment or an .env file next to this file:
+#   REDIS_PASSWORD=$(openssl rand -hex 24) docker compose up -d
 services:
   redis:
     image: redis:7-alpine
     container_name: pdf-redis
-    ports:
-      - '6379:6379'
+    # No published port: only the api/worker containers reach Redis, over the
+    # compose network. Redis must never be reachable from the internet.
     volumes:
       - redis_data:/data
-    command: redis-server --appendonly yes
+    command: ['redis-server', '--appendonly', 'yes', '--requirepass', '${REDIS_PASSWORD:?set REDIS_PASSWORD}']
     restart: unless-stopped
 
   api:
@@ -23,10 +23,13 @@ services:
       PORT: 3001
       REDIS_HOST: redis
       REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?set REDIS_PASSWORD}
       UPLOAD_DIR: /storage/uploads
       PROCESSING_DIR: /storage/processing
       OUTPUT_DIR: /storage/output
-      CORS_ORIGINS: http://localhost:3000
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+      # Number of reverse proxies in front of the API (nginx = 1, none = 0).
+      TRUST_PROXY_HOPS: ${TRUST_PROXY_HOPS:-0}
     volumes:
       - ./storage:/storage
     depends_on:
@@ -41,6 +44,7 @@ services:
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?set REDIS_PASSWORD}
       UPLOAD_DIR: /storage/uploads
       PROCESSING_DIR: /storage/processing
       OUTPUT_DIR: /storage/output
@@ -50,7 +54,7 @@ services:
     depends_on:
       - redis
     restart: unless-stopped
-    # Scale workers: docker-compose up --scale worker=3
+    # Scale workers: docker compose up --scale worker=3
     deploy:
       replicas: 1
 
@@ -58,28 +62,30 @@ services:
     build:
       context: ../..
       dockerfile: infra/docker/web.Dockerfile
+      args:
+        # Must be reachable from the user's browser, so not http://api:3001.
+        NEXT_PUBLIC_API_URL: ${PUBLIC_API_URL:-http://localhost:3001/api/v1}
     container_name: pdf-web
     ports:
       - '3000:3000'
-    environment:
-      NEXT_PUBLIC_API_URL: http://api:3001/api/v1
     depends_on:
       - api
     restart: unless-stopped
 
-  # Optional: Bull Board UI for monitoring queues
+  # Optional queue monitor. It has no login, so it's bound to localhost only —
+  # reach it through an SSH tunnel: ssh -L 3002:localhost:3002 <server>
   bull-board:
     image: deadly0/bull-board
     container_name: pdf-bull-board
     ports:
-      - '3002:3000'
+      - '127.0.0.1:3002:3000'
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?set REDIS_PASSWORD}
     depends_on:
       - redis
     restart: unless-stopped
 
 volumes:
   redis_data:
-  storage:

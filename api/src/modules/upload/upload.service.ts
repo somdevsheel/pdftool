@@ -11,11 +11,11 @@ import {
   buildFilePath,
   ensureDirectoryExists,
   isPdfStructurallyComplete,
+  contentMatchesMimeType,
   deleteFile,
+  UPLOAD_TYPES,
 } from '../../common/utils/file.util';
-import { ALLOWED_MIME_TYPES } from '../../common/constants';
 import * as fs from 'fs';
-import * as path from 'path';
 
 @Injectable()
 export class UploadService {
@@ -31,9 +31,20 @@ export class UploadService {
       throw new BadRequestException('No file provided');
     }
 
-    if (!ALLOWED_MIME_TYPES.includes(file.mimetype as any)) {
+    // The multer temp file must go away whatever happens below — a rejected upload
+    // used to stay in /tmp forever.
+    try {
+      return this.storeUpload(file);
+    } finally {
+      try { fs.unlinkSync(file.path); } catch { /* already moved or gone */ }
+    }
+  }
+
+  private storeUpload(file: Express.Multer.File): FileRecord {
+    const type = UPLOAD_TYPES[file.mimetype];
+    if (!type) {
       throw new UnsupportedMediaTypeException(
-        `File type ${file.mimetype} is not allowed. Allowed: ${ALLOWED_MIME_TYPES.join(', ')}`,
+        `File type ${file.mimetype} is not supported. Upload a PDF, image (JPG, PNG, TIFF) or Office document.`,
       );
     }
 
@@ -42,39 +53,42 @@ export class UploadService {
       throw new BadRequestException(`File exceeds maximum size of ${maxSizeMb}MB`);
     }
 
-    const uploadDir = this.configService.get<string>('storage.uploadDir');
-    ensureDirectoryExists(uploadDir);
-
-    const fileId = generateFileId();
-    const ext = path.extname(file.originalname) || '.pdf';
-    const destPath = buildFilePath(uploadDir, fileId, ext);
-
-    // Copy then delete — handles cross-device/cross-filesystem moves.
-    // fs.renameSync fails when /tmp and storage are on different partitions/drives.
-    fs.copyFileSync(file.path, destPath);
-    try { fs.unlinkSync(file.path); } catch { /* ignore cleanup failure */ }
+    if (!contentMatchesMimeType(file.path, file.mimetype)) {
+      throw new UnsupportedMediaTypeException(
+        "This file's contents don't match its type. Please upload a valid PDF, image or Office document.",
+      );
+    }
 
     // A flaky mobile connection can drop mid-upload; Multer still reports a clean
     // "finish" for whatever bytes arrived, so this is the only place that catches it —
     // otherwise the truncated file sits silently until a later job fails on it with a
     // cryptic qpdf error.
-    if (file.mimetype === 'application/pdf' && !isPdfStructurallyComplete(destPath)) {
-      deleteFile(destPath);
+    if (file.mimetype === 'application/pdf' && !isPdfStructurallyComplete(file.path)) {
       throw new BadRequestException(
         'This PDF looks incomplete, likely cut off during upload. Please check your connection and try again.',
       );
     }
 
+    const uploadDir = this.configService.get<string>('storage.uploadDir');
+    ensureDirectoryExists(uploadDir);
+
+    // The stored extension comes from the verified type, never from the user's file name.
+    const fileId = generateFileId();
+    const destPath = buildFilePath(uploadDir, fileId, type.ext);
+
+    // Copy rather than rename — /tmp and storage may be on different filesystems.
+    fs.copyFileSync(file.path, destPath);
+
     const record = this.documentsService.registerFile({
       id: fileId,
-      originalName: file.originalname,
+      originalName: file.originalname.slice(0, 255),
       mimeType: file.mimetype,
       size: file.size,
       path: destPath,
       createdAt: new Date(),
     });
 
-    this.logger.log(`Upload complete: ${fileId} → ${file.originalname} (${file.size} bytes)`);
+    this.logger.log(`Upload complete: ${fileId} (${file.mimetype}, ${file.size} bytes)`);
     return record;
   }
 
@@ -82,6 +96,17 @@ export class UploadService {
     if (!files || files.length === 0) {
       throw new BadRequestException('No files provided');
     }
-    return Promise.all(files.map((f) => this.handleUpload(f)));
+
+    // All or nothing: if one file is rejected, drop the ones already stored and the
+    // remaining temp files, rather than leaving half a batch behind.
+    const stored: FileRecord[] = [];
+    try {
+      for (const f of files) stored.push(await this.handleUpload(f));
+      return stored;
+    } catch (err) {
+      for (const r of stored) this.documentsService.deleteFileRecord(r.id);
+      for (const f of files) deleteFile(f.path);
+      throw err;
+    }
   }
 }
