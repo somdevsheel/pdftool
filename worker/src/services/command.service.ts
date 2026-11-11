@@ -42,12 +42,14 @@ export class CommandService {
 
   async imageToPdf(inputPaths: string | string[], outputPath: string): Promise<void> {
     const paths = Array.isArray(inputPaths) ? inputPaths : [inputPaths];
+    // --rotation=ifvalid: phone photos often carry an invalid EXIF rotation tag, which
+    // makes img2pdf refuse the image outright.
     const candidates = ['img2pdf', '/usr/bin/img2pdf', '/usr/local/bin/img2pdf', `${process.env.HOME}/.local/bin/img2pdf`];
     let lastErr: Error | null = null;
     for (const bin of candidates) {
-      try { await runCommand(bin, [...paths, '-o', outputPath]); return; } catch (e: any) { lastErr = e; }
+      try { await runCommand(bin, ['--rotation=ifvalid', ...paths, '-o', outputPath]); return; } catch (e: any) { lastErr = e; }
     }
-    try { await runCommand('python3', ['-m', 'img2pdf', ...paths, '-o', outputPath]); return; } catch {}
+    try { await runCommand('python3', ['-m', 'img2pdf', '--rotation=ifvalid', ...paths, '-o', outputPath]); return; } catch {}
     throw new Error(`img2pdf not found. Install: pip3 install img2pdf\nLast error: ${lastErr?.message}`);
   }
 
