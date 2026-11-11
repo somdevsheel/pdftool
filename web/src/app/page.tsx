@@ -471,7 +471,7 @@ type ToolDef = { id: string; name: string; desc: string; route: string; color: s
 // Tools whose pages exist but only show a "coming soon" notice. Keep this in sync as
 // each one ships, so the homepage never presents an unfinished tool as working.
 const COMING_SOON = new Set([
-  'ocr', 'fill-sign', 'request-signatures', 'add-signature',
+  'edit', 'ocr', 'fill-sign', 'request-signatures', 'add-signature',
   'esign-template', 'web-form', 'send-bulk', 'esign-branding',
 ]);
 

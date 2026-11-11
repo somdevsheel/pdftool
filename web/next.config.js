@@ -53,6 +53,10 @@ const nextConfig = {
       { source: '/ocr',             destination: '/pdf-ocr',      permanent: true },
       { source: '/fill-sign',       destination: '/sign-pdf',     permanent: true },
       { source: '/convert-to-pdf',  destination: '/jpg-to-pdf',   permanent: true },
+      // Old landing pages that showed "coming soon" for tools that already work
+      { source: '/pdf-to-word-converter', destination: '/pdf-to-word', permanent: true },
+      { source: '/export-pdf',            destination: '/pdf-to-word', permanent: true },
+      { source: '/split-pdf-online',      destination: '/split-pdf',   permanent: true },
     ];
   },
 };

@@ -41,8 +41,6 @@ const LONG_TAIL: string[] = [
   '/compress-pdf-to-100kb',
   '/reduce-pdf-size',
   '/pdf-compressor',
-  '/split-pdf-online',
-  '/pdf-to-word-converter',
   '/convert-image-to-pdf',
   '/reorder',
   '/reorder-pages',
@@ -78,7 +76,6 @@ const CONVERT: string[] = [
   '/word-to-pdf',
   '/ppt-to-pdf',
   '/excel-to-pdf',
-  '/export-pdf',
 ];
 
 // ─── Other pages (0.5) ────────────────────────────────────────────────────
