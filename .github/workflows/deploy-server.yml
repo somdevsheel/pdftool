@@ -1,0 +1,72 @@
+name: Deploy API + worker
+
+# Deploys api/ and worker/ to the AWS Lightsail server after CI passes.
+# (The website and news-admin deploy separately, through Vercel.)
+#
+# Required repository secrets:
+#   DEPLOY_HOST          server IP / hostname
+#   DEPLOY_USER          SSH user (ubuntu)
+#   DEPLOY_SSH_KEY       private key whose public half is in the server's
+#                        authorized_keys, locked to scripts/deploy-server.sh
+#   DEPLOY_KNOWN_HOSTS   the server's SSH host keys (ssh-keyscan output), so the
+#                        runner refuses to talk to an impostor server
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'api/**'
+      - 'worker/**'
+      - 'docker-compose.yml'
+      - 'scripts/deploy-server.sh'
+      - '.github/workflows/deploy-server.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Never run two deploys at once, and never cancel one halfway through.
+concurrency:
+  group: deploy-server
+  cancel-in-progress: false
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+
+  deploy:
+    needs: ci
+    runs-on: ubuntu-latest
+    # Add required reviewers under Settings → Environments → production if you want
+    # to approve each deploy by hand.
+    environment: production
+    timeout-minutes: 30
+    steps:
+      - name: Configure SSH
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+
+      - name: Run deploy script on the server
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+        # The key is restricted server-side to running scripts/deploy-server.sh,
+        # so no command is sent; the script rolls back on its own if unhealthy.
+        run: ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes -o BatchMode=yes "$USER@$HOST"
+
+      - name: Smoke test production
+        run: |
+          set -e
+          api=https://api.freenoo.com/api/v1
+          curl -fsS --retry 5 --retry-delay 3 "$api/health"
+          code=$(curl -s -o /dev/null -w '%{http_code}' "$api/jobs")
+          [ "$code" = 404 ] || { echo "GET /jobs returned $code (expected 404)"; exit 1; }
+          echo "production healthy"
+
+      - name: Remove SSH key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key

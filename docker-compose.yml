@@ -1,0 +1,71 @@
+# Production stack on the AWS Lightsail server (~/pdftool), deployed by
+# scripts/deploy-server.sh via .github/workflows/deploy-server.yml.
+# Keep secrets out of this file — it is committed. (infra/docker/ holds an
+# alternative self-contained stack for running everything elsewhere.)
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: pdftool-redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    networks:
+      - pdftool-network
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: pdftool-api
+    restart: unless-stopped
+    init: true
+    ports:
+      - "127.0.0.1:3001:3001"
+    environment:
+      - PORT=3001
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_URL=redis://redis:6379
+      - CORS_ORIGINS=https://freenoo.com,https://www.freenoo.com,http://localhost:3000
+      - UPLOAD_DIR=/app/uploads
+      - OUTPUT_DIR=/app/outputs
+      - PROCESSING_DIR=/app/processing
+    volumes:
+      - shared_uploads:/app/uploads
+      - shared_outputs:/app/outputs
+    depends_on:
+      - redis
+    networks:
+      - pdftool-network
+
+  worker:
+    build:
+      context: ./worker
+      dockerfile: Dockerfile
+    container_name: pdftool-worker
+    restart: unless-stopped
+    init: true
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_URL=redis://redis:6379
+      - UPLOAD_DIR=/app/uploads
+      - OUTPUT_DIR=/app/outputs
+      - PROCESSING_DIR=/app/processing
+      - WORKER_CONCURRENCY=2
+    volumes:
+      - shared_uploads:/app/uploads
+      - shared_outputs:/app/outputs
+    depends_on:
+      - redis
+    networks:
+      - pdftool-network
+
+volumes:
+  redis_data:
+  shared_uploads:
+  shared_outputs:
+
+networks:
+  pdftool-network:
+    driver: bridge

@@ -6,7 +6,8 @@
     "build": "tsc",
     "start": "node dist/main",
     "start:dev": "ts-node-dev --respawn src/main.ts",
-    "lint": "eslint \"{src}/**/*.ts\""
+    "lint": "eslint \"{src}/**/*.ts\"",
+    "test": "node --test test/*.test.js"
   },
   "dependencies": {
     "bullmq": "^5.0.0",

@@ -38,3 +38,6 @@ keystore.properties
 .DS_Store
 *.log
 *.tsbuildinfo
+# Deploy script artifacts on the server
+.deploy-backup/
+.deploy.lock
