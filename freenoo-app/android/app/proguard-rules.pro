@@ -12,3 +12,11 @@
 -keep class com.facebook.react.turbomodule.** { *; }
 
 # Add any project specific keep options here:
+
+# react-native-pdf: viewer library and the React Native bridge (no rules of their own;
+# PDFium itself ships consumer rules for its JNI classes)
+-keep class com.github.barteksc.pdfviewer.** { *; }
+-keep class org.wonday.pdf.** { *; }
+# react-native-blob-util: native module + response handlers
+-keep class com.ReactNativeBlobUtil.** { *; }
+-dontwarn org.apache.commons.lang3.**
