@@ -35,7 +35,7 @@
         "CAMERA",
         "android.permission.CAMERA"
       ],
-      "versionCode": 3,
+      "versionCode": 4,
       "blockedPermissions": [
         "android.permission.SYSTEM_ALERT_WINDOW",
         "android.permission.READ_EXTERNAL_STORAGE",

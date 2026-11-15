@@ -6,7 +6,9 @@ export function friendlyErrorMessage(raw: string | undefined | null, fallback = 
   let text = raw.trim();
   try {
     const parsed = JSON.parse(text);
-    text = parsed.message || parsed.error || text;
+    const msg = parsed.message ?? parsed.error;
+    // Validation errors arrive as a list of messages
+    text = Array.isArray(msg) ? msg.join('. ') : typeof msg === 'string' ? msg : text;
   } catch {
     // not JSON — use as-is
   }
